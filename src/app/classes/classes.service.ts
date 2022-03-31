@@ -125,6 +125,7 @@ export class ClassesService {
     return this.http.get(this.currentAddress + '/classes', {params: options})
       .pipe(
         map((response: any) => {
+          console.log(response);
           const classes = response.body.obj;
           let transformedClasses: Class[] = [];
           for (let userClass of classes) {
@@ -188,6 +189,7 @@ export class ClassesService {
           return this.classes;
         })
         , catchError((err: any) => {
+          console.log(err);
           var errorMessage;
           var errorCode;
           if(err.body.error){
