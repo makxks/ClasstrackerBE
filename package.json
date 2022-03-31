@@ -9,6 +9,7 @@
         "test": "ng test",
         "postinstall": "ng build"
     },
+    "engines": { "node": "16.x", "npm": "7.x" },
     "private": true,
     "dependencies": {
         "@angular-devkit/build-angular": "~13.2.4",
