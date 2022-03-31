@@ -87,7 +87,7 @@ export class KidService {
   getKids(classCode: string) {
     //need to pass the user as a param to find the user in the db
     let options = new HttpParams();
-    options.append("email", this.username);
+    options = options.append("email", this.username);
     return this.http.get(this.currentAddress + '/kids/' + classCode, {params: options})
       .pipe(
         map((response: any) => {
@@ -143,7 +143,7 @@ export class KidService {
   getKid(classCode: string, name: string) {
     //need to pass the user as a param to find the user in the db
     let options = new HttpParams();
-    options.append("email", this.username);
+    options = options.append("email", this.username);
     return this.http.get(this.currentAddress + '/kids/' + classCode + '/' + name , {params: options})
       .pipe(
         map((response: any) => {
@@ -196,7 +196,7 @@ export class KidService {
     const body = JSON.stringify(kid);
     //need to pass the user as a param to find the user in the db
     let options = new HttpParams;
-    options.append("email", this.username);
+    options = options.append("email", this.username);
     let headers = new HttpHeaders;
     headers.set('Content-Type', 'application/json');
 
@@ -255,10 +255,9 @@ export class KidService {
 
   deleteKid(classCode: string, name: string, kid: Kid) {
     this.kids.splice(this.kids.indexOf(kid), 1);
-    let params = '';
     //need to pass the user as a param to find the user in the db
     let options = new HttpParams;
-    options.append("email", this.username);
+    options = options.append("email", this.username);
     let headers = new HttpHeaders;
     headers.set('Content-Type', 'application/json');
 
