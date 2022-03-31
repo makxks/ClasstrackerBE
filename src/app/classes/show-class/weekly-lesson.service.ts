@@ -90,7 +90,7 @@ export class WeeklyLessonsService {
     return this.http.post(this.currentAddress + '/weeklyLessons', body, { headers, params: options })
       .pipe(
         map((response: any) => {
-          const responseObject = response;
+          const responseObject = response.obj;
           if(responseObject.curriculum && responseObject.stage && responseObject.level){
             const weeklyLesson = new WeeklyLesson(
               responseObject.classCode,
@@ -169,7 +169,7 @@ export class WeeklyLessonsService {
     return this.http.post(this.currentAddress + '/weeklyLessons/irregular', body, { headers, params: options })
       .pipe(
         map((response: any) => {
-          const responseObject = response;
+          const responseObject = response.obj;
           if(responseObject.curriculum && responseObject.stage && responseObject.level){
             const weeklyLesson = new WeeklyLesson(
               responseObject.classCode,
@@ -271,7 +271,7 @@ export class WeeklyLessonsService {
     return this.http.get(this.currentAddress + '/weeklyLessons/teacher/allLessons', { params: options })
     .pipe(
       map((response: any) => {
-        const weeklyLessons = response;
+        const weeklyLessons = response.obj;
         let transformedWeeklyLessons: WeeklyLesson[] = [];
         for (let weeklyLesson of weeklyLessons) {
           if(weeklyLesson.curriculum && (weeklyLesson.stage || weeklyLesson.level)){
@@ -348,7 +348,7 @@ export class WeeklyLessonsService {
     return this.http.get(this.currentAddress + '/weeklyLessons/' + classCode, { params: options })
     .pipe(
       map((response: any) => {
-        const weeklyLessons: any = response;
+        const weeklyLessons: any = response.obj;
         let transformedWeeklyLessons: WeeklyLesson[] = [];
         for (let weeklyLesson of weeklyLessons) {
           if(weeklyLesson.curriculum && weeklyLesson.stage && weeklyLesson.level){
@@ -520,7 +520,7 @@ export class WeeklyLessonsService {
     return this.http.delete(this.currentAddress + '/weeklyLessons/' + weeklyLesson.classCode + "/" + weeklyLesson.timeValue, { params: options })
       .pipe(
         map((response: any) => {
-          const responseObject = response;
+          const responseObject = response.obj;
           console.log(responseObject);
           this.handleDeleteComplete(weeklyLesson);
         })
@@ -568,7 +568,7 @@ export class WeeklyLessonsService {
     return this.http.patch(this.currentAddress + '/weeklyLessons/' + weeklyLesson.classCode + "/" + weeklyLesson.timeValue, body, { headers, params: options })
       .pipe(
         map((response: any) => {
-          const responseObject = response;
+          const responseObject = response.obj;
           console.log(responseObject);
         })
         , catchError((err: any) => {
@@ -615,7 +615,7 @@ export class WeeklyLessonsService {
     return this.http.patch(this.currentAddress + '/weeklyLessons/' + weeklyLesson.classCode + "/" + weeklyLesson.timeValue, body, { headers, params: options })
       .pipe(
         map((response: any) => {
-          const responseObject = response;
+          const responseObject = response.obj;
           console.log(responseObject);
         })
         , catchError((err: any) => {

@@ -369,7 +369,7 @@ export class ClassesService {
     return this.http.delete(this.currentAddress + '/classes/' + classDetails.classCode, {params: options})
       .pipe(
         map((response: any) => {
-          const responseObject = response;
+          const responseObject = response.obj;
           this.router.navigate(['/classes']);
         })
         , catchError((err: any) => {
@@ -705,7 +705,7 @@ export class ClassesService {
     return this.http.patch(this.currentAddress + '/classes/comments/' + classCode, body, {headers: headers, params: options})
       .pipe(
         map((response: any) => {
-          const responseObject = response;
+          const responseObject = response.obj;
           this.deleteCommentsComplete(classCode);
           return responseObject;
         })

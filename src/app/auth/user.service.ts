@@ -20,7 +20,7 @@ export class UserService {
     return this.http.post(this.currentAddress + '/user', body, { headers })
     .pipe(
       map((response: any) => {
-        const responseObject = response.body;
+        const responseObject = response.obj;
         return responseObject;
       })
       , catchError((err: any) => {

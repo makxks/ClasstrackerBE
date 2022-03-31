@@ -38,18 +38,18 @@ export class KidService {
     return this.http.post(this.currentAddress + '/kids', body, {headers: headers})
       .pipe(
         map((response: any) => {
-          const result = response;
+          const result = response.obj;
           const kid = new Kid(
-            result.obj.kidsName,
-            result.obj.age,
-            result.obj.strengths,
-            result.obj.weaknesses,
-            result.obj.comments,
+            result.kidsName,
+            result.age,
+            result.strengths,
+            result.weaknesses,
+            result.comments,
             this.username,
-            result.obj.classCode,
-            result.obj.hasPhoto
+            result.classCode,
+            result.hasPhoto
           );
-          this.router.navigate(['/classes/show-class/' + result.obj.classCode])
+          this.router.navigate(['/classes/show-class/' + result.classCode])
           return kid;
         })
         , catchError((err: any) => {
@@ -264,7 +264,7 @@ export class KidService {
     return this.http.delete(this.currentAddress + '/kids/' + classCode + '/' + name , {headers: headers, params: options})
       .pipe(
         map((response: any) => {
-          const responseObject = response;
+          const responseObject = response.obj;
           this.router.navigate(['/classes/show-class/' + classCode]);
         })
         , catchError((err: any) => {
