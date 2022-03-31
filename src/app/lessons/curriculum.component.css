@@ -1,0 +1,73 @@
+.list-group-item {
+  border: none;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.btn, .btn-primary {
+  border-radius: 0;
+}
+
+.curriculumList {
+  display: none;
+}
+
+.curriculumItem {
+  color: #00B7FF;
+  line-height: 1.42857143;
+}
+
+.curriculumItem li {
+  white-space: normal;
+  width: 50%;
+  list-style-type: none;
+  list-style: none;
+}
+
+.curriculumItem:after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  border-left: 1px solid #ddd;
+  transform: translate(-50%);
+}
+
+.curriculumItem {
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+  border: 1px solid #ddd;
+  position: relative;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.curriculumItem:hover li{
+  color: white;
+}
+
+li {
+  text-align: center;
+  margin: 0;
+  padding: 10px;
+  color: #00B7FF;
+}
+
+form {
+  margin-top: 15px;
+}
+
+.list-group-item:first-child {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.list-group-item:last-child {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    margin-bottom: 10px;
+}

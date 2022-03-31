@@ -1,0 +1,777 @@
+<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 col-lg-offset-4 col-md-offset-4">
+  <form [formGroup]="myForm">
+    <div class="form-group">
+      <label for="curriculum">Curriculum</label>
+      <select class="form-control" id="curriculum" formControlName="curriculum" #curriculum (click)="setCurriculum()">
+        <!--<option value="">Select curriculum</option>
+        <option value="SS-1">Super Start 1</option>
+        <option value="SS-2">Super Start 2</option>
+        <option value="SS-3">Super Start 3</option>
+        <option value="SS-4">Super Start 4</option>
+        <option value="192-5">192 Level 5</option>-->
+        <option value="128-1">128 Stage 1</option>
+        <option value="128-2">128 Stage 2</option>
+        <option value="128-3">128 Stage 3</option>
+        <option value="128-4">128 Stage 4</option>
+        <!--<option value="128-5">128 Stage 5</option>
+        <option value="128-6">128 Stage 6</option>
+        <option value="128-7">128 Stage 7</option>
+        <option value="128-8">128 Stage 8</option>
+        <option value="128-9">128 Stage 9</option>
+        <option value="128-10">128 Stage 10</option>-->
+      </select>
+    </div>
+  </form>
+</div>
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  <!-- all super start stages, level 5, and all 128 stages curriculums, laid out in 2 columns
+  column 1: subject and lesson title, column 2: overview -->
+
+  <!-- due to need to display ONLY necessary information and as little as possible, this data cannot be taken from the lessons themselves
+    could be taken from a separately added object later but for the moment must be done manually,
+    as they are not used anywhere else and only for reference this seems ok for now -->
+
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 curriculumList" id='SS-1'>
+  </div>
+
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 curriculumList" id='SS-2'>
+  </div>
+
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 curriculumList" id='SS-3'>
+  </div>
+
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 curriculumList" id='SS-4'>
+  </div>
+
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 curriculumList" id='192-5'>
+  </div>
+
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 curriculumList" id='128-1'>
+    <ul class="col-lg-12 col-md-12 col-sm-12 col-xs-12 list-group">
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','GlobalLeadership',1)">
+        <li><b>Global Leadership 1</b> - Our Classroom</li>
+        <li>Be safe, be nice, be clean, always listen</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','Art',1)">
+        <li><b>Art 1</b> - Primary Colours</li>
+        <li>Red, blue, yellow. Painting craft</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','Art',2)">
+        <li><b>Art 2</b> - Secondary Colours</li>
+        <li>Orange, purple, green. Painting craft</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','Art',3)">
+        <li><b>Art 3</b> - Light colours</li>
+        <li>Light colours. Painting craft</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','Music',1)">
+        <li><b>Music 1</b> - Listen</li>
+        <li>Rain, wind, a kid</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','Art',4)">
+        <li><b>Art 4</b> - Dark Colours</li>
+        <li>Dark colours, playdough flower</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','Art',5)">
+        <li><b>Art 5</b> - Lines All Around</li>
+        <li>Lines. Find and make lines</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','Art',6)">
+        <li><b>Art 6</b> - Straight And Curved Lines</li>
+        <li>Straight, curved, playdough snake</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','Music',2)">
+        <li><b>Music 2</b> - Animal Sounds</li>
+        <li>Cat, dog, bee, cow</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','GlobalLeadership',2)">
+        <li><b>Global Leadership 2</b> - Boy Or Girl</li>
+        <li>Boy and girl practice, colour outline of a boy and a girl (group)</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','Music',3)">
+        <li><b>Music 3</b> - My Home</li>
+        <li>Door, glass, toilet, toothbrush</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','Art',7)">
+        <li><b>Art 7</b> - Long And Short Lines</li>
+        <li>Long and short, jellyfish craft</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','Art',8)">
+        <li><b>Art 8</b> - Thick And Thin</li>
+        <li>Thick, thin, bracelet made of pipe cleaners and straws</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','Art',9)">
+        <li><b>Art 9</b> - Square</li>
+        <li>Square, owl craft</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','OpenClass',1)">
+        <li><b>Open Class</b> - Heart</li>
+        <li>Find/identify shapes, sizes, colours. Heart</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','GlobalLeadership',3)">
+        <li><b>Global Leadership 3</b> - My Favourites</li>
+        <li>Favourites, choose favourites, portrait collage</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','Music',4)">
+        <li><b>Music 4</b> - Crazy Drum</li>
+        <li>Drum, fast, slow</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','Music',5)">
+        <li><b>Music 5</b> - Gentle Triangle</li>
+        <li>Triangle, long, short</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','Art',10)">
+        <li><b>Art 10</b> - Circle</li>
+        <li>Circle, bear craft</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','Art',11)">
+        <li><b>Art 11</b> - Triangle</li>
+        <li>Triangle, fish craft</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','Art',12)">
+        <li><b>Art 12</b> - Same And Different</li>
+        <li>Same, different, octopus craft</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','GlobalLeadership',4)">
+        <li><b>Global Leadership 4</b> - Keeping Your Hands Clean</li>
+        <li>How to wash your hands, practice</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','Music',6)">
+        <li><b>Music 6</b> - Clever Xylophone</li>
+        <li>Xylophone, high, low</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','Art',13)">
+        <li><b>Art 13</b> - Patterns</li>
+        <li>Patterns, turkey craft</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','Art',14)">
+        <li><b>Art 14</b> - Spots And Stripes</li>
+        <li>Spots, stripes, t-shirt craft</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','Art',15)">
+        <li><b>Art 15</b> - Far And Near</li>
+        <li>Far, near, road and tree craft</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','GlobalLeadership',5)">
+        <li><b>Global Leadership 5</b> - I Can Do It</li>
+        <li>Put on, jump, run, hop</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','Music',7)">
+        <li><b>Music 7</b> - Happy Bells</li>
+        <li>Bells, loud, soft</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','Art',16)">
+        <li><b>Art 16</b> - Happy And Sad</li>
+        <li>Happy, sad, fruit face</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','Art',17)">
+        <li><b>Art 17</b> - Funny And Scary</li>
+        <li>Funny, scary, clown craft</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','Art',18)">
+        <li><b>Art 18</b> - My Art World</li>
+        <li>Review, pattern work sheet</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','GlobalLeadership',6)">
+        <li><b>Global Leadership 6</b> - Sharing</li>
+        <li>Share, share candy, share picture</li>
+      </div>
+
+      <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','1','Music',8)">
+        <li><b>Music 8</b> - My Happy Friends</li>
+        <li>Review</li>
+      </div>
+
+    </ul>
+  </div>
+
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 curriculumList" id='128-2'>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','GlobalLeadership',1)">
+      <li><b>Global Leadership 1</b> - In Our Classroom</li>
+      <li>Rules</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','Art',1)">
+      <li><b>Art 1</b> - Black And White</li>
+      <li>Black, white, penguin</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','Art',2)">
+      <li><b>Art 2</b> - Light And Dark</li>
+      <li>Light and dark, paint birds</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','Music',1)">
+      <li><b>Music 1</b> - The Sounds Around Me</li>
+      <li>Thunder, car, a child, fire engine</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','Art',3)">
+      <li><b>Art 3</b> - Basic Lines</li>
+      <li>Line, long, short, straight, curved</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','Art',4)">
+      <li><b>Art 4</b> - Thick And Thin</li>
+      <li>Zigzag, thick, thin, spider</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','GlobalLeadership',2)">
+      <li><b>Global Leadership 2</b> - My Feelings</li>
+      <li>Happy, sad, angry</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','Music',2)">
+      <li><b>Music 2</b> - My Animal Friends</li>
+      <li>Pig, sheep, horse, duck</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','Art',5)">
+      <li><b>Art 5</b> - Basic Shapes</li>
+      <li>Suare, circle, triangle, rectangle, robot</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','Art',6)">
+      <li><b>Art 6</b> - Star (Review)</li>
+      <li>Star, big, small</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','Music',3)">
+      <li><b>Music 3</b> - My Room</li>
+      <li>Ball, spoon, clock, paper</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','Art',7)">
+      <li><b>Art 7</b> - Spots And Stripes</li>
+      <li>Spots, stripes, giraffe and zebra</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','Art',8)">
+      <li><b>Art 8</b> - Same And Different</li>
+      <li>Same, different, patterns, patterns worksheet</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','GlobalLeadership',3)">
+      <li><b>Global Leadership 3</b> - Keeping Your Teeth Clean</li>
+      <li>Teeth, how to keep them clean, practice</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','OpenClass',1)">
+      <li><b>Open Class</b> - Family Tree</li>
+      <li>Review, and make a family tree</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','Music',4)">
+      <li><b>Music 4</b> - The Castanet Brothers</li>
+      <li>Fast, slow, castanets</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','Art',9)">
+      <li><b>Art 9</b> - Hard And Soft</li>
+      <li>Hard, soft, sorting, sheep and cow</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','Art',10)">
+      <li><b>Art 10</b> - Rough And Smooth</li>
+      <li>Rough, smooth, sorting, frog and iguana</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','Music',5)">
+      <li><b>Music 5</b> - The Jingle Stick Sister</li>
+      <li>Long, short, jingle stick</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','Reading',1)">
+      <li><b>Reading 1</b> - Good Night Gorilla 1</li>
+      <li>Hyena, armadillo, zookeeper, tiptoe</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','Reading',2)">
+      <li><b>Reading 2</b> - Good Night Gorilla 2</li>
+      <li>Eat, drink, mouse, peanut, bone, leaves</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','Art',11)">
+      <li><b>Art 11</b> - Emotions</li>
+      <li>Happy, sad, funny, scary, pumpkin</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','GlobalLeadership',4)">
+      <li><b>Global Leadership 4</b> - My family</li>
+      <li>We eat/play together, we help each other, I love my family</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','Music',6)">
+      <li><b>Music 6</b> - Miss Xylophone</li>
+      <li>High, low, xylophone</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','Reading',3)">
+      <li><b>Reading 3</b> - Brown Bear 1</li>
+      <li>Colours and animals. I see a ____ ____ looking at me</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','Reading',4)">
+      <li><b>Reading 4</b> - Brown Bear 2</li>
+      <li>Colours and animals. I see a ____ ____ looking at me</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','Music',7)">
+      <li><b>Music 7</b> - Mr. Hand Drum</li>
+      <li>Loud, soft, hand drum</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','GlobalLeadership',5)">
+      <li><b>Global Leadership 5</b> - Caring For Pets</li>
+      <li>I feed/play with/clean/love my pet</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','Reading',5)">
+      <li><b>Reading 5</b> - The Very Hungry Caterpillar 1</li>
+      <li>Caterpillar, hungry, chocolate cake, cheese, lollipop, cupcake, leaf, plum</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','Reading',6)">
+      <li><b>Reading 6</b> - The Very Hungry Caterpillar 2</li>
+      <li>Cocoon, butterfly, days of the week, first, second, third, last</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','Art',12)">
+      <li><b>Art 12</b> - My Art Collage</li>
+      <li>Review and collage</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','Music',8)">
+      <li><b>Music 8</b> - My Concert</li>
+      <li>Review and play, all instruments</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','Reading',7)">
+      <li><b>Reading 7</b> - Happy Birthday Maisy 1</li>
+      <li>Birthday things, your birthday worksheet</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','Reading',8)">
+      <li><b>Reading 8</b> - Happy Birthday Maisy 2</li>
+      <li>Birthday things, favourite, party games</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','2','GlobalLeadership',6)">
+      <li><b>Global Leadership 6</b> - Caring For Nature</li>
+      <li>Nature, pick flowers, litter</li>
+    </div>
+
+  </div>
+
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 curriculumList" id='128-3'>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','GlobalLeadership',1)">
+      <li><b>Global Leadership 1</b> - Use Your Imagination</li>
+      <li>Real, not real, imagination</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','WC',1)">
+      <li><b>World Culture 1</b> - China 1</li>
+      <li>Chopsticks, pandas, Spring Festival</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','WC',2)">
+      <li><b>World Culture 2</b> - China 2</li>
+      <li>Nian, erhu, gong, drum, dragon</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','Science',1)">
+      <li><b>Science 1</b> - Colours</li>
+      <li>Colours, mixing colours</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','VPE',1)">
+      <li><b>Virtual P.E. 1</b> - Bowling 1</li>
+      <li>Bowling ball, pins, strike</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','Reading',1)">
+      <li><b>Reading 1</b> - Where's Spot? 1</li>
+      <li>In, under, behind, positions of the animals</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','Reading',2)">
+      <li><b>Reading 2</b> - Where's Spot? 2</li>
+      <li>Alligator, penguin, in, under, behind, worksheet/craft</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','Science',2)">
+      <li><b>Science 2</b> - Living Things And Non-Living Things</li>
+      <li>Grow, breathe, move</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','GlobalLeadership',2)">
+      <li><b>Global Leadership 2</b> - Safety At Home</li>
+      <li>Safe, unsafe, stop drop and roll, fire</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','WC',3)">
+      <li><b>World Culture 3</b> - Australia 1</li>
+      <li>Bondi Beach, Sydney Opera House, Great Barrier Reef</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','WC',4)">
+      <li><b>World Culture 4</b> - Australia 2</li>
+      <li>Rainbow snake, emu, koala, kangaroo, didgeridoo</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','Science',3)">
+      <li><b>Science 3</b> - Habitats</li>
+      <li>Animals, trees, water, land</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','VPE',2)">
+      <li><b>Virtual P.E. 2</b> - Bowling 2</li>
+      <li>Left, right, middle, bowling alley, spare</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','GlobalLeadership',3)">
+      <li><b>Global Leadership 3</b> - Exercise</li>
+      <li>Strong, healthy, exercise</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','OpenClass',1)">
+      <li><b>Open Class</b> - Taste</li>
+      <li>Salty, sour, sweet, spicy</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','Reading',3)">
+      <li><b>Reading 3</b> - Hooray For Fish! 1</li>
+      <li>It's a ____ fish</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','Reading',4)">
+      <li><b>Reading 4</b> - Hooray For Fish! 2</li>
+      <li>I love the ____ fish best</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','Science',4)">
+      <li><b>Science 4</b> - Farm</li>
+      <li>We can get ____ from ____</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','WC',5)">
+      <li><b>World Culture 5</b> - Brazil 1</li>
+      <li>Chocolate, coffee, football, rainforest, Christ The Redeemer</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','WC',6)">
+      <li><b>World Culture 6</b> - Brazil 2</li>
+      <li>Coconut night, carnival, mask</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','GlobalLeadership',4)">
+      <li><b>Global Leadership 4</b> - My Plate</li>
+      <li>Fruits, vegetables, grain, protein, dairy</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','Science',5)">
+      <li><b>Science 5</b> - Light And Shadow</li>
+      <li>Light, dark, shadow, near, far</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','VPE',3)">
+      <li><b>Virtual P.E. 3</b> - Archery 1</li>
+      <li>Arrow, target, bow, shoot, scoring zones</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','Reading',5)">
+      <li><b>Reading 5</b> - I Like Me 1</li>
+      <li>Draw, ride, eat, read, brush</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','Reading',6)">
+      <li><b>Reading 6</b> - I Like Me 2</li>
+      <li>I like me. Sentences from the book</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','Science',6)">
+      <li><b>Science 6</b> - Teeth And Eating</li>
+      <li>Front/flat/sharp teeth, bite/tear/chew (eggs)</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','GlobalLeadership',5)">
+      <li><b>Global Leadership 5</b> - Dress For The Weather</li>
+      <li>I wear my ____ on ____ days</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','WC',7)">
+      <li><b>World Culture 7</b> - USA 1</li>
+      <li>Fast food, Halloween, Thanksgiving, bald eagle, Statue Of Liberty</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','WC',8)">
+      <li><b>World Culture 8</b> - USA 2</li>
+      <li>Theme park, ghost, cowboy, flag craft</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','Science',7)">
+      <li><b>Science 7</b> - Materials</li>
+      <li>Paper, glass, wood, metal, plastic, CD</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','VPE',4)">
+      <li><b>Virtual P.E. 4</b> - Archery 2</li>
+      <li>Aim, up, down, center</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','Reading',7)">
+      <li><b>Reading 7</b> - A Bit Lost 1</li>
+      <li>Owl, squirrel, biscout, lost, pointy, follow me, mum worksheet</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','Reading',8)">
+      <li><b>Reading 8</b> - A Bit Lost 2</li>
+      <li>Act out the story</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','GlobalLeadership',6)">
+      <li><b>Global Leadership 6</b> - Road Safety</li>
+      <li>Safe and unsafe in the car, on the bus, on a bike, and walking</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','3','Science',8)">
+      <li><b>Science 8</b> - Sun, Moon And Stars</li>
+      <li>Stars, moon, earth, half, full</li>
+    </div>
+
+
+  </div>
+
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 curriculumList" id='128-4'>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','GlobalLeadership',1)">
+      <li><b>Global Leadership 1</b> - Manners At Home</li>
+      <li>Excuse me, thank you, sorry, please</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','WC',1)">
+      <li><b>World Culture 1</b> - Turkey 1</li>
+      <li>Kebab, Turkey, Istanbul, Blue Mosque, NESW</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','WC',2)">
+      <li><b>World Culture 2</b> - Turkey 2</li>
+      <li>Whirling dance, belly dance, Troy, Grand Bazaar, Turkish tile</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','Science',1)">
+      <li><b>Science 1</b> - I Love Science</li>
+      <li>Substance, reaction, experiment</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','VPE',1)">
+      <li><b>Virtual P.E. 1</b> - Badminton 1</li>
+      <li>Sports, Badminton, shuttlecock, net, racket, hit</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','Reading',1)">
+      <li><b>Reading 1</b> - David Goes To School 1</li>
+      <li>Tardy, gum, attention</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','Reading',2)">
+      <li><b>Reading 2</b> - David Goes To School 2</li>
+      <li>Naughty, smart</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','Science',2)">
+      <li><b>Science 2</b> - Parts Of Animals</li>
+      <li>Wings, tail, beak, paw, fin, trunk, slither</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','GlobalLeadership',2)">
+      <li><b>Global Leadership 2</b> - As I Grow I Change</li>
+      <li>Taller, shorter, bigger, thinner, fast, slow, hair, leg, arm, teeth</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','WC',3)">
+      <li><b>World Culture 3</b> - New Zealand 1</li>
+      <li>New Zealand, tea, cave, fishing, kiwi, geyser, islands, nature</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','WC',4)">
+      <li><b>World Culture 4</b> - New Zealand 2</li>
+      <li>Kiwi, maori, jewellery, make a kiwi picture frame</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','Science',3)">
+      <li><b>Science 3</b> - Habitats</li>
+      <li>Habitat, polar regions, rain forest, ocean, desert</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','VPE',2)">
+      <li><b>Virtual P.E. 2</b> - Badminton 2</li>
+      <li>Badminton court, in, out</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','GlobalLeadership',3)">
+      <li><b>Global Leadership 3</b> - Manners In Public</li>
+      <li>Wait your turn, put trash in the trash can, keep quiet, cover your mouth</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','OpenClass',1)">
+      <li><b>Open Class</b> - Review</li>
+      <li>Manners, habitats, as we grow we change</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','Reading',3)">
+      <li><b>Reading 3</b> - Aaarrrggghhh Spider! 1</li>
+      <li>Pet, spider, watch, eat, wash, dance, garden, web, ride, shop, swing</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','Reading',4)">
+      <li><b>Reading 4</b> - Aaarrrggghhh Spider! 2</li>
+      <li>Happy, unhappy, angry, excited, scared, lonely</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','Science',4)">
+      <li><b>Science 4</b> - Light</li>
+      <li>Rainbow, light, violet, indigo, natural, man-made</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','WC',5)">
+      <li><b>World Culture 5</b> - Ireland 1</li>
+      <li>Ireland, Dublin, hurling, St. Patrick, St. Patrick's Day, castle, stew</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','WC',6)">
+      <li><b>World Culture 6</b> - Ireland 2</li>
+      <li>Fiddle, harp, Riverdance, shamrock, knowledge</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','GlobalLeadership',4)">
+      <li><b>Global Leadership 4</b> - Environment Care</li>
+      <li>Recycle, metal, glass, paper</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','Science',5)">
+      <li><b>Science 5</b> - Animal Growth</li>
+      <li>Butterfly and caterpillar life cycles</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','VPE',3)">
+      <li><b>Virtual P.E. 3</b> - Table Tennis 1</li>
+      <li>Table tennis, table tennis ball, racket, table, hit, bounce, serve, return</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','Reading',5)">
+      <li><b>Reading 5</b> - When Sophie Gets Angry 1</li>
+      <li>Angry, really angry, really really angry, kick, run, scream, cry, roar, volcano, climb</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','Reading',6)">
+      <li><b>Reading 6</b> - When Sophie Gets Angry 2</li>
+      <li>Main idea, detail</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','Science',6)">
+      <li><b>Science 6</b> - Water Resources</li>
+      <li>Mountains, rivers, lakes, waterfall, salt water, fresh water, ocean</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','GlobalLeadership',5)">
+      <li><b>Global Leadership 5</b> - Animal Safety</li>
+      <li>How to be safe around animals</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','WC',7)">
+      <li><b>World Culture 7</b> - Madagascar 1</li>
+      <li>Madagascar, salama, moraingy, animals and food in Madagascar</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','WC',8)">
+      <li><b>World Culture 8</b> - Madagascar 2</li>
+      <li>Baobab tree, baobab flower, baobab fruit, hyena, kabosy, valiha, shelter, food</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','Science',7)">
+      <li><b>Science 7</b> - Seeds</li>
+      <li>Seed, food storage, baby plant, seed coat, investigate the different kinds of seeds in some fruits</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','VPE',4)">
+      <li><b>Virtual P.E. 4</b> - Table Tennis 2</li>
+      <li>Table, change ends</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','Reading',7)">
+      <li><b>Reading 7</b> - The Story Of The Little Mole 1</li>
+      <li>Mole, hare, dove, flies, goat, hole, underground, shortsighted</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','Reading',8)">
+      <li><b>Reading 8</b> - The Story Of The Little Mole 2</li>
+      <li>Round beans, little ball</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','GlobalLeadership',6)">
+      <li><b>Global Leadership 6</b> - Healthy Eating</li>
+      <li>Healthy food, junk food, high in salt/sugar/fat/vitamins, fresh, natural</li>
+    </div>
+
+    <div class="list-group-item btn btn-primary curriculumItem" (click)="goToLesson('128','4','Science',8)">
+      <li><b>Science 8</b> - Weather</li>
+      <li>Weather forecast, foggy, water vapour, water cycle, water storage, clouds</li>
+    </div>
+
+  </div>
+
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 curriculumList" id='128-5'>
+  </div>
+
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 curriculumList" id='128-6'>
+  </div>
+
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 curriculumList" id='128-7'>
+  </div>
+
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 curriculumList" id='128-8'>
+  </div>
+
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 curriculumList" id='128-9'>
+  </div>
+
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 curriculumList" id='128-10'>
+  </div>
+
+</div>

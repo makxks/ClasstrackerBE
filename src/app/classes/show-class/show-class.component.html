@@ -1,0 +1,88 @@
+<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-3 col-md-offset-3 classList" *ngIf="(this.authService.isAuthenticated$ | async) && loadedDetails">
+    <h3>{{classCode}}</h3>
+    <h4>Chinese Teacher: {{ct}}</h4>
+    <h4 *ngIf="classDetails && classDetails.addedByOther">Shared By: {{classDetails.addedBy}}</h4>
+
+    <!-- for classes that have 2 sessions on 2 days each week -->
+    <h5 *ngIf="classDetails && day1 != day2 && (classDetails.curriculum == '128' || classDetails.curriculum == '192' || classDetails.curriculum == 'SS')">
+        {{day1}} {{classStartTimeHour1}}:{{classStartTimeMinute1}} - {{classEndTimeHour1}}:{{classEndTimeMinute1}}</h5>
+    <h5 *ngIf="classDetails && day1 != day2 && (classDetails.curriculum == '128' || classDetails.curriculum == '192' || classDetails.curriculum == 'SS')">
+        {{day2}} {{classStartTimeHour2}}:{{classStartTimeMinute2}} - {{classEndTimeHour2}}:{{classEndTimeMinute2}}</h5>
+    <!-- for classes that have 4 sessions on 1 day a week -->
+    <h5 *ngIf="classDetails && day1 == day2 && (classDetails.curriculum == '128' || classDetails.curriculum == '192' || classDetails.curriculum == 'SS')">
+        {{day1}} {{classStartTimeHour1}}:{{classStartTimeMinute1}} - {{classEndTimeHour2}}:{{classEndTimeMinute2}}</h5>
+    <!-- for new curriculum classes with 3 sessions on 1 day a week -->
+    <h5 *ngIf="classDetails && classDetails.curriculum == 'G'">
+        {{day1}} {{classStartTimeHour1}}:{{classStartTimeMinute1}} - {{classEndTimeHour1}}:{{classEndTimeMinute1}}</h5>
+    <!-- for new curriculum classes with 2 sessions on 1 day a week -->
+    <h5 *ngIf="classDetails && (classDetails.curriculum == 'G0' || classDetails.curriculum == 'K')">
+        {{day1}} {{classStartTimeHour1}}:{{classStartTimeMinute1}} - {{classEndTimeHour1}}:{{classEndTimeMinute1}}</h5>
+    <!-- -->
+
+    <h3>Kids</h3>
+    <h5>{{kids.length}}</h5>
+    <h3 *ngIf="kids.length == 0">
+        No kids added yet
+    </h3>
+</div>
+<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-offset-2 col-md-offset-2" *ngIf="(this.authService.isAuthenticated$ | async) && loadedDetails">
+    <ul class="list-group kids" *ngIf="kids.length > 0 && classDetails">
+        <app-kid-list-item [kid]="kid" *ngFor="let kid of kids"></app-kid-list-item>
+    </ul>
+</div>
+
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3" *ngIf="!loadedKids || !loadedDetails || !loadedLessons">
+    <div class="loaderContainer">
+        <div class="loader">
+            <div id="largeBox"></div>
+            <div id="smallBox"></div>
+        </div>
+    </div>
+</div>
+
+<!-- class comments here -->
+<div class="commentContainer col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-3 col-md-offset-3" *ngIf="ct && loadedKids">
+    <h5>Comments and notes about class</h5>
+    <p id="classComments">{{comments}}</p>
+</div>
+
+<div class="buttonList col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-3 col-md-offset-3" *ngIf="ct && loadedKids">
+    <button class="btn btn-primary" (click)="startAddComments(this.classCode)">Add comments</button>
+    <button class="btn btn-danger" (click)="startDeleteComments(this.classCode)">Delete comments</button>
+</div>
+
+<div class="buttonList col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-3 col-md-offset-3" *ngIf="ct && loadedKids">
+    <button class="btn btn-primary" [routerLink]="['kids']">Add kids</button>
+    <button class="btn btn-primary" [routerLink]="['edit']">Edit class</button>
+</div>
+
+<div class="buttonList col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-3 col-md-offset-3" *ngIf="(this.authService.isAuthenticated$ | async)">
+    <button class="btn btn-primary next-lesson-button" [disabled]="!this.ct" (click)="goToAddLesson()">Add next lesson details</button>
+    <button class="btn btn-primary" [disabled]="!this.ct" (click)="shareClass(this.classDetails)">Share class to another teacher</button>
+</div>
+
+<div class="buttonList col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-3 col-md-offset-3" *ngIf="ct && loadedKids">
+    <button class="btn btn-danger" (click)="onDelete(this.classDetails)">Delete class</button>
+    <button class="btn btn-primary" [routerLink]="['/classes']">Go back to class list</button>
+</div>
+
+<div class="buttonList buttonList2 col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-3 col-md-offset-3" *ngIf="(this.authService.isAuthenticated$ | async)">
+    <p>*These details should include everything in the teaching guide and more, however some things may have been missed so please check the guide too.</p>
+</div>
+
+<!-- weekly lesson elements go here -->
+<div class="weeklyLessons" *ngIf="weeklyLessons && loadedLessons">
+    <weekly-lesson class="weeklyLessonInj" [weeklyLesson]="weeklyLesson" *ngFor="let weeklyLesson of weeklyLessons"></weekly-lesson>
+</div>
+
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3" *ngIf="!(this.authService.isAuthenticated$ | async)">
+    <h3>Not Authenticated</h3>
+    <p>Please log in and try again</p>
+</div>
+
+<weekly-lesson-delete></weekly-lesson-delete>
+<classes-delete></classes-delete>
+<kid-delete></kid-delete>
+<share-class></share-class>
+<delete-comments></delete-comments>
+<add-comments></add-comments>

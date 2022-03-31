@@ -1,0 +1,55 @@
+.container {
+  width: 80%;
+  margin-left: 10%;
+  margin-bottom: 70px;
+}
+
+.update-list li, .update-list ul {
+  width: 80%;
+  padding-top: 5px;
+}
+
+.list-title {
+  list-style: none;
+  font-size: 22px;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+li {
+  font-size: 14px;
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 15px solid white;
+
+  float: right;
+  background-color: transparent;
+  pointer-events: none;
+}
+
+.triangle:hover {
+  border-left-color: grey;
+}
+
+.triangle:active {
+  border-left-color: black;
+}
+
+.update-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+button {
+  border: none;
+  background: none;
+  margin-left: 15px;
+  margin-top: 10px;
+}

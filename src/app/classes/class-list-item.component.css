@@ -1,0 +1,17 @@
+li {
+  color: white;
+}
+
+li:hover {
+  color: white;
+}
+
+.addedClassButton {
+  color: green;
+  border-color: green;
+}
+
+.addedClassButton:hover {
+  background-color: green;
+  color: white;
+}

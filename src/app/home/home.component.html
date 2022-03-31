@@ -1,0 +1,11 @@
+<div class="container col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-offset-2 col-md-offset-2">
+    <div class="vertical-split">
+        <div class="logins">
+            <h1 class="blue"><b>CLASS TRACKER</b></h1>
+            <h3 class="blue">Enhance your class preparation</h3>
+            <p class="blue">Track your classes, students and lessons. Plan your schedule, and share classes and lesson ideas</p>
+            <button *ngIf="!(this.authService.isAuthenticated$ | async)" class="btn btn-primary" (click)="this.authService.loginWithRedirect({ screen_hint: 'signup' })">Sign Up</button>
+            <button *ngIf="!(this.authService.isAuthenticated$ | async)" class="btn btn-primary" (click)="this.authService.loginWithRedirect()">Log In</button>
+        </div>
+    </div>
+</div>

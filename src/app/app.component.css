@@ -1,0 +1,20 @@
+.container {
+  margin: auto 0;
+  padding: 0;
+  min-height: 100%;
+  width: 100%;
+  margin-bottom: -70px;
+}
+
+h1 {
+  width: 75px;
+}
+
+#user {
+  margin-top: 0;
+  padding: 0;
+  left: 5px;
+  width:90%;
+  color: white;
+  position: absolute;
+}

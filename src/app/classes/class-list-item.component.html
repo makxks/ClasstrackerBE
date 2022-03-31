@@ -1,0 +1,3 @@
+<li *ngIf="!userClass.addedByOther" class="list-group-item btn btn-primary" routerLink="/classes/show-class/{{userClass.classCode}}">{{userClass.classCode}}</li>
+
+<li *ngIf="userClass.addedByOther" class="list-group-item btn btn-primary addedClassButton" routerLink="/classes/show-class/{{userClass.classCode}}">{{userClass.classCode}} - shared by - {{userClass.addedBy}}</li>

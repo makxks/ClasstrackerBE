@@ -1,0 +1,67 @@
+<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-3 col-md-offset-3 bottom-of-page" *ngIf="(this.authService.isAuthenticated$ | async) && this.lessons && !this.adding && this.loaded">
+    <h3>Add next lesson to: {{classCode}}</h3>
+    <form class="form-horizontal" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+        <div class="form-group">
+            <label for="subject">Subject</label>
+            <select class="form-control" id="subjectSelect" formControlName="subject" #subject (click)="checkSubject()">
+        <option value="">Select Subject</option>
+        <!-- super start subjects -->
+        <option *ngFor="let subject of this.subjectList" value="{{subject.value}}">{{subject.title}}</option>
+
+      </select>
+        </div>
+
+        <div class="form-group" *ngIf="this.subjectLessons.length > 0">
+            <label for="lesson">Select Lesson</label>
+            <select class="form-control" id="lesson" formControlName="lesson" #lesson required>
+        <option value="">Select lesson</option>
+
+        <option *ngFor="let subjectLesson of this.subjectLessons" value="{{subjectLesson.lessonNo}}">{{ subjectLesson.lessonNo }} - {{ subjectLesson.lessonTitle }}</option>
+
+      </select>
+        </div>
+
+        <div class="form-group" *ngIf="this.subjectLessons.length == 0 && loaded && this.myForm.value.subject != ''">
+            <p>No classes added yet</p>
+        </div>
+
+        <div class="form-group" *ngIf="this.myForm.value.subject == '' && loaded">
+            <p>Please select a subject first</p>
+        </div>
+
+        <div class="form-group">
+            <label for="time">Select Session</label>
+            <select class="form-control" id="time" formControlName="time" #time required>
+        <option value="">Select session of class</option>
+        <option value="{{date1}}">{{dateString1}}</option>
+        <option value="{{date2}}">{{dateString2}}</option>
+        <option value="{{date3}}" *ngIf="this.curriculum != 'K35' && this.curriculum != 'GK35' && this.curriculum != 'G035' && this.curriculum != 'K' && this.curriculum != 'G0' && this.thirdSessionStart != '00:00'">{{dateString3}}</option>
+        <option value="{{date4}}" *ngIf="this.curriculum != 'K35' && this.curriculum != 'GK35' && this.curriculum != 'G035' && this.curriculum != 'K' && this.curriculum != 'G0' && this.curriculum != 'G'">{{dateString4}}</option>
+      </select>
+        </div>
+
+
+
+        <button type="submit" class="btn btn-primary" [disabled]="!myForm.valid">Add</button>
+        <button type="cancel" class="btn btn-danger" routerLink="/classes/show-class/{{this.classCode}}">Cancel</button>
+        <div>
+            <button class="btn btn-primary" routerLink="/lessons/add">Create Lesson</button>
+            <p>*If lesson is missing</p>
+        </div>
+    </form>
+</div>
+
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3" *ngIf="!this.loaded || this.adding">
+    <div class="loaderContainer">
+        <div class="loader">
+            <div id="largeBox"></div>
+            <div id="smallBox"></div>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3" *ngIf="!(this.authService.isAuthenticated$ | async) && !this.adding">
+    <h3>Not Authenticated</h3>
+    <p>Please log in and try again</p>
+</div>

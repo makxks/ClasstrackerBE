@@ -1,0 +1,340 @@
+<div *ngIf="this.authService.isAuthenticated$ | async;">
+    <div class="headerContainer">
+        <header>
+            <nav class="col-lg-6 col-md-6 col-sm-8 col-xs-10 col-lg-offset-3 col-md-offset-3 col-sm-offset-2 col-xs-offset-1">
+                <ul class="nav nav-pills">
+                    <li (click)="this.selectedWeek='last'" [ngClass]="{'active':this.selectedWeek=='last'}"><a>Last Week</a></li>
+                    <li (click)="this.selectedWeek='this'" [ngClass]="{'active':this.selectedWeek=='this'}"><a>This Week</a></li>
+                    <li (click)="this.selectedWeek='next'" [ngClass]="{'active':this.selectedWeek=='next'}"><a>Next Week</a></li>
+                </ul>
+            </nav>
+        </header>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 calendar" *ngIf="loadedClasses">
+        <h4 *ngIf="this.selectedWeek=='last'">{{ weekLastStartDate }}</h4>
+        <h4 *ngIf="this.selectedWeek=='this'">{{ weekThisStartDate }}</h4>
+        <h4 *ngIf="this.selectedWeek=='next'">{{ weekNextStartDate }}</h4>
+        <ul class="calendarWeek col-lg-10 col-md-10 col-sm-12 col-xs-12 col-lg-offset-1 col-md-offset-1" *ngIf="this.selectedWeek=='last'">
+            <ul class="list-group calendarDay">
+                <li class="list-group-item">
+                    <h4>Monday</h4>
+                    <p>{{ dateLMonday }}</p>
+                </li>
+                <li class="list-group-item">
+                    <h4>AM/PM</h4>
+                </li>
+                <app-calendar-entry [weeklyLesson]="weeklyLesson" [inputClasses]="classes" *ngFor="let weeklyLesson of lastWeekMLessons">
+                </app-calendar-entry>
+            </ul>
+            <ul class="list-group calendarDay">
+                <li class="list-group-item">
+                    <h4>Tuesday</h4>
+                    <p>{{ dateLTuesday }}</p>
+                </li>
+                <li class="list-group-item">
+                    <h4>AM/PM</h4>
+                </li>
+                <app-calendar-entry [weeklyLesson]="weeklyLesson" [inputClasses]="classes" *ngFor="let weeklyLesson of lastWeekTLessons">
+                </app-calendar-entry>
+            </ul>
+            <ul class="list-group calendarDay">
+                <li class="list-group-item">
+                    <h4>Wednesday</h4>
+                    <p>{{ dateLWednesday }}</p>
+                </li>
+                <li class="list-group-item">
+                    <h4>AM/PM</h4>
+                </li>
+                <app-calendar-entry [weeklyLesson]="weeklyLesson" [inputClasses]="classes" *ngFor="let weeklyLesson of lastWeekWLessons">
+                </app-calendar-entry>
+            </ul>
+            <ul class="list-group calendarDay">
+                <li class="list-group-item">
+                    <h4>Thursday</h4>
+                    <p>{{ dateLThursday }}</p>
+                </li>
+                <li class="list-group-item">
+                    <h4>AM/PM</h4>
+                </li>
+                <app-calendar-entry [weeklyLesson]="weeklyLesson" [inputClasses]="classes" *ngFor="let weeklyLesson of lastWeekThLessons">
+                </app-calendar-entry>
+            </ul>
+            <ul class="list-group calendarDay narrowDay">
+                <li class="list-group-item">
+                    <h4>Friday</h4>
+                    <p>{{ dateLFriday }}</p>
+                </li>
+                <li class="list-group-item">
+                    <h4>AM/PM</h4>
+                </li>
+                <app-calendar-entry [weeklyLesson]="weeklyLesson" [inputClasses]="classes" *ngFor="let weeklyLesson of lastWeekFLessons">
+                </app-calendar-entry>
+            </ul>
+            <ul class="list-group calendarDay doubleWidth narrowDouble">
+                <li class="list-group-item">
+                    <h4>Saturday</h4>
+                    <p>{{ dateLSaturday }}</p>
+                </li>
+                <ul class="list-group halfDay">
+                    <li class="list-group-item">
+                        <h4>AM</h4>
+                    </li>
+                    <app-calendar-entry [weeklyLesson]="weeklyLesson" [inputClasses]="classes" *ngFor="let weeklyLesson of lastWeekSAMLessons">
+                    </app-calendar-entry>
+                </ul>
+                <ul class="list-group halfDay">
+                    <li class="list-group-item">
+                        <h4>PM</h4>
+                    </li>
+                    <app-calendar-entry [weeklyLesson]="weeklyLesson" [inputClasses]="classes" *ngFor="let weeklyLesson of lastWeekSPMLessons">
+                    </app-calendar-entry>
+                </ul>
+            </ul>
+            <ul class="list-group calendarDay doubleWidth">
+                <li class="list-group-item">
+                    <h4>Sunday</h4>
+                    <p>{{ dateLSunday }}</p>
+                </li>
+                <ul class="list-group halfDay">
+                    <li class="list-group-item">
+                        <h4>AM</h4>
+                    </li>
+                    <app-calendar-entry [weeklyLesson]="weeklyLesson" [inputClasses]="classes" *ngFor="let weeklyLesson of lastWeekSuAMLessons">
+                    </app-calendar-entry>
+                </ul>
+                <ul class="list-group halfDay">
+                    <li class="list-group-item">
+                        <h4>PM</h4>
+                    </li>
+                    <app-calendar-entry [weeklyLesson]="weeklyLesson" [inputClasses]="classes" *ngFor="let weeklyLesson of lastWeekSuPMLessons">
+                    </app-calendar-entry>
+                </ul>
+            </ul>
+        </ul>
+
+        <ul class="calendarWeek col-lg-10 col-md-10 col-sm-12 col-xs-12 col-lg-offset-1 col-md-offset-1" *ngIf="this.selectedWeek=='this'">
+            <ul class="list-group calendarDay">
+                <li class="list-group-item" [ngClass]="{'today':selectedWeek=='this' && day==1}">
+                    <h4>Monday</h4>
+                    <p>{{ dateTMonday }}</p>
+                </li>
+                <li class="list-group-item">
+                    <h4>AM/PM</h4>
+                </li>
+                <app-calendar-entry [weeklyLesson]="weeklyLesson" [inputClasses]="classes" *ngFor="let weeklyLesson of thisWeekMLessons">
+                </app-calendar-entry>
+            </ul>
+            <ul class="list-group calendarDay">
+                <li class="list-group-item" [ngClass]="{'today':selectedWeek=='this' && day==2}">
+                    <h4>Tuesday</h4>
+                    <p>{{ dateTTuesday }}</p>
+                </li>
+                <li class="list-group-item">
+                    <h4>AM/PM</h4>
+                </li>
+                <app-calendar-entry [weeklyLesson]="weeklyLesson" [inputClasses]="classes" *ngFor="let weeklyLesson of thisWeekTLessons">
+                </app-calendar-entry>
+            </ul>
+            <ul class="list-group calendarDay">
+                <li class="list-group-item" [ngClass]="{'today':selectedWeek=='this' && day==3}">
+                    <h4>Wednesday</h4>
+                    <p>{{ dateTWednesday }}</p>
+                </li>
+                <li class="list-group-item">
+                    <h4>AM/PM</h4>
+                </li>
+                <app-calendar-entry [weeklyLesson]="weeklyLesson" [inputClasses]="classes" *ngFor="let weeklyLesson of thisWeekWLessons">
+                </app-calendar-entry>
+            </ul>
+            <ul class="list-group calendarDay">
+                <li class="list-group-item" [ngClass]="{'today':selectedWeek=='this' && day==4}">
+                    <h4>Thursday</h4>
+                    <p>{{ dateTThursday }}</p>
+                </li>
+                <li class="list-group-item">
+                    <h4>AM/PM</h4>
+                </li>
+                <app-calendar-entry [weeklyLesson]="weeklyLesson" [inputClasses]="classes" *ngFor="let weeklyLesson of thisWeekThLessons">
+                </app-calendar-entry>
+            </ul>
+            <ul class="list-group calendarDay narrowDay">
+                <li class="list-group-item" [ngClass]="{'today':selectedWeek=='this' && day==5}">
+                    <h4>Friday</h4>
+                    <p>{{ dateTFriday }}</p>
+                </li>
+                <li class="list-group-item">
+                    <h4>AM/PM</h4>
+                </li>
+                <app-calendar-entry [weeklyLesson]="weeklyLesson" [inputClasses]="classes" *ngFor="let weeklyLesson of thisWeekFLessons">
+                </app-calendar-entry>
+            </ul>
+            <ul class="list-group calendarDay doubleWidth narrowDouble">
+                <li class="list-group-item" [ngClass]="{'today':selectedWeek=='this' && day==6}">
+                    <h4>Saturday</h4>
+                    <p>{{ dateTSaturday }}</p>
+                </li>
+                <ul class="list-group halfDay">
+                    <li class="list-group-item">
+                        <h4>AM</h4>
+                    </li>
+                    <app-calendar-entry [weeklyLesson]="weeklyLesson" [inputClasses]="classes" *ngFor="let weeklyLesson of thisWeekSAMLessons">
+                    </app-calendar-entry>
+                </ul>
+                <ul class="list-group halfDay">
+                    <li class="list-group-item">
+                        <h4>PM</h4>
+                    </li>
+                    <app-calendar-entry [weeklyLesson]="weeklyLesson" [inputClasses]="classes" *ngFor="let weeklyLesson of thisWeekSPMLessons">
+                    </app-calendar-entry>
+                </ul>
+            </ul>
+            <ul class="list-group calendarDay doubleWidth">
+                <li class="list-group-item" [ngClass]="{'today':selectedWeek=='this' && day==0}">
+                    <h4>Sunday</h4>
+                    <p>{{ dateTSunday }}</p>
+                </li>
+                <ul class="list-group halfDay">
+                    <li class="list-group-item">
+                        <h4>AM</h4>
+                    </li>
+                    <app-calendar-entry [weeklyLesson]="weeklyLesson" [inputClasses]="classes" *ngFor="let weeklyLesson of thisWeekSuAMLessons">
+                    </app-calendar-entry>
+                </ul>
+                <ul class="list-group halfDay">
+                    <li class="list-group-item">
+                        <h4>PM</h4>
+                    </li>
+                    <app-calendar-entry [weeklyLesson]="weeklyLesson" [inputClasses]="classes" *ngFor="let weeklyLesson of thisWeekSuPMLessons">
+                    </app-calendar-entry>
+                </ul>
+            </ul>
+        </ul>
+
+        <ul class="calendarWeek col-lg-10 col-md-10 col-sm-12 col-xs-12 col-lg-offset-1 col-md-offset-1" *ngIf="this.selectedWeek=='next'">
+            <ul class="list-group calendarDay">
+                <li class="list-group-item">
+                    <h4>Monday</h4>
+                    <p>{{ dateNMonday }}</p>
+                </li>
+                <li class="list-group-item">
+                    <h4>AM/PM</h4>
+                </li>
+                <app-calendar-entry [weeklyLesson]="weeklyLesson" [inputClasses]="classes" *ngFor="let weeklyLesson of nextWeekMLessons">
+                </app-calendar-entry>
+            </ul>
+            <ul class="list-group calendarDay">
+                <li class="list-group-item">
+                    <h4>Tuesday</h4>
+                    <p>{{ dateNTuesday }}</p>
+                </li>
+                <li class="list-group-item">
+                    <h4>AM/PM</h4>
+                </li>
+                <app-calendar-entry [weeklyLesson]="weeklyLesson" [inputClasses]="classes" *ngFor="let weeklyLesson of nextWeekTLessons">
+                </app-calendar-entry>
+            </ul>
+            <ul class="list-group calendarDay">
+                <li class="list-group-item">
+                    <h4>Wednesday</h4>
+                    <p>{{ dateNWednesday }}</p>
+                </li>
+                <li class="list-group-item">
+                    <h4>AM/PM</h4>
+                </li>
+                <app-calendar-entry [weeklyLesson]="weeklyLesson" [inputClasses]="classes" *ngFor="let weeklyLesson of nextWeekWLessons">
+                </app-calendar-entry>
+            </ul>
+            <ul class="list-group calendarDay">
+                <li class="list-group-item">
+                    <h4>Thursday</h4>
+                    <p>{{ dateNThursday }}</p>
+                </li>
+                <li class="list-group-item">
+                    <h4>AM/PM</h4>
+                </li>
+                <app-calendar-entry [weeklyLesson]="weeklyLesson" [inputClasses]="classes" *ngFor="let weeklyLesson of nextWeekThLessons">
+                </app-calendar-entry>
+            </ul>
+            <ul class="list-group calendarDay narrowDay">
+                <li class="list-group-item">
+                    <h4>Friday</h4>
+                    <p>{{ dateNFriday }}</p>
+                </li>
+                <li class="list-group-item">
+                    <h4>AM/PM</h4>
+                </li>
+                <app-calendar-entry [weeklyLesson]="weeklyLesson" [inputClasses]="classes" *ngFor="let weeklyLesson of nextWeekFLessons">
+                </app-calendar-entry>
+            </ul>
+            <ul class="list-group calendarDay doubleWidth narrowDouble">
+                <li class="list-group-item">
+                    <h4>Saturday</h4>
+                    <p>{{ dateNSaturday }}</p>
+                </li>
+                <ul class="list-group halfDay">
+                    <li class="list-group-item">
+                        <h4>AM</h4>
+                    </li>
+                    <app-calendar-entry [weeklyLesson]="weeklyLesson" [inputClasses]="classes" *ngFor="let weeklyLesson of nextWeekSAMLessons">
+                    </app-calendar-entry>
+                </ul>
+                <ul class="list-group halfDay">
+                    <li class="list-group-item">
+                        <h4>PM</h4>
+                    </li>
+                    <app-calendar-entry [weeklyLesson]="weeklyLesson" [inputClasses]="classes" *ngFor="let weeklyLesson of nextWeekSPMLessons">
+                    </app-calendar-entry>
+                </ul>
+            </ul>
+            <ul class="list-group calendarDay doubleWidth">
+                <li class="list-group-item">
+                    <h4>Sunday</h4>
+                    <p>{{ dateNSunday }}</p>
+                </li>
+                <ul class="list-group halfDay">
+                    <li class="list-group-item">
+                        <h4>AM</h4>
+                    </li>
+                    <app-calendar-entry [weeklyLesson]="weeklyLesson" [inputClasses]="classes" *ngFor="let weeklyLesson of nextWeekSuAMLessons">
+                    </app-calendar-entry>
+                </ul>
+                <ul class="list-group halfDay">
+                    <li class="list-group-item">
+                        <h4>PM</h4>
+                    </li>
+                    <app-calendar-entry [weeklyLesson]="weeklyLesson" [inputClasses]="classes" *ngFor="let weeklyLesson of nextWeekSuPMLessons">
+                    </app-calendar-entry>
+                </ul>
+            </ul>
+        </ul>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3" *ngIf="(!loaded || !loadedClasses) && this.authService.user$">
+        <div class="scheduleLoaderContainer">
+            <div class="loader">
+                <div id="largeBox"></div>
+                <div id="smallBox"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-of-page">
+        <div class="left-section col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <button class="btn btn-primary" [routerLink]="['add-lesson']">Add an irregular lesson</button>
+            <p>*Irregular lessons are demos, or are those that either do not belong to your regular classes, or are at an irregular time (e.g. holiday schedules).</p>
+        </div>
+
+        <div class="right-section col-lg-6 col-md-6 col-sm-6 col-xs-12" *ngIf="this.selectedWeek=='this'">
+            <button class="btn btn-primary right-button" (click)="this.createExcelSchedule()" *ngIf="!this.creatingSchedule" [disabled]="!this.scheduleReady">Export .xlsx Schedule</button>
+            <button class="btn btn-primary right-button" *ngIf="this.creatingSchedule"><div class="loading-pulse"></div></button>
+            <p class="right-text">This will export a schedule of lesson details (days and times of classes along with keywords, keysentences, supplies and activities). Once downloaded you can change and format it in the most useful way for you.</p>
+        </div>
+    </div>
+</div>
+
+<weekly-lesson-delete></weekly-lesson-delete>
+
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3" *ngIf="!(this.authService.isAuthenticated$ | async)">
+    <h3>Not Authenticated</h3>
+    <p>Please log in and try again</p>
+</div>

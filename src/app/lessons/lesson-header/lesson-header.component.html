@@ -1,0 +1,24 @@
+<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-offset-2 col-md-offset-2">
+  <div class="lesson-nav-button-sets">
+    <button [disabled]="this.lessonNo==1" class="btn btn-primary lesson-nav-button first-last-button lesson-nav-button" (click)="clickLessonButton(this.lessonNo - 1)">Previous</button>
+
+    <div class="lesson-nav-main" *ngIf="maxLessons >= 40">
+      <button [ngClass]="{'selected': this.lessonNo==(i+1)}" class="btn btn-primary lesson-nav-button lesson-nav-button" *ngFor="let item of [].constructor(maxLessons); let i = index" [attr.data-index]="i" (click)="clickLessonButton(i+1)">{{i+1}}</button>
+    </div>
+
+    <div class="spread" *ngIf="maxLessons < 13">
+      <button [ngClass]="{'selected': this.lessonNo==(i+1+indexModify)}" class="btn btn-primary lesson-nav-button lesson-nav-button" *ngFor="let item of [].constructor(maxLessons); let i = index" [attr.data-index]="i" (click)="clickLessonButton(i+1+indexModify)">{{i+1+indexModify}}</button>
+    </div>
+
+    <div class="lesson-nav-main vertical" *ngIf="maxLessons > 12 && maxLessons < 40">
+      <div class="line">
+        <button [ngClass]="{'selected': this.lessonNo==(i+1)}" class="btn btn-primary lesson-nav-button lesson-nav-button" *ngFor="let item of [].constructor(maxLessons/2); let i = index" [attr.data-index]="i" (click)="clickLessonButton(i+1)">{{i+1}}</button>
+      </div>
+      <div class="line">
+        <button [ngClass]="{'selected': this.lessonNo==(maxLessons/2+i+1)}" class="btn btn-primary lesson-nav-button lesson-nav-button" *ngFor="let item of [].constructor(maxLessons/2); let i = index" [attr.data-index]="maxLessons/2 + i" (click)="clickLessonButton(maxLessons/2+i+1)">{{maxLessons/2+i+1}}</button>
+      </div>
+    </div>
+
+    <button [disabled]="this.lessonNo==this.maxLessons" class="btn btn-primary lesson-nav-button first-last-button lesson-nav-button" (click)="clickLessonButton(this.nextLessonNo)">Next</button>
+  </div>
+</div>

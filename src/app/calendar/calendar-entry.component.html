@@ -1,0 +1,57 @@
+<ul id="{{weeklyLesson.classCode}}{{startTime}}">
+  <li class="list-group-item btn btn-primary main-button" (click)="goToRegularClass()" [ngClass]="{'demo':weeklyLesson.subject=='Demo', 'prepped':prepped==true, 'past': past==true}" *ngIf="regularClass==true && weeklyLesson.classCode && loaded">
+    <!-- add a routerLink to the relevant class -->
+    <p>{{ startTime }}-{{ endTime }}</p>
+    <p>{{ weeklyLesson.classCode }}</p>
+    <p *ngIf="!is35 && weeklyLesson.subject!='Demo' && weeklyLesson.subject!='OpenClass' && weeklyLesson.subject!='OralTest' && !isNewCurriculum">{{ weeklyLesson.subject }} {{ weeklyLesson.lessonNo }}</p>
+    <p *ngIf="!is35 && (weeklyLesson.subject=='OpenClass' || weeklyLesson.subject=='OralTest') && !isNewCurriculum">{{ weeklyLesson.subject }}</p>
+    <p *ngIf="!is35 && this.isG0 && this.weeklyLesson.subject!='OpenClass'">G0-U{{ weeklyLesson.lessonNo }}-{{ weeklyLesson.subject }}</p>
+    <p *ngIf="!is35 && this.isNewCurriculum && !this.isG0 && this.weeklyLesson.subject!='Midterm' && this.weeklyLesson.subject!='OpenClass' && this.weeklyLesson.lessonNo!=10">{{ newCurriculum }}{{ newCurriculumStageString }}-U{{ weeklyLesson.lessonNo }}-{{ newCurriculumSubject }}</p>
+    <p *ngIf="!is35 && this.isNewCurriculum && !this.isG0 && this.weeklyLesson.subject!='Midterm' && this.weeklyLesson.subject!='OpenClass' && this.weeklyLesson.lessonNo==10">{{ newCurriculum }}{{ newCurriculumStageString }}-Final-CLIL&PT</p>
+    <p *ngIf="!is35 && this.weeklyLesson.subject=='Midterm'">{{ newCurriculum }}{{ newCurriculumStageString }}-Midterm-CLIL</p>
+    <p *ngIf="!is35 && this.weeklyLesson.subject=='OpenClass' && this.isNewCurriculum && !this.isG0">
+      {{ newCurriculum }}-CLIL Open Class
+    </p>
+    <p *ngIf="!is35 && this.isG0OpenClass">
+      G0-CLIL Open Class
+    </p>
+    <p *ngIf="is35">{{ gork35string }}</p>
+  </li>
+  <li class="list-group-item btn btn-primary main-button" (click)="goToIrregularClass()" [ngClass]="{'demo':weeklyLesson.subject=='Demo', 'prepped':weeklyLesson.prepped==true, 'past': past==true}" *ngIf="regularClass==false && loaded">
+    <!-- add a routerLink to the relevant class -->
+    <p>{{ startTime }}-{{ endTime }}</p>
+    <p>{{ weeklyLesson.classCode }}</p>
+    <p *ngIf="!is35 && weeklyLesson.subject!='Demo' && weeklyLesson.subject!='OpenClass' && weeklyLesson.subject!='OralTest' && !isNewCurriculum">{{ weeklyLesson.subject }} {{ weeklyLesson.lessonNo }}</p>
+    <p *ngIf="!is35 && (weeklyLesson.subject=='OpenClass' || weeklyLesson.subject=='OralTest') && !this.isNewCurriculum">{{ weeklyLesson.subject }}</p>
+    <p *ngIf="!is35 && this.isG0 && this.weeklyLesson.subject!='OpenClass'">G0-U{{ weeklyLesson.lessonNo }}-{{ weeklyLesson.subject }}</p>
+    <p *ngIf="!is35 && this.isNewCurriculum && !this.isG0 && this.weeklyLesson.subject!='Midterm' && this.weeklyLesson.subject!='OpenClass' && this.weeklyLesson.lessonNo!=10">{{ newCurriculum }}{{ newCurriculumStageString }}-U{{ weeklyLesson.lessonNo }}-{{ newCurriculumSubject }}</p>
+    <p *ngIf="!is35 && this.isNewCurriculum && !this.isG0 && this.weeklyLesson.subject!='Midterm' && this.weeklyLesson.subject!='OpenClass' && this.weeklyLesson.lessonNo==10">{{ newCurriculum }}{{ newCurriculumStageString }}-Final-CLIL&PT</p>
+    <p *ngIf="!is35 && this.weeklyLesson.subject=='Midterm'">{{ newCurriculum }}{{ newCurriculumStageString }}-Midterm-CLIL</p>
+    <p *ngIf="!is35 && this.weeklyLesson.subject=='OpenClass' && this.isNewCurriculum && !this.isG0">
+      {{ newCurriculum }}-CLIL Open Class
+    </p>
+    <p *ngIf="!is35 && this.isG0OpenClass">
+      G0-CLIL Open Class
+    </p>
+    <p *ngIf="is35">{{ gork35string }}</p>
+  </li>
+  <li class="list-group-item" *ngIf="!loaded">
+    <div class="loading-pulse"></div>
+  </li>
+  <div class="weekly-lesson-buttons-group">
+    <li class="list-group-item btn btn-primary sub-button1" (click)="onPrepped(weeklyLesson)" [ngClass]="{'past': past==true}" *ngIf="loaded && !weeklyLesson.prepped">
+      <div class="circle"></div>
+    </li>
+    <li class="list-group-item btn btn-primary prepped sub-button1" (click)="onNotPrepped(weeklyLesson)" [ngClass]="{'past': past==true}" *ngIf="loaded && weeklyLesson.prepped">
+      <div class="tick1"></div>
+      <div class="tick2"></div>
+    </li>
+    <li class="list-group-item btn btn-danger sub-button2" (click)="onDelete(weeklyLesson)" [ngClass]="{'past': past==true}" *ngIf="loaded">
+      <div class="trash1"></div>
+      <div class="trash2"></div>
+      <div class="trash3"></div>
+      <div class="trash4"></div>
+      <div class="trash5"></div>
+    </li>
+  </div>
+</ul>

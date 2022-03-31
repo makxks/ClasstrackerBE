@@ -1,0 +1,27 @@
+<div class="backdrop" [ngStyle]="{'display': display}"></div>
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display': display}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" (click)="closeWindow()"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Share Class - {{shareClassCode}}</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+                    <label for="shareTo">Email of teacher to share class to:</label>
+                    <input type="text" class="form-control" id="shareTo" formControlName="shareTo" #shareTo required>
+                    <span *ngIf="!myForm.controls['shareTo'].valid && !myForm.controls['shareTo'].pristine" class="errorMessage">Enter a valid email</span>
+                    <span *ngIf="!myForm.controls['shareTo'].pristine && myForm.controls['shareTo'].errors && myForm.controls['shareTo'].errors['shareToSelf']" class="errorMessage">You cannot share classes to yourself</span>
+                    <button type="submit" class="btn btn-primary" [disabled]="!myForm.valid">Share Class</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" (click)="closeWindow()">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

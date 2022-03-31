@@ -1,0 +1,59 @@
+<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-3 col-md-offset-3 bottom-of-page" *ngIf="(this.authService.isAuthenticated$ | async) && !this.editing">
+    <h3>Edit {{lessonCode}}</h3>
+    <p>Please feel free to add any activities, warm-ups, or reward systems you use for each particular lesson and make them as clear as possible (with slide numbers and procedures as applicable), you can add them all in the activities area of the form along
+        with any extra materials necessary in the materials area (please mark which activity/reward system/warm-up they are for).</p>
+    <p>**Note: In this edit form you can only change the contents of the class, not the curriculum, stage, level, or title. If any of those are incorrect please delete the existing class and add a new version.</p>
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()" *ngIf="lesson">
+        <div class="form-group formInput">
+            <div class="form-group" [ngClass]="{'has-error':!myForm.controls['keyWords'].valid && myForm.controls['keyWords'].touched}">
+                <label for="keyWords">Key Words</label>
+                <textarea class="form-control" id="keyWords" formControlName="keyWords" #keyWords required rows="4" [ngModel]="lesson.keyWords"></textarea>
+                <span *ngIf="!myForm.controls['keyWords'].valid && !myForm.controls['keyWords'].pristine" class="errorMessage">Enter the key words of the lesson you want to edit (please write none or something more descriptive (e.g. "review/discussion class") if this lesson has no key words)</span>
+            </div>
+        </div>
+        <div class="form-group formInput">
+            <div class="form-group" [ngClass]="{'has-error':!myForm.controls['keySentences'].valid && myForm.controls['keySentences'].touched}">
+                <label for="keySentences">Key Sentences</label>
+                <textarea class="form-control" id="keySentences" formControlName="keySentences" #keySentences required rows="4" [ngModel]="lesson.keySentences"></textarea>
+                <span *ngIf="!myForm.controls['keySentences'].valid && !myForm.controls['keySentences'].pristine" class="errorMessage">Enter the key words of the lesson you want to edit (please write none or something more descriptive (e.g. "review/discussion class") if this lesson has no key sentences)</span>
+            </div>
+        </div>
+        <div class="form-group formInput">
+            <div class="form-group" [ngClass]="{'has-error':!myForm.controls['objectives'].valid && myForm.controls['objectives'].touched}">
+                <label for="objectives">Objectives</label>
+                <textarea class="form-control" id="objectives" formControlName="objectives" #objectives required rows="4" [ngModel]="lesson.objectives"></textarea>
+                <span *ngIf="!myForm.controls['objectives'].valid && !myForm.controls['objectives'].pristine" class="errorMessage">Enter the objectives of the lesson you want to edit</span>
+            </div>
+        </div>
+        <div class="form-group formInput">
+            <div class="form-group" [ngClass]="{'has-error':!myForm.controls['supplies'].valid && myForm.controls['supplies'].touched}">
+                <label for="supplies">Supplies</label>
+                <textarea class="form-control" id="supplies" formControlName="supplies" #supplies required rows="4" [ngModel]="lesson.supplies"></textarea>
+                <span *ngIf="!myForm.controls['supplies'].valid && !myForm.controls['supplies'].pristine" class="errorMessage">Enter the supplies needed for the lesson you want to edit</span>
+            </div>
+        </div>
+        <div class="form-group formInput">
+            <div class="form-group" [ngClass]="{'has-error':!myForm.controls['activities'].valid && myForm.controls['activities'].touched}">
+                <label for="activities">Activities</label>
+                <textarea class="form-control" id="activities" formControlName="activities" #activities required rows="4" [ngModel]="lesson.activities"></textarea>
+                <span *ngIf="!myForm.controls['activities'].valid && !myForm.controls['activities'].pristine" class="errorMessage">Enter the activities that are in the lesson you want to edit, you can also add any of your own extra ideas</span>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="!myForm.valid">Edit</button>
+        <button type="cancel" class="btn btn-danger" routerLink="/lessons/show-lesson/{{lessonCode}}">Cancel</button>
+    </form>
+</div>
+
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3" *ngIf="!(this.authService.isAuthenticated$ | async) && !this.editing">
+    <h3>Not Authenticated</h3>
+    <p>Please log in and try again</p>
+</div>
+
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3" *ngIf="this.editing">
+    <div class="loaderContainer">
+        <div class="loader">
+            <div id="largeBox"></div>
+            <div id="smallBox"></div>
+        </div>
+    </div>
+</div>

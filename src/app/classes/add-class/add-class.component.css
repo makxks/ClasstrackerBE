@@ -1,0 +1,66 @@
+#stage, #level {
+  display: none;
+}
+
+button {
+  margin-bottom: 10px;
+}
+
+label {
+  float: left;
+  text-align: left;
+  min-width: 100%;
+}
+
+.minutes {
+  position: relative;
+  top: 21px;
+}
+
+.line1 {
+  position: absolute;
+  background-color: black;
+  border: 2px black solid;
+  border-radius: 5px;
+  width: 10px;
+  height: 0px;
+  transform: rotate(45deg) translate(3px, 3px);
+}
+
+.line2 {
+  position: absolute;
+  background-color: black;
+  border: 2px black solid;
+  border-radius: 5px;
+  width: 10px;
+  height: 0px;
+  transform: rotate(315deg) translate(-7px, 7px);
+}
+
+.line3 {
+  position: absolute;
+  background-color: black;
+  border: 2px black solid;
+  border-radius: 5px;
+  width: 10px;
+  height: 0px;
+  transform: rotate(45deg) translate(2px, 6px);
+}
+
+.line4 {
+  position: absolute;
+  background-color: black;
+  border: 2px black solid;
+  border-radius: 5px;
+  width: 10px;
+  height: 0px;
+  transform: rotate(315deg) translate(-2px, 6px);
+}
+
+.arrow-container {
+  margin-right: 1%;
+}
+
+.buffer-left {
+  margin-left: 2%;
+}

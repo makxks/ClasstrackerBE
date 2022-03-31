@@ -1,0 +1,16 @@
+.lessonList {
+  color: #00B7FF;
+}
+
+.lessonList:hover {
+  color: white;
+}
+
+.lessonList:hover >ul {
+  display: block;
+}
+
+.lesson {
+  margin: 10px;
+  color: #00B7FF;
+}

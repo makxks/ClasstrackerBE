@@ -1,0 +1,42 @@
+header {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    padding-top: 30px;
+    height: 72px;
+    background-color: #337AB7;
+}
+
+ul li {
+    width: 16%;
+    float: left;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+ul {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+li {
+    cursor: pointer;
+}
+
+.threeTabs {
+    min-width: 33%;
+}
+
+.nav-tabs {
+    border-bottom: none;
+}
+
+.nav-tabs>li.active>a {
+    color: white;
+    cursor: default;
+    background-color: #444;
+    border-bottom-color: transparent;
+}

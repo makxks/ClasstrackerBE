@@ -1,0 +1,28 @@
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3" *ngIf="!loaded && (this.authService.isAuthenticated$ | async)">
+    <div class="loaderContainer">
+        <div class="loader">
+            <div id="largeBox"></div>
+            <div id="smallBox"></div>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-3 col-md-offset-3 classList bottom-of-page" *ngIf="this.classesService.classes.length > 0 && (this.authService.isAuthenticated$ | async) && loaded">
+    <ul class="list-group first">
+        <button class="btn btn-primary" *ngIf="this.authService.isAuthenticated$" [routerLink]="['add']">Add class</button>
+        <app-class-list-item [userClass]="userClass" *ngFor="let userClass of userClasses">
+        </app-class-list-item>
+    </ul>
+</div>
+
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3 classList" *ngIf="this.classesService.classes.length == 0 && (this.authService.isAuthenticated$ | async) && loaded">
+    <button class="btn btn-primary" *ngIf="this.authService.isAuthenticated$" [routerLink]="['add']">Add class</button>
+    <h3>No classes added yet</h3>
+</div>
+
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3" *ngIf="!(this.authService.isAuthenticated$ | async)">
+    <h3>Not Authenticated</h3>
+    <p>Please log in and try again</p>
+</div>
+
+<receive-class></receive-class>

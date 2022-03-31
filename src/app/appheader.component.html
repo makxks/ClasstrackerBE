@@ -1,0 +1,13 @@
+<header>
+    <nav class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-3 col-md-offset-3" *ngIf="loggedIn">
+        <ul class="nav nav-tabs">
+            <li routerLinkActive="active" *ngIf="loggedIn"><a [routerLink]="['classes']">Classes</a></li>
+            <li routerLinkActive="active" *ngIf="loggedIn"><a [routerLink]="['lessons']">Lessons</a></li>
+            <li routerLinkActive="active" *ngIf="loggedIn"><a [routerLink]="['schedule']">Schedule</a></li>
+            <!-- <li routerLinkActive="active" *ngIf="!loggedIn" [ngClass]="{'threeTabs':!loggedIn}"><a (click)="this.authService.loginWithRedirect()">Login</a></li> -->
+            <li routerLinkActive="active" *ngIf="loggedIn" [ngClass]="{'threeTabs':!loggedIn}"><a (click)="this.authService.logout({ returnTo: this.document.location.origin })">Logout</a></li>
+            <!--<li routerLinkActive="active" [ngClass]="{'threeTabs':!isAuth()}"><a [routerLink]="['about']">About</a></li>-->
+            <li routerLinkActive="active" [ngClass]="{'threeTabs':!loggedIn}"><a [routerLink]="['new']">Updates</a></li>
+        </ul>
+    </nav>
+</header>

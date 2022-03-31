@@ -1,0 +1,54 @@
+.names {
+    color: #00B7FF;
+    z-index: 0;
+    width: 75%;
+    border-radius: 4px;
+    margin-top: 0px;
+}
+
+.names:hover {
+    color: white;
+    border-color: lightgrey;
+    background: #286090;
+}
+
+.names:active {
+    box-shadow: none;
+    color: white;
+    border-color: lightgrey;
+    background: #204d74;
+}
+
+.dangerButton {
+    margin: 0;
+    padding: 10px 15px;
+    border-radius: 4px;
+    background-color: transparent;
+    border-color: lightgrey;
+    width: 75%;
+    color: #d43f3a;
+}
+
+.dangerButton:hover {
+    background: #d9534f;
+    color: white;
+    border-color: lightgrey;
+}
+
+.dangerButton:active {
+    box-shadow: none;
+    background: #c9302c;
+    color: white;
+    border-color: lightgrey;
+}
+
+.kid-item-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-primary {
+    margin-bottom: 0px;
+}

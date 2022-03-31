@@ -1,0 +1,301 @@
+li {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  color: #00B7FF;
+}
+
+.list-group-item {
+  overflow: hidden;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  padding-left: 0;
+}
+
+.demo {
+  color: #c9302c;
+}
+
+.prepped {
+  border-color: green;
+  color: green;
+  border-width: 1px;
+}
+
+.past {
+  border-color: grey;
+  color: grey;
+  opacity: 0.7;
+}
+
+.main-button {
+  border-radius: 4px 4px 0 0;
+  border-top: 1px lightgray solid;
+  border-left: 1px lightgray solid;
+  border-right: 1px lightgray solid;
+  border-bottom: 0px transparent;
+  border-bottom: 0px;
+}
+
+.sub-button1 {
+  border-radius: 0 0 0 4px;
+  border-bottom: 1px lightgray solid;
+  border-left: 1px lightgray solid;
+  border-right: 0px transparent;
+  border-top: 0px transparent;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  height: 25px;
+}
+
+.sub-button2 {
+  border-radius: 0 0 4px 0;
+  border-bottom: 1px lightgray solid;
+  border-right: 1px lightgray solid;
+  border-left: 0px transparent;
+  border-top: 0px transparent;
+  height: 25px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.weekly-lesson-buttons-group {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.weekly-lesson-buttons-group .list-group-item {
+  width: 50%;
+  margin: 0;
+}
+
+.btn .btn-primary .btn-danger {
+  margin: 0;
+  padding: 0;
+}
+
+.btn-danger {
+  color: #c9302c;
+}
+
+.circle {
+  height: 20px;
+  width: 20px;
+  border-radius: 100%;
+  border: 3px solid #00B7FF;
+  clip-path: polygon(
+    0% 45%,
+    0% 11%,
+    50% 50%,
+    5% 0%,
+    40% 0%,
+    50% 50%,
+    50% 0%,
+    100% 0%,
+    100% 100%,
+    50% 100%,
+    50% 50%,
+    42% 100%,
+    5% 100%,
+    50% 50%,
+    0% 89%,
+    0% 55%,
+    50% 50%)
+}
+
+.tick1 {
+  position: absolute;
+  background-color: #00B7FF;
+  border: 2px #00B7FF solid;
+  border-radius: 5px;
+  width: 10px;
+  height: 0px;
+  transform: rotate(45deg) translate(0px, 6px);
+}
+
+.tick2 {
+  position: absolute;
+  background-color: #00B7FF;
+  border: 2px #00B7FF solid;
+  border-radius: 5px;
+  width: 20px;
+  height: 0px;
+  transform: rotate(305deg) translate(2px, 3px);
+}
+
+.trash1 {
+  position: absolute;
+  width: 8px;
+  height: 5px;
+  border: 2px solid #C9302C;
+  border-radius: 3px;
+  transform: translate(0px, -9px);
+}
+
+.trash2 {
+  position: absolute;
+  width: 18px;
+  height: 0px;
+  border: 1px solid #C9302C;
+  border-radius: 3px;
+  transform: translate(0px, -7px);
+}
+
+.trash3 {
+  border: 2px solid #C9302C;
+  border-radius: 0 0 5px 5px;
+  height: 15px;
+  width: 14px;
+  transform: translate(0, 3px);
+}
+
+.trash4 {
+  position: absolute;
+  width: 0;
+  height: 14px;
+  border: 1px solid #C9302C;
+  border-radius: 2px;
+  transform: translate(-2px, 3px);
+}
+
+.trash5 {
+  position: absolute;
+  width: 0;
+  height: 14px;
+  border: 1px solid #C9302C;
+  border-radius: 2px;
+  transform: translate(2px, 3px);
+}
+
+.main-button:hover {
+  background: linear-gradient(#337ab7 0%, #337ab7 75%, transparent 100%);
+  border-color: lightgray;
+  color: white;
+  opacity: 1;
+}
+
+.main-button:active {
+  background: linear-gradient(#539ad7 0%, #5291d7 75%, transparent 100%);
+  border-color: lightgray;
+  box-shadow: none;
+}
+
+.prepped:hover {
+  background: linear-gradient(green 0%, green 75%, transparent 100%);
+  border-color: lightgray;
+  color: white;
+  opacity: 1;
+}
+
+.demo:hover {
+  background: linear-gradient(#c9302c 0%, #c9302c 75%, transparent 100%);
+  border-color: lightgray;
+  color: white;
+  opacity: 1;
+}
+
+.past:hover {
+  opacity: 1;
+}
+
+.sub-button1:hover {
+  border-left: 1px lightgreen solid;
+  border-bottom: 1px lightgreen solid;
+  border-radius: 0 0 0 4px;
+  border-color: lightgray;
+  background: radial-gradient(ellipse at left bottom, green 0%, green 50%, transparent 70%);
+}
+
+.sub-button1:active {
+  background: radial-gradient(ellipse at left bottom, darkgreen 0%, darkgreen 50%, transparent 70%);
+  border-color: lightgray;
+  box-shadow: none;
+}
+
+.sub-button2:hover {
+  border-right: 1px #ac2925 solid;
+  border-bottom: 1px #ac2925 solid;
+  border-radius: 0 0 4px 0;
+  border-color: lightgray;
+  background: radial-gradient(ellipse at right bottom, #c9302c 0%, #c9302c 50%, transparent 70%);
+}
+
+.sub-button2:active {
+  background: radial-gradient(ellipse at right bottom, darkred 0%, darkred 50%, transparent 70%);
+  border-color: lightgray;
+  box-shadow: none;
+}
+
+.sub-button1:hover div {
+  border-color: white;
+}
+
+.sub-button1:active div {
+  border-color: lightgray;
+  box-shadow: none;
+}
+
+.sub-button2:hover div {
+  border-color: white;
+}
+
+.sub-button2:active div {
+  border-color: lightgray;
+  box-shadow: none;
+}
+
+.loading-pulse {
+  position: relative;
+  left: 50%;
+  width: 6px;
+  height: 20px;
+  margin: 5px 0;
+  background: rgba(255, 255, 255, 0.2);
+  -webkit-animation: pulse 750ms infinite;
+          animation: pulse 750ms infinite;
+  -webkit-animation-delay: 250ms;
+          animation-delay: 250ms;
+}
+.loading-pulse:before, .loading-pulse:after {
+  content: '';
+  position: absolute;
+  display: block;
+  height: 14px;
+  width: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  -webkit-animation: pulse 750ms infinite;
+          animation: pulse 750ms infinite;
+}
+.loading-pulse:before {
+  left: -12px;
+}
+.loading-pulse:after {
+  left: 12px;
+  -webkit-animation-delay: 500ms;
+          animation-delay: 500ms;
+}
+@-webkit-keyframes pulse {
+  50% {
+    background: white;
+  }
+}
+@keyframes pulse {
+  50% {
+    background: #444;
+  }
+}

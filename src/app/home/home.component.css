@@ -1,0 +1,39 @@
+.container {
+  padding-top: 3%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.paragraph {
+  margin: 60px;
+  text-align: center;
+}
+
+.vertical-split {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.logins {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+button {
+  width: 50%;
+}
+
+.blue {
+  color: #337AB7;
+  text-align: center;
+}

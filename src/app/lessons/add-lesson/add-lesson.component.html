@@ -1,0 +1,167 @@
+<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-3 col-md-offset-3 bottom-of-page" *ngIf="(this.authService.isAuthenticated$ | async) && !this.adding">
+    <h3>Add Lesson</h3>
+    <p>Please feel free to add any activities, warm-ups, or reward systems you use for each particular lesson and make them as clear as possible (with slide numbers and procedures as applicable), you can add them all in the activities area of the form along
+        with any extra materials necessary in the materials area (please mark which activity/reward system/warm-up they are for).</p>
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="curriculum">Curriculum</label>
+            <select class="form-control" id="curriculum" formControlName="curriculum" #curriculum (click)="checkCurriculum()" (click)="checkSubjects()" (click)="doIndexModify()" required>
+        <option value="">Select curriculum</option>
+        <option value="G0">G0</option>
+        <option value="G">G</option>
+        <option value="K">K</option>
+        <option value="G035">G0 - 3.5</option>
+        <option value="GK35">GK - 3.5</option>
+        <option value="K35">K - 3.5</option>
+        <option value="SS">Super Start</option>
+        <option value="128">128</option>
+        <option value="Demo">Demo</option>
+      </select>
+        </div>
+        <div class="form-group" id="stage">
+            <label for="stage">Stage</label>
+            <select class="form-control" id="stageSelect" formControlName="stage" #stage (click)="checkSubjects()" (click)="doIndexModify()">
+        <option value="">Select stage</option>
+
+        <!--
+        Stages for new curriculum?
+        -->
+
+        <option *ngIf="this.curriculumIsG || this.curriculumIsK" value="1">1A</option>
+        <option *ngIf="this.curriculumIsG || this.curriculumIsK" value="2">1B</option>
+        <option *ngIf="this.curriculumIsG || this.curriculumIsK" value="3">2A</option>
+        <option *ngIf="this.curriculumIsG || this.curriculumIsK" value="4">2B</option>
+        <option *ngIf="this.curriculumIsG || this.curriculumIsK" value="5">3A</option>
+        <option *ngIf="this.curriculumIsG || this.curriculumIsK" value="6">3B</option>
+        <!--
+        <option *ngIf="this.curriculumIsG" value="7">4A</option>
+        <option *ngIf="this.curriculumIsG" value="8">4B</option>
+        <option *ngIf="this.curriculumIsG" value="9">5A</option>
+        <option *ngIf="this.curriculumIsG" value="10">5B</option>
+        -->
+
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="1">1</option>
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="2">2</option>
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="3">3</option>
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="31">S-E1 stage 4</option>
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="4">4</option>
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="5">5</option>
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="6">6</option>
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="7">7</option>
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="8">8</option>
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="9">9</option>
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="10">10</option>
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="0">Oral Test</option>
+
+        <option *ngIf="this.is35 && this.myForm.value.curriculum=='K35'" value="1">K-1</option>
+        <option *ngIf="this.is35 && this.myForm.value.curriculum=='K35'" value="2">K-2</option>
+        <option *ngIf="this.is35 && this.myForm.value.curriculum=='K35'" value="3">K-3</option>
+        <option *ngIf="this.is35 && this.myForm.value.curriculum=='K35'" value="4">K-4</option>
+
+        <option *ngIf="this.is35 && this.myForm.value.curriculum=='GK35'" value="1">GK-1</option>
+        <option *ngIf="this.is35 && this.myForm.value.curriculum=='GK35'" value="2">GK-2</option>
+        <option *ngIf="this.is35 && this.myForm.value.curriculum=='GK35'" value="3">GK-3</option>
+        <option *ngIf="this.is35 && this.myForm.value.curriculum=='GK35'" value="4">GK-4</option>
+
+        <option *ngIf="this.is35 && this.myForm.value.curriculum=='G035'" value="1">G0-1</option>
+        <option *ngIf="this.is35 && this.myForm.value.curriculum=='G035'" value="2">G0-2</option>
+        <option *ngIf="this.is35 && this.myForm.value.curriculum=='G035'" value="3">G0-3</option>
+        <option *ngIf="this.is35 && this.myForm.value.curriculum=='G035'" value="4">G0-4</option>
+      </select>
+        </div>
+        <div class="form-group" id="level">
+            <label for="level">Level</label>
+            <select class="form-control" id="levelSelect" formControlName="level" #level (click)="checkSubjects()">
+        <option value="">Select level</option>
+        <option *ngIf="this.curriculumIsSS" value="SS1">SS1</option>
+        <option *ngIf="this.curriculumIsSS" value="SS2">SS2</option>
+        <option *ngIf="this.curriculumIsSS" value="SS3">SS3</option>
+        <option *ngIf="this.curriculumIsSS" value="SS4">SS4</option>
+      </select>
+        </div>
+        <div class="form-group">
+            <label for="subject">Subject</label>
+            <select class="form-control" id="subjectSelect" formControlName="subject" #subject (click)="checkNumberOfClasses()" (click)="doIndexModify()">
+          <option value="">Select Subject</option>
+
+          <option *ngFor="let subject of this.subjectList" value="{{subject.value}}">{{subject.title}}</option>
+
+        </select>
+        </div>
+
+        <div class="form-group" id="lessonNo">
+            <label *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" for="lessonNo">Lesson Number</label>
+            <label *ngIf="this.curriculumIsG0 || this.curriculumIsG || this.curriculumIsK || this.is35" for="lessonNo">Unit</label>
+            <select class="form-control" id="lessonNo" formControlName="lessonNo" #lessonNo>
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="">Select Lesson Number</option>
+        <option *ngIf="this.curriculumIsG0 || this.curriculumIsG || this.curriculumIsK || this.is35" value="">Select Unit</option>
+        <option *ngFor="let item of [].constructor(numberOfLessons); let i = index" [attr.data-index]="i" value="{{i+1+indexModify}}">{{i+1+indexModify}}</option>
+        <option *ngIf="this.is35 && this.myForm.value.curriculum == 'G035' && this.myForm.value.stage == '1'" value="6">Review 1</option>
+        <option *ngIf="this.is35 && this.myForm.value.curriculum == 'G035' && this.myForm.value.stage == '1'" value="7">Review 2</option>
+        <option *ngIf="this.is35 && this.myForm.value.curriculum == 'G035' && this.myForm.value.stage == '2'" value="10">Review 3</option>
+        <option *ngIf="this.is35 && this.myForm.value.curriculum == 'G035' && this.myForm.value.stage == '2'" value="11">Review 4</option>
+        <option *ngIf="this.is35 && this.myForm.value.curriculum == 'G035' && this.myForm.value.stage == '2'" value="12">End Of Term</option>
+      </select>
+        </div>
+
+        <div class="form-group formInput">
+            <div class="form-group" [ngClass]="{'has-error':!myForm.controls['lessonTitle'].valid && myForm.controls['lessonTitle'].touched}">
+                <label for="lessonTitle">Lesson Title</label>
+                <input type="text" class="form-control" id="lessonTitle" formControlName="lessonTitle" #lessonTitle required>
+                <span *ngIf="!myForm.controls['lessonTitle'].valid && !myForm.controls['lessonTitle'].pristine" class="errorMessage">Enter the title of the lesson you want to add</span>
+            </div>
+        </div>
+        <div class="form-group formInput">
+            <div class="form-group" [ngClass]="{'has-error':!myForm.controls['keyWords'].valid && myForm.controls['keyWords'].touched}">
+                <label for="keyWords">Key Words</label>
+                <textarea class="form-control" id="keyWords" formControlName="keyWords" #keyWords required rows="4"></textarea>
+                <span *ngIf="!myForm.controls['keyWords'].valid && !myForm.controls['keyWords'].pristine" class="errorMessage">Enter the key words of the lesson you want to add (please write none or something more descriptive (e.g. "review/discussion class") if this lesson has no key words)</span>
+            </div>
+        </div>
+        <div class="form-group formInput">
+            <div class="form-group" [ngClass]="{'has-error':!myForm.controls['keySentences'].valid && myForm.controls['keySentences'].touched}">
+                <label for="keySentences">Key Sentences</label>
+                <textarea class="form-control" id="keySentences" formControlName="keySentences" #keySentences required rows="4"></textarea>
+                <span *ngIf="!myForm.controls['keySentences'].valid && !myForm.controls['keySentences'].pristine" class="errorMessage">Enter the key words of the lesson you want to add (please write none or something more descriptive (e.g. "review/discussion class") if this lesson has no key sentences)</span>
+            </div>
+        </div>
+        <div class="form-group formInput">
+            <div class="form-group" [ngClass]="{'has-error':!myForm.controls['objectives'].valid && myForm.controls['objectives'].touched}">
+                <label for="objectives">Objectives</label>
+                <textarea class="form-control" id="objectives" formControlName="objectives" #objectives required rows="4"></textarea>
+                <span *ngIf="!myForm.controls['objectives'].valid && !myForm.controls['objectives'].pristine" class="errorMessage">Enter the objectives of the lesson you want to add</span>
+            </div>
+        </div>
+        <div class="form-group formInput">
+            <div class="form-group" [ngClass]="{'has-error':!myForm.controls['supplies'].valid && myForm.controls['supplies'].touched}">
+                <label for="supplies">Supplies</label>
+                <textarea class="form-control" id="supplies" formControlName="supplies" #supplies required rows="4"></textarea>
+                <span *ngIf="!myForm.controls['supplies'].valid && !myForm.controls['supplies'].pristine" class="errorMessage">Enter the supplies needed for the lesson you want to add</span>
+            </div>
+        </div>
+        <div class="form-group formInput">
+            <div class="form-group" [ngClass]="{'has-error':!myForm.controls['activities'].valid && myForm.controls['activities'].touched}">
+                <label for="activities">Activities</label>
+                <textarea class="form-control" id="activities" formControlName="activities" #activities required rows="4"></textarea>
+                <span *ngIf="!myForm.controls['activities'].valid && !myForm.controls['activities'].pristine" class="errorMessage">Enter the activities that are in the lesson you want to add, you can also add any of your own extra ideas</span>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="!myForm.valid">Add</button>
+        <button type="cancel" class="btn btn-danger" [routerLink]="['/lessons']">Cancel</button>
+    </form>
+</div>
+
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3" *ngIf="!(this.authService.isAuthenticated$ | async) && !this.adding">
+    <h3>Not Authenticated</h3>
+    <p>Please log in and try again</p>
+</div>
+
+
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3" *ngIf="this.adding">
+    <div class="loaderContainer">
+        <div class="loader">
+            <div id="largeBox"></div>
+            <div id="smallBox"></div>
+        </div>
+    </div>
+</div>

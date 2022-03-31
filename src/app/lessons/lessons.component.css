@@ -1,0 +1,67 @@
+.subjectList {
+  margin-top: 10px;
+  padding-top: 10px;
+  clear: both;
+}
+
+.lesson-button {
+  width: 100%;
+}
+
+.levelSubjectList {
+  float: right;
+}
+
+.first {
+  display: block;
+}
+
+ul {
+  display: none;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  overflow: hidden;
+}
+
+.show {
+  display: block;
+}
+
+.hoverToShow {
+  color: #00B7FF;
+  clear: both;
+}
+
+.hoverToShow:hover {
+  color: white;
+}
+
+.clicked {
+  background-color: #789CB1;
+  color: white;
+  border-color: #7e8d96;
+}
+
+.clicked >ul {
+  display: block;
+}
+
+button {
+  margin-top: 10px;
+}
+
+h3 {
+  padding-left: 10px;
+}
+
+h4 {
+  padding-left: 10px;
+}
+
+.form-horizontal {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+}

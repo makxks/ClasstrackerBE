@@ -1,0 +1,97 @@
+<div class="helpContainer">
+  <div class="intro">
+    <h1>Class Tracker</h1>
+    <h3>Useful tips for getting started</h3>
+    <hr />
+    <p>This class tracker is designed to assist and accelerate your class preparation. It should not be used as a replacement for your standard preparation but
+      instead to enhance it. Class tracker should be able to speed up your preparation by giving you fast access to your classes, kids, the lessons they will have
+      and the objectives, key words, sentences, and extra activity ideas for those lessons. A schedule is also provided.
+    </p>
+    <p>With the main navigation bar you can reach the pages for classes, lessons, your schedule, this page, and the login/logout page</p>
+  </div>
+  <div class="headerContainer">
+    <header>
+      <nav class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-3 col-md-offset-3">
+        <ul class="nav nav-tabs">
+    			<li (click)="this.selectedTab='addingClasses'" [ngClass]="{'active':this.selectedTab=='addingClasses'}"><a>Adding Classes</a></li>
+          <li (click)="this.selectedTab='addingDetails'" [ngClass]="{'active':this.selectedTab=='addingDetails'}"><a>Adding Details</a></li>
+    			<li (click)="this.selectedTab='addingLessons'" [ngClass]="{'active':this.selectedTab=='addingLessons'}"><a>Adding Lessons</a></li>
+          <li (click)="this.selectedTab='schedule'" [ngClass]="{'active':this.selectedTab=='schedule'}"><a>Schedule</a></li>
+    		</ul>
+      </nav>
+    </header>
+  </div>
+  <div class="aboutContent col-lg-8 col-md-10 col-sm-12 col-xs-12 col-lg-offset-2 col-md-offset-1" *ngIf="this.selectedTab=='addingClasses'">
+    <h3>Adding Classes</h3>
+    <p>The first step to making full use of the class tracker is to add your classes</p>
+    <img src="/images/empty-class-list..png" alt="empty class list">
+    <p>First select the "Classes" tab, then choose the "Add Class" button</p>
+    <div class="imagePPair">
+      <img src="/images/addclassview.png" alt="class form">
+      <div class="textSplitter">
+        <p>Here you can add all the details of your set class.</p>
+        <p>Please fill in the whole form as it will help you to add classes to your class tracker schedule later.</p>
+      </div>
+    </div>
+    <div class="imagePPair">
+      <div class="textSplitter">
+        <p>Done! you have added your first class.</p>
+        <p>You can now continue to add further classes to your list.</p>
+        <p>When you have added 1 or more classes you can proceed to add kids and lessons to your class.</p>
+      </div>
+      <img src="/images/classview.png" alt="new class">
+    </div>
+  </div>
+  <div class="aboutContent col-lg-8 col-md-10 col-sm-12 col-xs-12 col-lg-offset-2 col-md-offset-1" *ngIf="this.selectedTab=='addingDetails'">
+    <h3>Adding Details To Your Classes And Editing Classes</h3>
+    <p>Once you have added a class you can add lessons and kids to the class. Adding all the kids is useful for checking names, and for seeing the maximum number of kids who can show up to the class for craft/worksheet preparation purposes. Having the most recently taught classes as well as upcoming classes can help to check what the kids should know, which is useful for warm up games, and what lessons they have coming up.</p>
+    <div class="imagePPair">
+      <img src="/images/add-kid..png" alt="add kid form">
+      <div class="textSplitter">
+        <p>Click the "Add Kids" button to start adding kids to the class.</p>
+        <p>The only required detail is the name, but you can provide as much detail as you like (you can edit this later by clicking on the kid in the list).</p>
+        <p>You can continue to add as many kids to the class as needed.</p>
+        <p>If a kid leaves the class you can remove them from the list with the "Remove" button next to their name</p>
+      </div>
+    </div>
+    <div class="imagePPair">
+      <div class="textSplitter">
+        <p>At the bottom of the class page is the "Add next lesson details" button for adding lessons to the class.</p>
+        <p>Using this button you can easily add lessons by subject and lesson number, and also select the time and day that the lesson will be taught (you can select from any of the session times you already provided when creating the class).</p>
+      </div>
+      <img src="/images/add-weekly-lesson..png" alt="add next lesson form">
+    </div>
+    <p>If anything about the class changes (they graduate to a new stage, or the times of their classes change) you can simply select the edit class details button to update their information. Finally if a class leaves, or is transferred to another teacher as a set class, you can remove the class from your list with the "Remove Class" button.</p>
+  </div>
+  <div class="aboutContent col-lg-8 col-md-10 col-sm-12 col-xs-12 col-lg-offset-2 col-md-offset-1" *ngIf="this.selectedTab=='addingLessons'">
+    <h3>Adding Missing Lessons And Editing Existing Lessons</h3>
+    <p>Many lessons have been added already to the class tracker, especially those in the lower stages, however the list is not complete. Any one who is logged into the app can add new lessons and edit the existing lessons. Before adding new lessons please check some older lesson details to see how they are layed out. You can also edit lessons, and add any new activity ideas or comments to the activities section in the details, please add all the ideas you have used successfully in your classes!!</p>
+    <div class="imagePPair">
+      <img src="/images/add-lesson..png" alt="add lesson form">
+      <div class="textSplitter">
+        <p>You can add any lesson that does not exist yet.</p>
+        <p>At first it is best to copy the basic details from the teaching guide, then you can add more ideas or comments as you go.</p>
+        <p>Try to add details in a way that makes them easy to read.</p>
+        <p>If you add any extra activities/ideas please make sure to note down the slide(s) that they apply to, and add any necessary materials to the supplies list.</p>
+        <p>If you want to you can also put your name next to the activities so everyone will know who to thank for them.</p>
+        <p>Editing a lesson follows the same process as adding a lesson, however not all details are editable, so if the lesson has been added with a lesson title and lesson number that don't match, or added to the wrong subject the lesson will need to be deleted and readded</p>
+      </div>
+    </div>
+  </div>
+  <div class="aboutContent col-lg-8 col-md-10 col-sm-12 col-xs-12 col-lg-offset-2 col-md-offset-1" *ngIf="this.selectedTab=='schedule'">
+    <h3>The Schedule</h3>
+    <img src="/images/scheduleview.png" alt="schedule">
+    <div class="imagePPair">
+      <div class="textSplitter">
+        <p>This schedule will show all the lessons you have added to your classes, for this week, last week, and (if you receive your schedule in time) next week.</p>
+        <p>You can click on these lessons to go directly to the class the lesson is with and check details of kids and keywords etc. Lessons that you have added to your set classes will automatically be added to your schedule.</p>
+        <p>When you have added all the lessons to your schedule for this week you can download a .xlsx excel spreadsheet to edit as you like that includes many of the class details.
+      </div>
+      <div class="textSplitter">
+        <p>If you have a demo or a class that is not in your set class list, you can also add these with the "Add Irregular Lesson" button.</p>
+        <p>You will need to add details of the class, including the class code, lesson, and the lesson time and length.</p>
+        <p>If you click an irregular lesson you will be taken to the lesson page where details of all added lessons are held so that you can find and check the details.</p>
+      </div>
+    </div>
+  </div>
+</div>

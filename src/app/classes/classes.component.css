@@ -1,0 +1,20 @@
+.classList {
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+li {
+  text-align: center;
+}
+
+.first {
+  display: block;
+}
+
+ul {
+  margin: 2px;
+}
+
+button {
+  width: 100%;
+}

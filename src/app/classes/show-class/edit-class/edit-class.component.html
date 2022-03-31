@@ -1,0 +1,327 @@
+<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-3 col-md-offset-3  bottom-of-page" *ngIf="(this.authService.isAuthenticated$ | async) && !this.editing">
+    <h3>Edit Class {{classCodeRoute}}</h3>
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()" *ngIf="classDetails">
+        <div class="form-group formInput" [ngClass]="{'has-error':!myForm.controls['classCode'].valid && myForm.controls['classCode'].touched}">
+            <label for="classCode">Class code</label>
+            <input type="text" class="form-control" id="classCode" formControlName="classCode" #classCode [ngModel]="classCodeRoute" required>
+            <span *ngIf="!myForm.controls['classCode'].valid && !myForm.controls['classCode'].pristine" class="errorMessage">Enter a class code (please don't include the "/" or class room, but include the center code)</span>
+        </div>
+        <div class="form-group">
+            <label for="curriculum">Curriculum</label>
+            <select class="form-control" id="curriculum" formControlName="curriculum" #curriculum (click)="checkCurriculum()" required>
+        <option value="">Select curriculum</option>
+        <!-- <option value="G0">G0</option>
+        <option value="G">G</option>
+        <option value="K">K</option> -->
+        <option value="G035">G0 - 3.5</option>
+        <option value="GK35">GK - 3.5</option>
+        <option value="K35">K - 3.5</option>
+        <!-- <option value="SS">Super Start</option> -->
+        <option value="128">128</option>
+      </select>
+        </div>
+        <div class="form-group" id="stage">
+            <label for="stage">Stage</label>
+            <select class="form-control" formControlName="stage" #stage>
+        <option value="">Select stage</option>
+
+        <!--
+        Stages for new curriculum?
+        -->
+
+        <option *ngIf="this.curriculumIsG || this.curriculumIsK" value="1">1A</option>
+        <option *ngIf="this.curriculumIsG || this.curriculumIsK" value="2">1B</option>
+        <option *ngIf="this.curriculumIsG || this.curriculumIsK" value="3">2A</option>
+        <option *ngIf="this.curriculumIsG || this.curriculumIsK" value="4">2B</option>
+        <option *ngIf="this.curriculumIsG || this.curriculumIsK" value="5">3A</option>
+        <option *ngIf="this.curriculumIsG || this.curriculumIsK" value="6">3B</option>
+        <!--
+        <option *ngIf="this.curriculumIsG" value="7">4A</option>
+        <option *ngIf="this.curriculumIsG" value="8">4B</option>
+        <option *ngIf="this.curriculumIsG" value="9">5A</option>
+        <option *ngIf="this.curriculumIsG" value="10">5B</option>
+        -->
+
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="1">1</option>
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="2">2</option>
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="3">3</option>
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="31">S-E1 stage 4</option>
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="4">4</option>
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="5">5</option>
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="6">6</option>
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="7">7</option>
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="8">8</option>
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="9">9</option>
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="10">10</option>
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="0">Oral Test</option>
+
+        <option *ngIf="this.is35 && this.myForm.value.curriculum=='K35'" value="1">K-1</option>
+        <option *ngIf="this.is35 && this.myForm.value.curriculum=='K35'" value="2">K-2</option>
+        <option *ngIf="this.is35 && this.myForm.value.curriculum=='K35'" value="3">K-3</option>
+        <option *ngIf="this.is35 && this.myForm.value.curriculum=='K35'" value="4">K-4</option>
+
+        <option *ngIf="this.is35 && this.myForm.value.curriculum=='GK35'" value="1">GK-1</option>
+        <option *ngIf="this.is35 && this.myForm.value.curriculum=='GK35'" value="2">GK-2</option>
+        <option *ngIf="this.is35 && this.myForm.value.curriculum=='GK35'" value="3">GK-3</option>
+        <option *ngIf="this.is35 && this.myForm.value.curriculum=='GK35'" value="4">GK-4</option>
+
+        <option *ngIf="this.is35 && this.myForm.value.curriculum=='G035'" value="1">G0-1</option>
+        <option *ngIf="this.is35 && this.myForm.value.curriculum=='G035'" value="2">G0-2</option>
+        <option *ngIf="this.is35 && this.myForm.value.curriculum=='G035'" value="3">G0-3</option>
+        <option *ngIf="this.is35 && this.myForm.value.curriculum=='G035'" value="4">G0-4</option>
+      </select>
+        </div>
+        <div class="form-group" id="level">
+            <label for="level">Level</label>
+            <select class="form-control" formControlName="level" #level>
+        <option value="">Select level</option>
+        <option *ngIf="this.curriculumIsSS" value="SS1">SS1</option>
+        <option *ngIf="this.curriculumIsSS" value="SS2">SS2</option>
+        <option *ngIf="this.curriculumIsSS" value="SS3">SS3</option>
+        <option *ngIf="this.curriculumIsSS" value="SS4">SS4</option>
+      </select>
+        </div>
+
+        <!-- class has 4 sessions need - day hour minute and length of each -->
+        <label for="times2" *ngIf="!this.curriculumIsG && !this.curriculumIsG0 && !this.curriculumIsK">First Session First Class Time</label>
+        <label for="times2" *ngIf="this.curriculumIsG || this.curriculumIsG0 || this.curriculumIsK">First Class Time</label>
+        <div class="form-group formInput
+      col-lg-3 col-md-3 col-sm-3 col-xs-3" id="day1">
+            <label for="day1">Day</label>
+            <select class="form-control" formControlName="day1" #day1 required>
+        <option value="">Select Day</option>
+        <option value=1>Mon</option>
+        <option value=2>Tue</option>
+        <option value=3>Wed</option>
+        <option value=4>Thu</option>
+        <option value=5>Fri</option>
+        <option value=6>Sat</option>
+        <option value=0>Sun</option>
+      </select>
+        </div>
+        <div class="form-group formInput
+      col-lg-3 col-md-3 col-sm-3 col-xs-3" id="hour11">
+            <label for="hour11">Time</label>
+            <select class="form-control" formControlName="hour11" #hour11 required>
+        <option value="">Select Hour</option>
+        <option value=8>08</option>
+        <option value=9>09</option>
+        <option value=10>10</option>
+        <option value=11>11</option>
+        <option value=12>12</option>
+        <option value=13>13</option>
+        <option value=14>14</option>
+        <option value=15>15</option>
+        <option value=16>16</option>
+        <option value=17>17</option>
+        <option value=18>18</option>
+        <option value=19>19</option>
+        <option value=20>20</option>
+      </select>
+        </div>
+        <div class="form-group formInput
+      col-lg-3 col-md-3 col-sm-3 col-xs-3" id="minute11">
+            <select class="form-control minutes" formControlName="minute11" #minute11 required>
+        <option value="">Select Minute</option>
+        <option value=0>00</option>
+        <option value=5>05</option>
+        <option value=10>10</option>
+        <option value=15>15</option>
+        <option value=20>20</option>
+        <option value=25>25</option>
+        <option value=30>30</option>
+        <option value=35>35</option>
+        <option value=40>40</option>
+        <option value=45>45</option>
+        <option value=50>50</option>
+        <option value=55>55</option>
+      </select>
+        </div>
+        <div class="form-group formInput
+      col-lg-3 col-md-3 col-sm-3 col-xs-3" id="length1">
+            <label for="length1">Length</label>
+            <select class="form-control" formControlName="length1" #length1 required>
+        <option value="">Select Length</option>
+        <option value=35>35</option>
+        <option value=40>40</option>
+        <option value=45>45</option>
+        <option value=50>50</option>
+      </select>
+        </div>
+
+        <label for="times2" *ngIf="!this.curriculumIsG && !this.curriculumIsG0 && !this.curriculumIsK && !this.is35">First Session Second Class Time</label>
+        <label for="times2" *ngIf="this.curriculumIsG || this.curriculumIsG0 || this.curriculumIsK || this.is35">Second Class Time</label>
+        <div class="form-group formInput
+      col-lg-3 col-md-3 col-sm-3 col-xs-3 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3" id="hour12">
+            <label for="hour12">Time</label>
+            <select class="form-control" formControlName="hour12" #hour12 required>
+        <option value="">Select Hour</option>
+        <option value=8>08</option>
+        <option value=9>09</option>
+        <option value=10>10</option>
+        <option value=11>11</option>
+        <option value=12>12</option>
+        <option value=13>13</option>
+        <option value=14>14</option>
+        <option value=15>15</option>
+        <option value=16>16</option>
+        <option value=17>17</option>
+        <option value=18>18</option>
+        <option value=19>19</option>
+        <option value=20>20</option>
+      </select>
+        </div>
+        <div class="form-group formInput
+      col-lg-3 col-md-3 col-sm-3 col-xs-3" id="minute12">
+            <select class="form-control minutes" formControlName="minute12" #minute12 required>
+        <option value="">Select Minute</option>
+        <option value=0>00</option>
+        <option value=5>05</option>
+        <option value=10>10</option>
+        <option value=15>15</option>
+        <option value=20>20</option>
+        <option value=25>25</option>
+        <option value=30>30</option>
+        <option value=35>35</option>
+        <option value=40>40</option>
+        <option value=45>45</option>
+        <option value=50>50</option>
+        <option value=55>55</option>
+      </select>
+        </div>
+
+        <div *ngIf="this.curriculumIsG" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div (click)="checkSessions(true)" *ngIf="!this.hasThreeSessions">
+                <div class="arrow-container">
+                    <span class="line1"></span>
+                    <span class="line2"></span>
+                </div>
+                <p class="buffer-left">Has 3 sessions?</p>
+            </div>
+            <div (click)="checkSessions(false)" *ngIf="this.hasThreeSessions">
+                <div class="arrow-container">
+                    <span class="line3"></span>
+                    <span class="line4"></span>
+                </div>
+                <p class="buffer-left">Has 3 sessions?</p>
+            </div>
+        </div>
+
+        <label for="times3" *ngIf="!this.curriculumIsG && !this.curriculumIsK && !this.curriculumIsG0 && !this.is35">Second Session First Class Time</label>
+        <label for="times3" *ngIf="this.curriculumIsG && this.hasThreeSessions">Third Class Time</label>
+        <div class="form-group formInput
+      col-lg-3 col-md-3 col-sm-3 col-xs-3" id="times2">
+            <label for="day2">Day</label>
+            <select class="form-control" formControlName="day2" #day2>
+        <option value="">Select Day</option>
+        <option value=1>Mon</option>
+        <option value=2>Tue</option>
+        <option value=3>Wed</option>
+        <option value=4>Thu</option>
+        <option value=5>Fri</option>
+        <option value=6>Sat</option>
+        <option value=0>Sun</option>
+      </select>
+        </div>
+        <div [ngStyle]="this.setOffsetStyles()" class="form-group formInput
+      col-lg-3 col-md-3 col-sm-3 col-xs-3" id="hour21">
+            <label for="hour21">Time</label>
+            <select class="form-control" formControlName="hour21" #hour21>
+        <option value="">Select Hour</option>
+        <option value=8>08</option>
+        <option value=9>09</option>
+        <option value=10>10</option>
+        <option value=11>11</option>
+        <option value=12>12</option>
+        <option value=13>13</option>
+        <option value=14>14</option>
+        <option value=15>15</option>
+        <option value=16>16</option>
+        <option value=17>17</option>
+        <option value=18>18</option>
+        <option value=19>19</option>
+        <option value=20>20</option>
+      </select>
+        </div>
+        <div class="form-group formInput
+      col-lg-3 col-md-3 col-sm-3 col-xs-3" id="minute21">
+            <select class="form-control minutes" formControlName="minute21" #minute21>
+        <option value="">Select Minute</option>
+        <option value=0>00</option>
+        <option value=5>05</option>
+        <option value=10>10</option>
+        <option value=15>15</option>
+        <option value=20>20</option>
+        <option value=25>25</option>
+        <option value=30>30</option>
+        <option value=35>35</option>
+        <option value=40>40</option>
+        <option value=45>45</option>
+        <option value=50>50</option>
+        <option value=55>55</option>
+      </select>
+        </div>
+
+        <label for="times4" *ngIf="!this.curriculumIsG && !this.curriculumIsK && !this.curriculumIsG0 && !this.is35">Second Session Second Class Time</label>
+        <div class="form-group formInput
+      col-lg-3 col-md-3 col-sm-3 col-xs-3 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3" id="hour22">
+            <label for="hour22">Time</label>
+            <select class="form-control" formControlName="hour22" #hour22>
+        <option value="">Select Hour</option>
+        <option value=8>08</option>
+        <option value=9>09</option>
+        <option value=10>10</option>
+        <option value=11>11</option>
+        <option value=12>12</option>
+        <option value=13>13</option>
+        <option value=14>14</option>
+        <option value=15>15</option>
+        <option value=16>16</option>
+        <option value=17>17</option>
+        <option value=18>18</option>
+        <option value=19>19</option>
+        <option value=20>20</option>
+      </select>
+        </div>
+        <div class="form-group formInput
+      col-lg-3 col-md-3 col-sm-3 col-xs-3" id="minute22">
+            <select class="form-control minutes" formControlName="minute22" #minute22>
+        <option value="">Select Minute</option>
+        <option value=0>00</option>
+        <option value=5>05</option>
+        <option value=10>10</option>
+        <option value=15>15</option>
+        <option value=20>20</option>
+        <option value=25>25</option>
+        <option value=30>30</option>
+        <option value=35>35</option>
+        <option value=40>40</option>
+        <option value=45>45</option>
+        <option value=50>50</option>
+        <option value=55>55</option>
+      </select>
+        </div>
+
+        <div class="form-group formInput" id="ct">
+            <label for="ct">Chinese Teacher</label>
+            <input type="text" class="form-control" id="ct" formControlName="ct" #ct [ngModel]="classDetails.ct">
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="!myForm.valid">Edit</button>
+        <button type="cancel" class="btn btn-danger" routerLink="/classes/show-class/{{classCodeRoute}}">Cancel</button>
+    </form>
+</div>
+
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3" *ngIf="!(this.authService.isAuthenticated$ | async) && !this.editing">
+    <h3>Not Authenticated</h3>
+    <p>Please log in and try again</p>
+</div>
+
+
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3" *ngIf="this.editing">
+    <div class="loaderContainer">
+        <div class="loader">
+            <div id="largeBox"></div>
+            <div id="smallBox"></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+<lesson-header (loadChange)="this.loaded" *ngIf="(this.authService.isAuthenticated$ | async)"></lesson-header>
+
+<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-3 col-md-offset-3" *ngIf="(this.authService.isAuthenticated$ | async) && loaded && exists">
+    <h3 *ngIf="level && (curriculum != 'G' && curriculum != 'G0' && curriculum != 'K' && curriculum != 'K35' && curriculum != 'GK35')">{{curriculum}} Level {{level}}</h3>
+    <h3 *ngIf="stage && (curriculum != 'G' && curriculum != 'G0' && curriculum != 'K' && curriculum != 'K35' && curriculum != 'GK35')">{{curriculum}} Stage {{stageString}}</h3>
+    <h3 *ngIf="(curriculum == 'G' || curriculum == 'K')">{{curriculum}}{{newCurriculumStageString}}</h3>
+    <h3 *ngIf="(curriculum == 'GK35')">GK-{{stageString}}</h3>
+    <h3 *ngIf="(curriculum == 'K35')">K-{{stageString}}</h3>
+    <h3 *ngIf="(curriculum == 'G035')">G0-{{stageString}}</h3>
+    <h3 *ngIf="curriculum == 'G0'">G0</h3>
+    <h3 *ngIf="curriculum=='Demo'">Demo</h3>
+    <ul class="list-group" *ngIf="lesson">
+        <li class="list-group-item" *ngIf="curriculum!='G0' && curriculum!='G' && curriculum!='K'">
+            <h4 class="list-group-item-heading">Lesson</h4>
+            <p class="list-group-item-text">{{subject}} {{lessonNo}} - {{lesson.lessonTitle}}</p>
+        </li>
+        <li class="list-group-item" *ngIf="curriculum=='G0' || ((curriculum=='G' || curriculum=='K') && subject=='OpenClass')">
+            <h4 class="list-group-item-heading">Lesson</h4>
+            <p class="list-group-item-text">{{lesson.lessonTitle}}</p>
+        </li>
+        <li class="list-group-item" *ngIf="(curriculum=='G' || curriculum=='K') && subject!='OpenClass'">
+            <h4 class="list-group-item-heading">Lesson</h4>
+            <p class="list-group-item-text">Unit {{lesson.lessonNo}} {{subject}} - {{lesson.lessonTitle}}</p>
+        </li>
+        <li class="list-group-item">
+            <h4 class="list-group-item-heading">Key Words</h4>
+            <p class="list-group-item-text">{{lesson.keyWords}}</p>
+        </li>
+        <li class="list-group-item">
+            <h4 class="list-group-item-heading">Key Sentences</h4>
+            <p class="list-group-item-text">{{lesson.keySentences}}</p>
+        </li>
+        <li class="list-group-item">
+            <h4 class="list-group-item-heading">Objectives</h4>
+            <p class="list-group-item-text">{{lesson.objectives}}</p>
+        </li>
+        <li class="list-group-item">
+            <h4 class="list-group-item-heading">Supplies</h4>
+            <p class="list-group-item-text">{{lesson.supplies}}</p>
+        </li>
+        <li class="list-group-item">
+            <h4 class="list-group-item-heading">Activities</h4>
+            <p class="list-group-item-text">{{lesson.activities}}</p>
+        </li>
+    </ul>
+    <p>*These details are taken directly from the Teaching Guide, however some things may have been missed so please check the guide too.</p>
+</div>
+
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3" *ngIf="!loaded && (this.authService.isAuthenticated$ | async)">
+    <div class="loaderContainer">
+        <div class="loader">
+            <div id="largeBox"></div>
+            <div id="smallBox"></div>
+        </div>
+    </div>
+</div>
+
+<div class="noExist" *ngIf="(this.authService.isAuthenticated$ | async) && !exists && loaded">
+    <h3>This lesson has not been added yet, click below to add it now.</h3>
+    <button class="btn btn-primary" [routerLink]="['/lessons/add']">Add this lesson</button>
+</div>
+
+<div class="buttonList col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-3 col-md-offset-3 bottom-of-page" *ngIf="(this.authService.isAuthenticated$ | async) && exists">
+    <button class="btn btn-primary" [routerLink]="['edit']">Edit this lesson</button>
+    <button class="btn btn-primary" [routerLink]="['/lessons']">Back to lesson list</button>
+    <button type="delete" class="btn btn-danger" (click)="onDelete(this.lesson)">Delete This Lesson</button>
+</div>
+
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3" *ngIf="!(this.authService.isAuthenticated$ | async)">
+    <h3>Not Authenticated</h3>
+    <p>Please log in and try again</p>
+</div>
+
+<lessons-delete></lessons-delete>

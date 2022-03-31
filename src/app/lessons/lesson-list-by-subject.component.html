@@ -1,0 +1,33 @@
+<!-- different types of classes need either different links to reach them, or need to show a different title to make sense
+  so several options must be available -->
+
+
+<li *ngIf="lesson.level"
+  class="list-group-item btn btn-primary lesson lessonList"
+  routerLink="/lessons/show-lesson/{{lesson.curriculum}}/{{lesson.level}}/{{lesson.subject}}/{{lesson.lessonNo}}">
+  {{lesson.lessonNo}}: {{lesson.lessonTitle}}
+</li>
+
+<li *ngIf="lesson.stage && lesson.subject!='OralTest' && !(lesson.curriculum == 'G0' || lesson.curriculum == 'G' || lesson.curriculum == 'K')"
+  class="list-group-item btn btn-primary lesson lessonList"
+  routerLink="/lessons/show-lesson/{{lesson.curriculum}}/standardised/{{lesson.stage}}/{{lesson.subject}}/{{lesson.lessonNo}}">
+  {{lesson.lessonNo}}: {{lesson.lessonTitle}}
+</li>
+
+<li *ngIf="lesson.subject=='OralTest'"
+  class="list-group-item btn btn-primary lesson lessonList"
+  routerLink="/lessons/show-lesson/{{lesson.curriculum}}/standardised/0/{{lesson.subject}}/1">
+  {{lesson.subject}}
+</li>
+
+<li *ngIf="lesson.curriculum=='Demo'"
+  class="list-group-item btn btn-primary lesson lessonList"
+  routerLink="/lessons/show-lesson/{{lesson.curriculum}}/standardised/0/{{lesson.subject}}/{{lesson.lessonNo}}">
+  {{lesson.lessonNo}}: {{lesson.lessonTitle}}
+</li>
+
+<li *ngIf="lesson.curriculum == 'G0' || lesson.curriculum == 'G' || lesson.curriculum == 'K'"
+  class="list-group-item btn btn-primary lesson lessonList"
+  routerLink="/lessons/show-lesson/{{lesson.curriculum}}/standardised/{{lesson.stage}}/{{lesson.subject}}/{{lesson.lessonNo}}">
+  {{lesson.lessonTitle}}
+</li>

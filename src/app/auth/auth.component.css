@@ -1,0 +1,38 @@
+.authComponentsContainer {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0px;
+}
+
+header {
+  width: 100%;
+  padding-top: 12%;
+}
+
+div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+ul li {
+  width: 32%;
+  float: left;
+  text-align: center;
+}
+
+li .notShown {
+  width: 0;
+  margin: 0;
+  padding: 0;
+}
+
+li .shown {
+  width: auto;
+}

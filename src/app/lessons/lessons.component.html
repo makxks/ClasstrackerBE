@@ -1,0 +1,747 @@
+<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-3 col-md-offset-3 subjectList" *ngIf="(this.authService.isAuthenticated$ | async) && this.allLessons" (window:resize)="onResize($event)">
+
+    <button class="btn btn-primary lesson-button" [routerLink]="['add']">Add lesson</button>
+    <!--
+    form
+    curriculum <- also includes "demo" that will show the demo list when selected
+    stage <- only show for appropriate curriculums
+    level <- only show for appropriate curriculums
+    subject <- subjects according to curriculum
+  -->
+    <form class="form-horizontal" [formGroup]="myForm">
+        <div class="form-group">
+            <select class="form-control" id="curriculum" formControlName="curriculum" #curriculum (click)="checkCurriculum(); resetSubsequentSettings(2)" [(ngModel)]="curriculumModel" required>
+        <option value="">Select curriculum</option>
+        <option value="G0">G0</option>
+        <option value="G">G</option>
+        <option value="K">K</option>
+        <option value="G035">G0 - 3.5</option>
+        <option value="GK35">GK - 3.5</option>
+        <option value="K35">K - 3.5</option>
+        <option value="SS">Super Start</option>
+        <option value="128">128</option>
+        <option value="Demo">Demo</option>
+      </select>
+        </div>
+        <div class="form-group" id="stage">
+            <select class="form-control" formControlName="stage" #stage [(ngModel)]="stageModel" (click)="checkSubjects(); resetSubsequentSettings(1); resetLevel()">
+        <option value="">Select stage</option>
+
+        <!--
+        Stages for new curriculum?
+        -->
+
+        <option *ngIf="this.curriculumIsG || this.curriculumIsK" value="1">1A</option>
+        <option *ngIf="this.curriculumIsG || this.curriculumIsK" value="2">1B</option>
+        <option *ngIf="this.curriculumIsG || this.curriculumIsK" value="3">2A</option>
+        <option *ngIf="this.curriculumIsG || this.curriculumIsK" value="4">2B</option>
+        <option *ngIf="this.curriculumIsG || this.curriculumIsK" value="5">3A</option>
+        <option *ngIf="this.curriculumIsG || this.curriculumIsK" value="6">3B</option>
+        <!--
+        <option *ngIf="this.curriculumIsG" value="7">4A</option>
+        <option *ngIf="this.curriculumIsG" value="8">4B</option>
+        <option *ngIf="this.curriculumIsG" value="9">5A</option>
+        <option *ngIf="this.curriculumIsG" value="10">5B</option>
+        -->
+
+        <option *ngIf="(!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK) || this.is35" value="1">1</option>
+        <option *ngIf="(!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK) || this.is35" value="2">2</option>
+        <option *ngIf="(!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK) || this.is35" value="3">3</option>
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="31">S-E1 stage 4</option>
+        <option *ngIf="(!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK) || this.is35" value="4">4</option>
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="5">5</option>
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="6">6</option>
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="7">7</option>
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="8">8</option>
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="9">9</option>
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="10">10</option>
+        <option *ngIf="!this.curriculumIsG0 && !this.curriculumIsG && !this.curriculumIsK && !this.is35" value="0">Oral Test</option>
+      </select>
+        </div>
+        <div class="form-group" id="level">
+            <select class="form-control" formControlName="level" #level [(ngModel)]="levelModel" (click)="checkSubjects(); resetStage(); resetSubsequentSettings(1)">
+        <option value="">Select level</option>
+        <option *ngIf="this.curriculumIsSS" value="SS1">SS1</option>
+        <option *ngIf="this.curriculumIsSS" value="SS2">SS2</option>
+        <option *ngIf="this.curriculumIsSS" value="SS3">SS3</option>
+        <option *ngIf="this.curriculumIsSS" value="SS4">SS4</option>
+      </select>
+        </div>
+
+
+        <div class="form-group" id="subject">
+            <select class="form-control" id="subjectSelect" formControlName="subject" [(ngModel)]="subjectModel" #subject (click)="newSelectSubjectList()">
+        <option value="">Select Subject</option>
+
+        <option *ngFor="let subject of this.subjectList" value="{{subject.value}}">{{subject.title}}</option>
+
+      </select>
+        </div>
+
+    </form>
+
+
+</div>
+
+<!--
+<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 subjectList"
+  *ngIf="(this.authService.isAuthenticated() | async) && this.authService.emailVerified && this.allLessons"
+  (window:resize)="onResize($event)">
+  <button class="btn btn-primary lesson-button" [routerLink]="['add']">Add lesson</button>
+  <h3 class="list-group-item btn btn-primary hoverToShow" routerLinkActive="active" [routerLink]="['curriculums']">Curriculums</h3>
+  <h3>Demos</h3>
+  <ul class="list-group first">
+    <li class="list-group-item btn btn-primary hoverToShow"
+    (click)="selectSubjectList(demos, 'Demos', 'All')">Demos</li>
+  </ul>
+  <h3>K Curriculum</h3>
+  <ul class="list-group first">
+    <li class="list-group-item btn btn-primary hoverToShow"
+    [ngClass]="{'clicked': clicked=='k1A'}"
+    (click)="this.clicked='k1A'"
+    [ngStyle]="{'left': (clicked=='' || clicked=='k1A' || this.windowWidth < 991) ? '0' : '-20%' }">K1A
+      <ul class="levelSubjectList"
+      [ngStyle]="{'float': (this.windowWidth < 991) ? 'none': 'both' }">
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='k1AICanExplore'}"
+        (click)="selectSubjectList(k1AICanExplore, 'K1A', 'I Can Explore', 'k1AICanExplore')">I Can Explore</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='k1AOpenClass'}"
+        (click)="selectSubjectList(k1AOpenClass, 'K1A', 'Open Class', 'k1AOpenClass')">Open Class</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='k1AShowtime'}"
+        (click)="selectSubjectList(k1AShowtime, 'K1A', 'Showtime', 'k1AShowtime')">Showtime</li>
+      </ul>
+    </li>
+    <li class="list-group-item btn btn-primary hoverToShow"
+    [ngClass]="{'clicked': clicked=='k1B'}"
+    (click)="this.clicked='k1B'"
+    [ngStyle]="{'left': (clicked=='' || clicked=='k1B' || this.windowWidth < 991) ? '0' : '-20%' }">K1B
+      <ul class="levelSubjectList"
+      [ngStyle]="{'float': (this.windowWidth < 991) ? 'none': 'both' }">
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='k1BICanExplore'}"
+        (click)="selectSubjectList(k1BICanExplore, 'K1B', 'I Can Explore', 'k1BICanExplore')">I Can Explore</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='k1BOpenClass'}"
+        (click)="selectSubjectList(k1BOpenClass, 'K1B', 'Open Class', 'k1BOpenClass')">Open Class</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='k1BShowtime'}"
+        (click)="selectSubjectList(k1BShowtime, 'K1B', 'Showtime', 'k1BShowtime')">Showtime</li>
+      </ul>
+    </li>
+    <li class="list-group-item btn btn-primary hoverToShow"
+    [ngClass]="{'clicked': clicked=='k2A'}"
+    (click)="this.clicked='k2A'"
+    [ngStyle]="{'left': (clicked=='' || clicked=='k2A' || this.windowWidth < 991) ? '0' : '-20%' }">K2A
+      <ul class="levelSubjectList"
+      [ngStyle]="{'float': (this.windowWidth < 991) ? 'none': 'both' }">
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='k2AICanExplore'}"
+        (click)="selectSubjectList(k2AICanExplore, 'K2A', 'I Can Explore', 'k2AICanExplore')">I Can Explore</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='k2AOpenClass'}"
+        (click)="selectSubjectList(k2AOpenClass, 'K2A', 'Open Class', 'k2AOpenClass')">Open Class</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='k2AShowtime'}"
+        (click)="selectSubjectList(k2AShowtime, 'K2A', 'Showtime', 'k2AShowtime')">Showtime</li>
+      </ul>
+    </li>
+    <li class="list-group-item btn btn-primary hoverToShow"
+    [ngClass]="{'clicked': clicked=='k2B'}"
+    (click)="this.clicked='k2B'"
+    [ngStyle]="{'left': (clicked=='' || clicked=='k2B' || this.windowWidth < 991) ? '0' : '-20%' }">K2B
+      <ul class="levelSubjectList"
+      [ngStyle]="{'float': (this.windowWidth < 991) ? 'none': 'both' }">
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='k2BICanExplore'}"
+        (click)="selectSubjectList(k2BICanExplore, 'K2B', 'I Can Explore', 'k2BICanExplore')">I Can Explore</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='k2BOpenClass'}"
+        (click)="selectSubjectList(k2BOpenClass, 'K2B', 'Open Class', 'k2BOpenClass')">Open Class</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='k2BShowtime'}"
+        (click)="selectSubjectList(k2BShowtime, 'K2B', 'Showtime', 'k2BShowtime')">Showtime</li>
+      </ul>
+    </li>
+    <li class="list-group-item btn btn-primary hoverToShow"
+    [ngClass]="{'clicked': clicked=='k3A'}"
+    (click)="this.clicked='k3A'"
+    [ngStyle]="{'left': (clicked=='' || clicked=='k3A' || this.windowWidth < 991) ? '0' : '-20%' }">K3A
+      <ul class="levelSubjectList"
+      [ngStyle]="{'float': (this.windowWidth < 991) ? 'none': 'both' }">
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='k3AICanExplore'}"
+        (click)="selectSubjectList(k3AICanExplore, 'K3A', 'I Can Explore', 'k3AICanExplore')">I Can Explore</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='k3AOpenClass'}"
+        (click)="selectSubjectList(k3AOpenClass, 'K3A', 'Open Class', 'k3AOpenClass')">Open Class</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='k3AShowtime'}"
+        (click)="selectSubjectList(k3AShowtime, 'K3A', 'Showtime', 'k3AShowtime')">Showtime</li>
+      </ul>
+    </li>
+    <li class="list-group-item btn btn-primary hoverToShow"
+    [ngClass]="{'clicked': clicked=='k3B'}"
+    (click)="this.clicked='k3B'"
+    [ngStyle]="{'left': (clicked=='' || clicked=='k3B' || this.windowWidth < 991) ? '0' : '-20%' }">K3B
+      <ul class="levelSubjectList"
+      [ngStyle]="{'float': (this.windowWidth < 991) ? 'none': 'both' }">
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='k3BICanExplore'}"
+        (click)="selectSubjectList(k3BICanExplore, 'K3B', 'I Can Explore', 'k3BICanExplore')">I Can Explore</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='k3BOpenClass'}"
+        (click)="selectSubjectList(k3BOpenClass, 'K3B', 'Open Class', 'k3BOpenClass')">Open Class</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='k3BShowtime'}"
+        (click)="selectSubjectList(k3BShowtime, 'K3B', 'Showtime', 'k3BShowtime')">Showtime</li>
+      </ul>
+    </li>
+  </ul>
+  <h3>G0 Curriculum</h3>
+  <ul class="list-group first">
+    <li class="list-group-item btn btn-primary hoverToShow"
+    [ngClass]="{'clicked': clicked=='g0'}"
+    (click)="this.clicked='g0'"
+    [ngStyle]="{'left': (clicked=='' || clicked=='g0' || this.windowWidth < 991) ? '0' : '-20%' }">G0
+      <ul class="levelSubjectList"
+      [ngStyle]="{'float': (this.windowWidth < 991) ? 'none': 'both' }">
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='g0CLIL'}"
+        (click)="selectSubjectList(g0CLIL, 'G0', 'CLIL', 'g0CLIL')">CLIL</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='g0OpenClass'}"
+        (click)="selectSubjectList(g0OpenClass, 'G0', 'Open Class', 'g0OpenClass')">Open Class</li>
+      </ul>
+    </li>
+  </ul>
+  <h3>G Curriculum</h3>
+  <ul class="list-group first">
+    <li class="list-group-item btn btn-primary hoverToShow"
+    [ngClass]="{'clicked': clicked=='g1A'}"
+    (click)="this.clicked='g1A'"
+    [ngStyle]="{'left': (clicked=='' || clicked=='g1A' || this.windowWidth < 991) ? '0' : '-20%' }">G1A
+      <ul class="levelSubjectList"
+      [ngStyle]="{'float': (this.windowWidth < 991) ? 'none': 'both' }">
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='g1ACLIL'}"
+        (click)="selectSubjectList(g1ACLIL, 'G1A', 'CLIL', 'g1ACLIL')">CLIL</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='g1AMidterm'}"
+        (click)="selectSubjectList(g1AMidterm, 'G1A', 'Midterm', 'g1AMidterm')">Midterm</li>
+
+                <!-- not in current curriculum -->
+<!-- <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='g1APhonics'}"
+        (click)="selectSubjectList(g1APhonics, 'G1A', 'Phonics', 'g1APhonics')">Phonics</li> -->
+
+<!--
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='g1ASpeakingTest'}"
+        (click)="selectSubjectList(g1ASpeakingTest, 'G1A', 'Speaking Test', 'g1ASpeakingTest')">Speaking Test</li>
+      </ul>
+    </li>
+    <li class="list-group-item btn btn-primary hoverToShow"
+    [ngClass]="{'clicked': clicked=='g1B'}"
+    (click)="this.clicked='g1B'"
+    [ngStyle]="{'left': (clicked=='' || clicked=='g1B' || this.windowWidth < 991) ? '0' : '-20%' }">G1B
+      <ul class="levelSubjectList"
+      [ngStyle]="{'float': (this.windowWidth < 991) ? 'none': 'both' }">
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='g1BCLIL'}"
+        (click)="selectSubjectList(g1BCLIL, 'G1B', 'CLIL', 'g1BCLIL')">CLIL</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='g1BCLILMidterm'}"
+        (click)="selectSubjectList(g1BMidterm, 'G1B', 'Midterm', 'g1BMidterm')">Midterm</li>
+
+                <!-- not in current curriculum -->
+<!-- <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='g1BPhonics'}"
+        (click)="selectSubjectList(g1BPhonics, 'G1B', 'Phonics', 'g1BPhonics')">Phonics</li> -->
+<!--
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='g1BSpeakingTest'}"
+        (click)="selectSubjectList(g1BSpeakingTest, 'G1B', 'Speaking Test', 'g1BSpeakingTest')">Speaking Test</li>
+      </ul>
+    </li>
+    <li class="list-group-item btn btn-primary hoverToShow"
+    [ngClass]="{'clicked': clicked=='g2A'}"
+    (click)="this.clicked='g2A'"
+    [ngStyle]="{'left': (clicked=='' || clicked=='g2A' || this.windowWidth < 991) ? '0' : '-20%' }">G2A
+      <ul class="levelSubjectList"
+      [ngStyle]="{'float': (this.windowWidth < 991) ? 'none': 'both' }">
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='g2ACLIL'}"
+        (click)="selectSubjectList(g2ACLIL, 'G2A', 'CLIL', 'g2ACLIL')">CLIL</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='g2ALanguageFocus'}"
+        (click)="selectSubjectList(g2ALanguageFocus, 'G2A', 'Language Focus', 'g2ALanguageFocus')">Language Focus</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='g2ACLILMidterm'}"
+        (click)="selectSubjectList(g2AMidterm, 'G2A', 'Midterm', 'g2AMidterm')">Midterm</li>
+
+                <!-- not in current curriculum -->
+<!-- <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='g2APhonics'}"
+        (click)="selectSubjectList(g2APhonics, 'G2A', 'Phonics', 'g2APhonics')">Phonics</li> -->
+<!--
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='g2ASpeakingTest'}"
+        (click)="selectSubjectList(g2ASpeakingTest, 'G2A', 'Speaking Test', 'g2ASpeakingTest')">Speaking Test</li>
+      </ul>
+    </li>
+    <li class="list-group-item btn btn-primary hoverToShow"
+    [ngClass]="{'clicked': clicked=='g2B'}"
+    (click)="this.clicked='g2B'"
+    [ngStyle]="{'left': (clicked=='' || clicked=='g2B' || this.windowWidth < 991) ? '0' : '-20%' }">G2B
+      <ul class="levelSubjectList"
+      [ngStyle]="{'float': (this.windowWidth < 991) ? 'none': 'both' }">
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='g2BCLIL'}"
+        (click)="selectSubjectList(g2BCLIL, 'G2B', 'CLIL', 'g2BCLIL')">CLIL</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='g2BLanguageFocus'}"
+        (click)="selectSubjectList(g2BLanguageFocus, 'G2B', 'Language Focus', 'g2BLanguageFocus')">Language Focus</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='g2BCLILMidterm'}"
+        (click)="selectSubjectList(g2BMidterm, 'G2B', 'Midterm', 'g2BMidterm')">Midterm</li>
+
+                <!-- not in current curriculum -->
+<!-- <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='g2BPhonics'}"
+        (click)="selectSubjectList(g2BPhonics, 'G2B', 'Phonics', 'g2BPhonics')">Phonics</li> -->
+<!--
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='g2BSpeakingTest'}"
+        (click)="selectSubjectList(g2BSpeakingTest, 'G2B', 'Speaking Test', 'g2BSpeakingTest')">Speaking Test</li>
+      </ul>
+    </li>
+  </ul>
+  <h3>Super Start</h3>
+  <ul class="list-group first">
+    <li class="list-group-item btn btn-primary hoverToShow"
+    [ngClass]="{'clicked': clicked=='SS1'}"
+    (click)="this.clicked='SS1'"
+    [ngStyle]="{'left': (clicked=='' || clicked=='SS1' || this.windowWidth < 991) ? '0' : '-20%' }">Super Start 1
+      <ul class="levelSubjectList"
+      [ngStyle]="{'float': (this.windowWidth < 991) ? 'none': 'both' }">
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='SS1LS'}"
+        (click)="selectSubjectList(SS1LS, 'Super Start 1', 'Life Skills', 'SS1LS')">Life Skills</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='SS1M'}"
+        (click)="selectSubjectList(SS1M, 'Super Start 1', 'Maths', 'SS1M')">Maths</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='SS1S'}"
+        (click)="selectSubjectList(SS1S, 'Super Start 1', 'Science', 'SS1S')">Science</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='SS1ST'}"
+        (click)="selectSubjectList(SS1ST, 'Super Start 1', 'Speaking Test', 'SS1ST')">Speaking Test</li>
+      </ul>
+    </li>
+    <li class="list-group-item btn btn-primary hoverToShow"
+    [ngClass]="{'clicked': clicked=='SS2'}"
+    (click)="this.clicked='SS2'"
+    [ngStyle]="{'left': (clicked=='' || clicked=='SS2' || this.windowWidth < 991) ? '0' : '-20%' }">Super Start 2
+      <ul class="levelSubjectList"
+      [ngStyle]="{'float': (this.windowWidth < 991) ? 'none': 'both' }">
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='SS2LS'}"
+        (click)="selectSubjectList(SS2LS, 'Super Start 2', 'Life Skills', 'SS2LS')">Life Skills</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='SS2M'}"
+        (click)="selectSubjectList(SS2M, 'Super Start 2', 'Maths', 'SS2M')">Maths</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='SS2S'}"
+        (click)="selectSubjectList(SS2S, 'Super Start 2', 'Science', 'SS2S')">Science</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='SS2ST'}"
+        (click)="selectSubjectList(SS2ST, 'Super Start 2', 'Speaking Test', 'SS2ST')">Speaking Test</li>
+      </ul>
+    </li>
+    <li class="list-group-item btn btn-primary hoverToShow"
+    [ngClass]="{'clicked': clicked=='SS3'}"
+    (click)="this.clicked='SS3'"
+    [ngStyle]="{'left': (clicked=='' || clicked=='SS3' || this.windowWidth < 991) ? '0' : '-20%' }">Super Start 3
+      <ul class="levelSubjectList"
+      [ngStyle]="{'float': (this.windowWidth < 991) ? 'none': 'both' }">
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='SS3LS'}"
+        (click)="selectSubjectList(SS3LS, 'Super Start 3', 'Life Skills', 'SS3LS')">Life Skills</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='SS3M'}"
+        (click)="selectSubjectList(SS3M, 'Super Start 3', 'Maths', 'SS3M')">Maths</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='SS3S'}"
+        (click)="selectSubjectList(SS3S, 'Super Start 3', 'Science', 'SS3S')">Science</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='SS3ST'}"
+        (click)="selectSubjectList(SS3ST, 'Super Start 3', 'Speaking Test', 'SS3ST')">Speaking Test</li>
+      </ul>
+    </li>
+    <li class="list-group-item btn btn-primary hoverToShow"
+    [ngClass]="{'clicked': clicked=='SS4'}"
+    (click)="this.clicked='SS4'"
+    [ngStyle]="{'left': (clicked=='' || clicked=='SS4' || this.windowWidth < 991) ? '0' : '-20%' }">Super Start 4
+      <ul class="levelSubjectList"
+      [ngStyle]="{'float': (this.windowWidth < 991) ? 'none': 'both' }">
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='SS4LS'}"
+        (click)="selectSubjectList(SS4LS, 'Super Start 4', 'Life Skills', 'SS4LS')">Life Skills</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='SS4M'}"
+        (click)="selectSubjectList(SS4M, 'Super Start 4', 'Maths', 'SS4M')">Maths</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='SS4S'}"
+        (click)="selectSubjectList(SS4S, 'Super Start 4', 'Science', 'SS4S')">Science</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='SS4ST'}"
+        (click)="selectSubjectList(SS4ST, 'Super Start 4', 'Speaking Test', 'SS4ST')">Speaking Test</li>
+      </ul>
+    </li>
+  </ul>
+  <h3>128 Curriculum</h3>
+  <ul class="list-group first">
+    <!--removed standardised and integrated, only 128 -->
+<!--
+    <li class="list-group-item btn btn-primary hoverToShow"
+    [ngClass]="{'clicked': clicked=='Oral Test'}"
+    (click)="this.clicked='Oral Test'"
+    [ngStyle]="{'left': (clicked=='' || clicked=='Oral Test' || this.windowWidth < 991) ? '0' : '-20%' }">Oral Test
+      <ul class="levelSubjectList"
+      [ngStyle]="{'float': (this.windowWidth < 991) ? 'none': 'both' }">
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='sTest'}"
+        (click)="selectSubjectList(sTest, 'Oral Test', 'Oral Test', 'sTest')">Test</li>
+      </ul>
+    </li>
+    <li class="list-group-item btn btn-primary hoverToShow"
+    [ngClass]="{'clicked': clicked=='Stage 1 Standardised'}"
+    (click)="this.clicked='Stage 1 Standardised'"
+    [ngStyle]="{'left': (clicked=='' || clicked=='Stage 1 Standardised' || this.windowWidth < 991) ? '0' : '-20%' }">Stage 1
+      <ul class="levelSubjectList"
+      [ngStyle]="{'float': (this.windowWidth < 991) ? 'none': 'both' }">
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s1StArt'}"
+        (click)="selectSubjectList(s1StArt, 'Stage 1 Standardised', 'Art', 's1StArt')">Art</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s1StGL'}"
+        (click)="selectSubjectList(s1StGL, 'Stage 1 Standardised', 'Global Leadership', 's1StGL')">Global Leadership</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s1StMusic'}"
+        (click)="selectSubjectList(s1StMusic, 'Stage 1 Standardised', 'Music', 's1StMusic')">Music</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s1StOpenClass'}"
+        (click)="selectSubjectList(s1StOpenClass, 'Stage 1 Standardised', 'Open Class', 's1StOpenClass')">Open Class</li>
+      </ul>
+    </li>
+    <li class="list-group-item btn btn-primary hoverToShow"
+    [ngClass]="{'clicked': clicked=='Stage 2 Standardised'}"
+    (click)="this.clicked='Stage 2 Standardised'"
+    [ngStyle]="{'left': (clicked=='' || clicked=='Stage 2 Standardised' || this.windowWidth < 991) ? '0' : '-20%' }">Stage 2
+      <ul class="levelSubjectList"
+      [ngStyle]="{'float': (this.windowWidth < 991) ? 'none': 'both' }">
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s2StArt'}"
+        (click)="selectSubjectList(s2StArt, 'Stage 2 Standardised', 'Art', 's2StArt')">Art</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s2StGL'}"
+        (click)="selectSubjectList(s2StGL, 'Stage 2 Standardised', 'Global Leadership', 's2StGL')">Global Leadership</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s2StMusic'}"
+        (click)="selectSubjectList(s2StMusic, 'Stage 2 Standardised', 'Music', 's2StMusic')">Music</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s2StOpenClass'}"
+        (click)="selectSubjectList(s2StOpenClass, 'Stage 2 Standardised', 'Open Class', 's2StOpenClass')">Open Class</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s2StReading'}"
+        (click)="selectSubjectList(s2StReading, 'Stage 2 Standardised', 'Reading', 's2StReading')">Reading</li>
+      </ul>
+    </li>
+    <li class="list-group-item btn btn-primary hoverToShow"
+    [ngClass]="{'clicked': clicked=='Stage 3 Standardised'}"
+    (click)="this.clicked='Stage 3 Standardised'"
+    [ngStyle]="{'left': (clicked=='' || clicked=='Stage 3 Standardised' || this.windowWidth < 991) ? '0' : '-20%' }">Stage 3
+      <ul class="levelSubjectList"
+      [ngStyle]="{'float': (this.windowWidth < 991) ? 'none': 'both' }">
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s3StGL'}"
+        (click)="selectSubjectList(s3StGL, 'Stage 3 Standardised', 'Global Leadership', 's3StGL')">Global Leadership</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s3StOpenClass'}"
+        (click)="selectSubjectList(s3StOpenClass, 'Stage 3 Standardised', 'Open Class', 's3StOpenClass')">Open Class</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s3StReading'}"
+        (click)="selectSubjectList(s3StReading, 'Stage 3 Standardised', 'Reading', 's3StReading')">Reading</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s3StScience'}"
+        (click)="selectSubjectList(s3StScience, 'Stage 3 Standardised', 'Science', 's3StScience')">Science</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s3StWC'}"
+        (click)="selectSubjectList(s3StWC, 'Stage 3 Standardised', 'World Culture', 's3StWC')">World Culture</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s3StVPE'}"
+        (click)="selectSubjectList(s3StVPE, 'Stage 3 Standardised', 'VPE', 's3StVPE')">VPE</li>
+      </ul>
+    </li>
+    <li class="list-group-item btn btn-primary hoverToShow"
+    [ngClass]="{'clicked': clicked=='SE-1 Standardised'}"
+    (click)="this.clicked='SE-1 Standardised'"
+    [ngStyle]="{'left': (clicked=='' || clicked=='SE-1 Standardised' || this.windowWidth < 991) ? '0' : '-20%' }">Stage 4 (S-E1)
+      <ul class="levelSubjectList"
+      [ngStyle]="{'float': (this.windowWidth < 991) ? 'none': 'both' }">
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='sE1StGL'}"
+        (click)="selectSubjectList(sE1StGL, 'S-E1 Standardised', 'Global Leadership', 'sE1StGL')">Global Leadership</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='sE1StOpenClass'}"
+        (click)="selectSubjectList(sE1StOpenClass, 'S-E1 Standardised', 'Open Class', 'sE1StOpenClass')">Open Class</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='sE1StReading'}"
+        (click)="selectSubjectList(sE1StReading, 'S-E1 Standardised', 'Reading', 'sE1StReading')">Reading</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='sE1StScience'}"
+        (click)="selectSubjectList(sE1StScience, 'S-E1 Standardised', 'Science', 'sE1StScience')">Science</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='sE1StWC'}"
+        (click)="selectSubjectList(sE1StWC, 'S-E1 Standardised', 'World Culture', 'sE1StWC')">World Culture</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='sE1StVPE'}"
+        (click)="selectSubjectList(sE1StVPE, 'S-E1 Standardised', 'VPE', 'sE1StVPE')">VPE</li>
+      </ul>
+    </li>
+    <li class="list-group-item btn btn-primary hoverToShow"
+    [ngClass]="{'clicked': clicked=='Stage 4 Standardised'}"
+    (click)="this.clicked='Stage 4 Standardised'"
+    [ngStyle]="{'left': (clicked=='' || clicked=='Stage 4 Standardised' || this.windowWidth < 991) ? '0' : '-20%' }">Stage 4
+      <ul class="levelSubjectList"
+      [ngStyle]="{'float': (this.windowWidth < 991) ? 'none': 'both' }">
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s4StGL'}"
+        (click)="selectSubjectList(s4StGL, 'Stage 4 Standardised', 'Global Leadership', 's4StGL')">Global Leadership</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s4StOpenClass'}"
+        (click)="selectSubjectList(s4StOpenClass, 'Stage 4 Standardised', 'Open Class', 's4StOpenClass')">Open Class</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s4StReading'}"
+        (click)="selectSubjectList(s4StReading, 'Stage 4 Standardised', 'Reading', 's4StReading')">Reading</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s4StScience'}"
+        (click)="selectSubjectList(s4StScience, 'Stage 4 Standardised', 'Science', 's4StScience')">Science</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s4StWC'}"
+        (click)="selectSubjectList(s4StWC, 'Stage 4 Standardised', 'World Culture', 's4StWC')">World Culture</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s4StVPE'}"
+        (click)="selectSubjectList(s4StVPE, 'Stage 4 Standardised', 'VPE', 's4StVPE')">VPE</li>
+      </ul>
+    </li>
+    <li class="list-group-item btn btn-primary hoverToShow"
+    [ngClass]="{'clicked': clicked=='Stage 5 Standardised'}"
+    (click)="this.clicked='Stage 5 Standardised'"
+    [ngStyle]="{'left': (clicked=='' || clicked=='Stage 5 Standardised' || this.windowWidth < 991) ? '0' : '-20%' }">Stage 5
+      <ul class="levelSubjectList"
+      [ngStyle]="{'float': (this.windowWidth < 991) ? 'none': 'both' }">
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s5StGL'}"
+        (click)="selectSubjectList(s5StGL, 'Stage 5 Standardised', 'Global Leadership', 's5StGL')">Global Leadership</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s5StLT'}"
+        (click)="selectSubjectList(s5StLT, 'Stage 5 Standardised', 'Logical Thinking', 's5StLT')">Logical Thinking</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s5StOpenClass'}"
+        (click)="selectSubjectList(s5StOpenClass, 'Stage 5 Standardised', 'Open Class', 's5StOpenClass')">Open Class</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s5StReading'}"
+        (click)="selectSubjectList(s5StReading, 'Stage 5 Standardised', 'Reading', 's5StReading')">Reading</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s5StScience'}"
+        (click)="selectSubjectList(s5StScience, 'Stage 5 Standardised', 'Science', 's5StScience')">Science</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s5StWC'}"
+        (click)="selectSubjectList(s5StWC, 'Stage 5 Standardised', 'World Culture', 's5StWC')">World Culture</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s5StVPE'}"
+        (click)="selectSubjectList(s5StVPE, 'Stage 5 Standardised', 'VPE', 's5StVPE')">VPE</li>
+      </ul>
+    </li>
+    <li class="list-group-item btn btn-primary hoverToShow"
+    [ngClass]="{'clicked': clicked=='Stage 6 Standardised'}"
+    (click)="this.clicked='Stage 6 Standardised'"
+    [ngStyle]="{'left': (clicked=='' || clicked=='Stage 6 Standardised' || this.windowWidth < 991) ? '0' : '-20%' }">Stage 6
+      <ul class="levelSubjectList"
+      [ngStyle]="{'float': (this.windowWidth < 991) ? 'none': 'both' }">
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s6StGL'}"
+        (click)="selectSubjectList(s6StGL, 'Stage 6 Standardised', 'Global Leadership', 's6StGL')">Global Leadership</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s6StLT'}"
+        (click)="selectSubjectList(s6StLT, 'Stage 6 Standardised', 'Logical Thinking', 's6StLT')">Logical Thinking</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s6StOpenClass'}"
+        (click)="selectSubjectList(s6StOpenClass, 'Stage 6 Standardised', 'Open Class', 's6StOpenClass')">Open Class</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s6StReading'}"
+        (click)="selectSubjectList(s6StReading, 'Stage 6 Standardised', 'Reading', 's6StReading')">Reading</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s6StScience'}"
+        (click)="selectSubjectList(s6StScience, 'Stage 6 Standardised', 'Science', 's6StScience')">Science</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s6StWC'}"
+        (click)="selectSubjectList(s6StWC, 'Stage 6 Standardised', 'World Culture', 's6StWC')">World Culture</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s6StVPE'}"
+        (click)="selectSubjectList(s6StVPE, 'Stage 6 Standardised', 'VPE', 's6StVPE')">VPE</li>
+      </ul>
+    </li>
+    <li class="list-group-item btn btn-primary hoverToShow"
+    [ngClass]="{'clicked': clicked=='Stage 7 Standardised'}"
+    (click)="this.clicked='Stage 7 Standardised'"
+    [ngStyle]="{'left': (clicked=='' || clicked=='Stage 7 Standardised' || this.windowWidth < 991) ? '0' : '-20%' }">Stage 7
+      <ul class="levelSubjectList"
+      [ngStyle]="{'float': (this.windowWidth < 991) ? 'none': 'both' }">
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s7StGL'}"
+        (click)="selectSubjectList(s7StGL, 'Stage 7 Standardised', 'Global Leadership', 's7StGL')">Global Leadership</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s7StLT'}"
+        (click)="selectSubjectList(s7StLT, 'Stage 7 Standardised', 'Logical Thinking', 's7StLT')">Logical Thinking</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s7StOpenClass'}"
+        (click)="selectSubjectList(s7StOpenClass, 'Stage 7 Standardised', 'Open Class', 's7StOpenClass')">Open Class</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s7StReading'}"
+        (click)="selectSubjectList(s7StReading, 'Stage 7 Standardised', 'Reading', 's7StReading')">Reading</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s7StScience'}"
+        (click)="selectSubjectList(s7StScience, 'Stage 7 Standardised', 'Science', 's7StScience')">Science</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s7StWC'}"
+        (click)="selectSubjectList(s7StWC, 'Stage 7 Standardised', 'World Culture', 's7StWC')">World Culture</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s7StVPE'}"
+        (click)="selectSubjectList(s7StVPE, 'Stage 7 Standardised', 'VPE', 's7StVPE')">VPE</li>
+      </ul>
+    </li>
+    <li class="list-group-item btn btn-primary hoverToShow"
+    [ngClass]="{'clicked': clicked=='Stage 8 Standardised'}"
+    (click)="this.clicked='Stage 8 Standardised'"
+    [ngStyle]="{'left': (clicked=='' || clicked=='Stage 8 Standardised' || this.windowWidth < 991) ? '0' : '-20%' }">Stage 8
+      <ul class="levelSubjectList"
+      [ngStyle]="{'float': (this.windowWidth < 991) ? 'none': 'both' }">
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s8StDrama'}"
+        (click)="selectSubjectList(s8StDrama, 'Stage 8 Standardised', 'Drama', 's8StDrama')">Drama</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s8StGL'}"
+        (click)="selectSubjectList(s8StGL, 'Stage 8 Standardised', 'Global Leadership', 's8StGL')">Global Leadership</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s8StLT'}"
+        (click)="selectSubjectList(s8StLT, 'Stage 8 Standardised', 'Logical Thinking', 's8StLT')">Logical Thinking</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s8StOpenClass'}"
+        (click)="selectSubjectList(s8StOpenClass, 'Stage 8 Standardised', 'Open Class', 's8StOpenClass')">Open Class</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s8StReading'}"
+        (click)="selectSubjectList(s8StReading, 'Stage 8 Standardised', 'Reading', 's8StReading')">Reading</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s8StScience'}"
+        (click)="selectSubjectList(s8StScience, 'Stage 8 Standardised', 'Science', 's8StScience')">Science</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s8StWC'}"
+        (click)="selectSubjectList(s8StWC, 'Stage 8 Standardised', 'World Culture', 's8StWC')">World Culture</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s8StVPE'}"
+        (click)="selectSubjectList(s8StVPE, 'Stage 8 Standardised', 'VPE', 's8StVPE')">VPE</li>
+      </ul>
+    </li>
+    <li class="list-group-item btn btn-primary hoverToShow"
+    [ngClass]="{'clicked': clicked=='Stage 9 Standardised'}"
+    (click)="this.clicked='Stage 9 Standardised'"
+    [ngStyle]="{'left': (clicked=='' || clicked=='Stage 9 Standardised' || this.windowWidth < 991) ? '0' : '-20%' }">Stage 9
+      <ul class="levelSubjectList"
+      [ngStyle]="{'float': (this.windowWidth < 991) ? 'none': 'both' }">
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s9StDrama'}"
+        (click)="selectSubjectList(s9StDrama, 'Stage 9 Standardised', 'Drama', 's9StDrama')">Drama</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s9StGL'}"
+        (click)="selectSubjectList(s9StGL, 'Stage 9 Standardised', 'Global Leadership', 's9StGL')">Global Leadership</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s9StLT'}"
+        (click)="selectSubjectList(s9StLT, 'Stage 9 Standardised', 'Logical Thinking', 's9StLT')">Logical Thinking</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s9StOpenClass'}"
+        (click)="selectSubjectList(s9StOpenClass, 'Stage 9 Standardised', 'Open Class', 's9StOpenClass')">Open Class</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s9StReading'}"
+        (click)="selectSubjectList(s9StReading, 'Stage 9 Standardised', 'Reading', 's9StReading')">Reading</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s9StScience'}"
+        (click)="selectSubjectList(s9StScience, 'Stage 9 Standardised', 'Science', 's9StScience')">Science</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s9StWC'}"
+        (click)="selectSubjectList(s9StWC, 'Stage 9 Standardised', 'World Culture', 's9StWC')">World Culture</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s9StVPE'}"
+        (click)="selectSubjectList(s9StVPE, 'Stage 9 Standardised', 'VPE', 's9StVPE')">VPE</li>
+      </ul>
+    </li>
+    <li class="list-group-item btn btn-primary hoverToShow"
+    [ngClass]="{'clicked': clicked=='Stage 10 Standardised'}"
+    (click)="this.clicked='Stage 10 Standardised'"
+    [ngStyle]="{'left': (clicked=='' || clicked=='Stage 10 Standardised' || this.windowWidth < 991) ? '0' : '-20%' }">Stage 10
+      <ul class="levelSubjectList"
+      [ngStyle]="{'float': (this.windowWidth < 991) ? 'none': 'both' }">
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s10StDrama'}"
+        (click)="selectSubjectList(s10StDrama, 'Stage 10 Standardised', 'Drama', 's10StDrama')">Drama</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s10StGL'}"
+        (click)="selectSubjectList(s10StGL, 'Stage 10 Standardised', 'Global Leadership', 's10StGL')">Global Leadership</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s10StLT'}"
+        (click)="selectSubjectList(s10StLT, 'Stage 10 Standardised', 'Logical Thinking', 's10StLT')">Logical Thinking</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s10StOpenClass'}"
+        (click)="selectSubjectList(s10StOpenClass, 'Stage 10 Standardised', 'Open Class', 's10StOpenClass')">Open Class</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s10StReading'}"
+        (click)="selectSubjectList(s10StReading, 'Stage 10 Standardised', 'Reading', 's10StReading')">Reading</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s10StScience'}"
+        (click)="selectSubjectList(s10StScience, 'Stage 10 Standardised', 'Science', 's10StScience')">Science</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s10StWC'}"
+        (click)="selectSubjectList(s10StWC, 'Stage 10 Standardised', 'World Culture', 's10StWC')">World Culture</li>
+        <li class="list-group-item btn btn-primary hoverToShow"
+        [ngClass]="{'clicked': this.clickedSubject=='s10StVPE'}"
+        (click)="selectSubjectList(s10StVPE, 'Stage 10 Standardised', 'VPE', 's10StVPE')">VPE</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+-->
+
+<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-3 col-md-offset-3 bottom-of-page" *ngIf="(this.authService.isAuthenticated$ | async) && loaded">
+    <h3>Lessons</h3>
+    <h4 *ngIf="selectedLS">{{ selectedLS }}: {{ selectedSubject }}</h4>
+    <ul class="list-group first col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <app-lesson-list-item [lesson]="lesson" *ngFor="let lesson of selected"></app-lesson-list-item>
+    </ul>
+</div>
+
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3" *ngIf="!loaded && (this.authService.isAuthenticated$ | async)">
+    <div class="loaderContainer">
+        <div class="loader">
+            <div id="largeBox"></div>
+            <div id="smallBox"></div>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3" *ngIf="!(this.authService.isAuthenticated$ | async)">
+    <h3>Not Authenticated</h3>
+    <p>Please log in and try again</p>
+</div>

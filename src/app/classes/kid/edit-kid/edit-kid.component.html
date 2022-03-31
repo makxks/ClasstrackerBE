@@ -1,0 +1,50 @@
+<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-3 col-md-offset-3 bottom-of-page" *ngIf="(this.authService.isAuthenticated$ | async) && !this.editing">
+    <h3>Edit {{kidsName}} in {{classCode}}</h3>
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+        <div class="form-group formInput">
+            <div class="form-group" [ngClass]="{'has-error':!myForm.controls['name'].valid && myForm.controls['name'].touched}">
+                <label for="classCode">Name</label>
+                <input type="text" class="form-control" id="name" formControlName="name" #name [ngModel]="this.kidsName" required>
+                <span *ngIf="!myForm.controls['name'].valid && !myForm.controls['name'].pristine" class="errorMessage">Enter the kids name</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="age">Age</label>
+            <input type="text" class="form-control" id="age" formControlName="age" #age [ngModel]="kid.age">
+        </div>
+        <div class="form-group">
+            <label for="strengths">Strengths</label>
+            <textarea class="form-control" formControlName="strengths" #strengths rows="4" [ngModel]="kid.strengths">
+      </textarea>
+        </div>
+        <div class="form-group">
+            <label for="weaknesses">Weaknesses</label>
+            <textarea class="form-control" formControlName="weaknesses" #weaknesses rows="4" [ngModel]="kid.weaknesses">
+      </textarea>
+        </div>
+        <div class="form-group">
+            <label for="comments">Other Comments</label>
+            <textarea class="form-control" formControlName="comments" #comments rows="4" [ngModel]="kid.comments">
+      </textarea>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary" [disabled]="!myForm.valid">Edit</button>
+        <button type="cancel" class="btn btn-danger" routerLink="/classes/show-class/{{classCode}}">Cancel</button>
+    </form>
+</div>
+
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3" *ngIf="!(this.authService.isAuthenticated$ | async) && !this.editing">
+    <h3>Not Authenticated</h3>
+    <p>Please log in and try again</p>
+</div>
+
+
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3" *ngIf="this.editing">
+    <div class="loaderContainer">
+        <div class="loader">
+            <div id="largeBox"></div>
+            <div id="smallBox"></div>
+        </div>
+    </div>
+</div>
