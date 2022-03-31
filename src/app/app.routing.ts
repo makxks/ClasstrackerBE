@@ -26,26 +26,28 @@ import { HelpComponent } from './help.component';
 
 import { NewFeatureComponent } from './new-feature.component';
 
+import { AuthGuard } from './auth/auth-guard.service';
+
 const APP_ROUTES: Routes = [
 	{ path: '', component: HomeComponent, pathMatch: 'full' },
-	{ path: 'classes', component: ClassesComponent },
-	{ path: 'classes/add', component: AddClassComponent },
-	{ path: 'classes/show-class/:id', component: ShowClassComponent },
-	{ path: 'classes/show-class/:id/addlesson', component: AddNextLessonComponent },
-	{ path: 'classes/show-class/:id/edit', component: EditClassComponent },
-	{ path: 'classes/show-class/:id/kids', component: AddKidComponent },
-	{ path: 'classes/show-class/:id/kids/:name', component: KidComponent },
-	{ path: 'classes/show-class/:id/kids/:name/edit', component: EditKidComponent },
-	{ path: 'lessons', component: LessonsComponent },
-	{ path: 'lessons/curriculums', component: CurriculumComponent },
-	{ path: 'lessons/add', component: AddLessonComponent },
-	{ path: 'lessons/show-lesson/:curriculum/:level/:subject/:lessonNo', component: ShowLessonComponent },
-	{ path: 'lessons/show-lesson/:curriculum/:level/:subject/:lessonNo/edit', component: EditLessonComponent},
-	{ path: 'lessons/show-lesson/:curriculum/standardised/:stage/:subject/:lessonNo', component: ShowLessonComponent },
-	{ path: 'lessons/show-lesson/:curriculum/standardised/:stage/:subject/:lessonNo/edit', component: EditLessonComponent },
-	{ path: 'schedule', component: CalendarComponent },
-	{ path: 'schedule/add-lesson', component: AddIrregularLessonComponent },
-	{ path: 'about', component: HelpComponent },
+	{ path: 'classes', canActivate: [AuthGuard], component: ClassesComponent },
+	{ path: 'classes/add', canActivate: [AuthGuard], component: AddClassComponent },
+	{ path: 'classes/show-class/:id', canActivate: [AuthGuard], component: ShowClassComponent },
+	{ path: 'classes/show-class/:id/addlesson', canActivate: [AuthGuard], component: AddNextLessonComponent },
+	{ path: 'classes/show-class/:id/edit', canActivate: [AuthGuard], component: EditClassComponent },
+	{ path: 'classes/show-class/:id/kids', canActivate: [AuthGuard], component: AddKidComponent },
+	{ path: 'classes/show-class/:id/kids/:name', canActivate: [AuthGuard], component: KidComponent },
+	{ path: 'classes/show-class/:id/kids/:name/edit', canActivate: [AuthGuard], component: EditKidComponent },
+	{ path: 'lessons', canActivate: [AuthGuard], component: LessonsComponent },
+	{ path: 'lessons/curriculums', canActivate: [AuthGuard], component: CurriculumComponent },
+	{ path: 'lessons/add', canActivate: [AuthGuard], component: AddLessonComponent },
+	{ path: 'lessons/show-lesson/:curriculum/:level/:subject/:lessonNo', canActivate: [AuthGuard], component: ShowLessonComponent },
+	{ path: 'lessons/show-lesson/:curriculum/:level/:subject/:lessonNo/edit', canActivate: [AuthGuard], component: EditLessonComponent},
+	{ path: 'lessons/show-lesson/:curriculum/standardised/:stage/:subject/:lessonNo', canActivate: [AuthGuard], component: ShowLessonComponent },
+	{ path: 'lessons/show-lesson/:curriculum/standardised/:stage/:subject/:lessonNo/edit', canActivate: [AuthGuard], component: EditLessonComponent },
+	{ path: 'schedule', canActivate: [AuthGuard], component: CalendarComponent },
+	{ path: 'schedule/add-lesson', canActivate: [AuthGuard], component: AddIrregularLessonComponent },
+	{ path: 'about', canActivate: [AuthGuard], component: HelpComponent },
 	{ path: 'new', component: NewFeatureComponent },
 	{ path: '**', component: HomeComponent }
 ];
