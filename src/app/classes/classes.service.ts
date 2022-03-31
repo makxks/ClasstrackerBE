@@ -58,7 +58,7 @@ export class ClassesService {
     return this.http.post(this.currentAddress + '/classes', body, {headers: headers})
       .pipe(
         map((response: any) => {
-          const responseObject = response.body.obj;
+          const responseObject = response.obj;
           //kids is always empty for a new class, they are added to the class separately later
           var kids: Kid[] = [];
           const userClass = new Class(
@@ -88,18 +88,18 @@ export class ClassesService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.body.error){
-            errorMessage = err.body.error;
+          if(err.error){
+            errorMessage = err.error;
           }
-          else if(err.body.message && err.body.message.length > 0){
-            errorMessage = err.body.message;
+          else if(err.message && err.message.length > 0){
+            errorMessage = err.message;
           }
           else {
             errorMessage = err;
           }
 
-          if(err.body.title){
-            errorCode = err.body.title;
+          if(err.title){
+            errorCode = err.title;
           }
           else if(err.statusText && err.statusText.length > 0){
             errorCode = err.statusText;
@@ -125,8 +125,7 @@ export class ClassesService {
     return this.http.get(this.currentAddress + '/classes', {params: options})
       .pipe(
         map((response: any) => {
-          console.log(response);
-          const classes = response.body.obj;
+          const classes = response.obj;
           let transformedClasses: Class[] = [];
           for (let userClass of classes) {
             if(userClass.addedByOther){
@@ -192,18 +191,18 @@ export class ClassesService {
           console.log(err);
           var errorMessage;
           var errorCode;
-          if(err.body.error){
-            errorMessage = err.body.error;
+          if(err.error){
+            errorMessage = err.error;
           }
-          else if(err.body.message && err.body.message.length > 0){
-            errorMessage = err.body.message;
+          else if(err.message && err.message.length > 0){
+            errorMessage = err.message;
           }
           else {
             errorMessage = err;
           }
 
-          if(err.body.title){
-            errorCode = err.body.title;
+          if(err.title){
+            errorCode = err.title;
           }
           else if(err.statusText && err.statusText.length > 0){
             errorCode = err.statusText;
@@ -228,7 +227,7 @@ export class ClassesService {
     return this.http.get(this.currentAddress + '/classes/' + classCode, {params: options})
       .pipe(
         map((response: any) => {
-          const responseObject = response.body.obj;
+          const responseObject = response.obj;
           var classDetails = new Class(
             responseObject.classCode,
             responseObject.curriculum,
@@ -256,18 +255,18 @@ export class ClassesService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.body.error){
-            errorMessage = err.body.error;
+          if(err.error){
+            errorMessage = err.error;
           }
-          else if(err.body.message && err.body.message.length > 0){
-            errorMessage = err.body.message;
+          else if(err.message && err.message.length > 0){
+            errorMessage = err.message;
           }
           else {
             errorMessage = err;
           }
 
-          if(err.body.title){
-            errorCode = err.body.title;
+          if(err.title){
+            errorCode = err.title;
           }
           else if(err.statusText && err.statusText.length > 0){
             errorCode = err.statusText;
@@ -298,7 +297,7 @@ export class ClassesService {
     return this.http.patch(this.currentAddress + '/classes/' + classCode, body, {headers: headers, params: options})
       .pipe(
         map((response: any) => {
-          const responseObject = response.body.obj;
+          const responseObject = response.obj;
           var classDetails = new Class(
             responseObject.classCode,
             responseObject.curriculum,
@@ -327,18 +326,18 @@ export class ClassesService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.body.error){
-            errorMessage = err.body.error;
+          if(err.error){
+            errorMessage = err.error;
           }
-          else if(err.body.message && err.body.message.length > 0){
-            errorMessage = err.body.message;
+          else if(err.message && err.message.length > 0){
+            errorMessage = err.message;
           }
           else {
             errorMessage = err;
           }
 
-          if(err.body.title){
-            errorCode = err.body.title;
+          if(err.title){
+            errorCode = err.title;
           }
           else if(err.statusText && err.statusText.length > 0){
             errorCode = err.statusText;
@@ -370,24 +369,24 @@ export class ClassesService {
     return this.http.delete(this.currentAddress + '/classes/' + classDetails.classCode, {params: options})
       .pipe(
         map((response: any) => {
-          const responseObject = response.body;
+          const responseObject = response;
           this.router.navigate(['/classes']);
         })
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.body.error){
-            errorMessage = err.body.error;
+          if(err.error){
+            errorMessage = err.error;
           }
-          else if(err.body.message && err.body.message.length > 0){
-            errorMessage = err.body.message;
+          else if(err.message && err.message.length > 0){
+            errorMessage = err.message;
           }
           else {
             errorMessage = err;
           }
 
-          if(err.body.title){
-            errorCode = err.body.title;
+          if(err.title){
+            errorCode = err.title;
           }
           else if(err.statusText && err.statusText.length > 0){
             errorCode = err.statusText;
@@ -440,18 +439,18 @@ export class ClassesService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.body.error){
-            errorMessage = err.body.error;
+          if(err.error){
+            errorMessage = err.error;
           }
-          else if(err.body.message && err.body.message.length > 0){
-            errorMessage = err.body.message;
+          else if(err.message && err.message.length > 0){
+            errorMessage = err.message;
           }
           else {
             errorMessage = err;
           }
 
-          if(err.body.title){
-            errorCode = err.body.title;
+          if(err.title){
+            errorCode = err.title;
           }
           else if(err.statusText && err.statusText.length > 0){
             errorCode = err.statusText;
@@ -496,18 +495,18 @@ export class ClassesService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.body.error){
-            errorMessage = err.body.error;
+          if(err.error){
+            errorMessage = err.error;
           }
-          else if(err.body.message && err.body.message.length > 0){
-            errorMessage = err.body.message;
+          else if(err.message && err.message.length > 0){
+            errorMessage = err.message;
           }
           else {
             errorMessage = err;
           }
 
-          if(err.body.title){
-            errorCode = err.body.title;
+          if(err.title){
+            errorCode = err.title;
           }
           else if(err.statusText && err.statusText.length > 0){
             errorCode = err.statusText;
@@ -553,18 +552,18 @@ export class ClassesService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.body.error){
-            errorMessage = err.body.error;
+          if(err.error){
+            errorMessage = err.error;
           }
-          else if(err.body.message && err.body.message.length > 0){
-            errorMessage = err.body.message;
+          else if(err.message && err.message.length > 0){
+            errorMessage = err.message;
           }
           else {
             errorMessage = err;
           }
 
-          if(err.body.title){
-            errorCode = err.body.title;
+          if(err.title){
+            errorCode = err.title;
           }
           else if(err.statusText && err.statusText.length > 0){
             errorCode = err.statusText;
@@ -590,25 +589,25 @@ export class ClassesService {
     return this.http.get(this.currentAddress + '/classes/comments/' + classCode, {params: options})
       .pipe(
         map((response: any) => {
-          const responseObject = response.body.obj;
+          const responseObject = response.obj;
           var comments = responseObject;
           return comments;
         })
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.body.error){
-            errorMessage = err.body.error;
+          if(err.error){
+            errorMessage = err.error;
           }
-          else if(err.body.message && err.body.message.length > 0){
-            errorMessage = err.body.message;
+          else if(err.message && err.message.length > 0){
+            errorMessage = err.message;
           }
           else {
             errorMessage = err;
           }
 
-          if(err.body.title){
-            errorCode = err.body.title;
+          if(err.title){
+            errorCode = err.title;
           }
           else if(err.statusText && err.statusText.length > 0){
             errorCode = err.statusText;
@@ -647,7 +646,7 @@ export class ClassesService {
     return this.http.patch(this.currentAddress + '/classes/comments/' + classCode, body, {headers: headers, params: options})
       .pipe(
         map((response: any) => {
-          const responseObject = response.body.obj;
+          const responseObject = response.obj;
           //kids is always empty for a new class, they are added to the class separately later
           var newComments: string = responseObject.comments;
           this.completeAddComments(classCode);
@@ -656,18 +655,18 @@ export class ClassesService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.body.error){
-            errorMessage = err.body.error;
+          if(err.error){
+            errorMessage = err.error;
           }
-          else if(err.body.message && err.body.message.length > 0){
-            errorMessage = err.body.message;
+          else if(err.message && err.message.length > 0){
+            errorMessage = err.message;
           }
           else {
             errorMessage = err;
           }
 
-          if(err.body.title){
-            errorCode = err.body.title;
+          if(err.title){
+            errorCode = err.title;
           }
           else if(err.statusText && err.statusText.length > 0){
             errorCode = err.statusText;
@@ -706,25 +705,25 @@ export class ClassesService {
     return this.http.patch(this.currentAddress + '/classes/comments/' + classCode, body, {headers: headers, params: options})
       .pipe(
         map((response: any) => {
-          const responseObject = response.body;
+          const responseObject = response;
           this.deleteCommentsComplete(classCode);
           return responseObject;
         })
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.body.error){
-            errorMessage = err.body.error;
+          if(err.error){
+            errorMessage = err.error;
           }
-          else if(err.body.message && err.body.message.length > 0){
-            errorMessage = err.body.message;
+          else if(err.message && err.message.length > 0){
+            errorMessage = err.message;
           }
           else {
             errorMessage = err;
           }
 
-          if(err.body.title){
-            errorCode = err.body.title;
+          if(err.title){
+            errorCode = err.title;
           }
           else if(err.statusText && err.statusText.length > 0){
             errorCode = err.statusText;

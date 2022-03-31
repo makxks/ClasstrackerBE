@@ -41,7 +41,7 @@ export class LessonService {
     return this.http.post(this.currentAddress + '/lessons', body, {headers: headers})
       .pipe(
         map((response: any) => {
-          const responseObject = response.body.obj;
+          const responseObject = response.obj;
           const newLesson = new Lesson(
             responseObject.curriculum,
             responseObject.stage,
@@ -62,18 +62,18 @@ export class LessonService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.body.error){
-            errorMessage = err.body.error;
+          if(err.error){
+            errorMessage = err.error;
           }
-          else if(err.body.message && err.body.message.length > 0){
-            errorMessage = err.body.message;
+          else if(err.message && err.message.length > 0){
+            errorMessage = err.message;
           }
           else {
             errorMessage = err;
           }
 
-          if(err.body.title){
-            errorCode = err.body.title;
+          if(err.title){
+            errorCode = err.title;
           }
           else if(err.statusText && err.statusText.length > 0){
             errorCode = err.statusText;
@@ -106,8 +106,8 @@ export class LessonService {
     + curriculum + "/" + routeString + "/" + subject + "/" + lessonNo, { params: options })
       .pipe(
         map((response: any) => {
-          if(response.body.obj != null){
-            const responseObject = response.body.obj;
+          if(response.obj != null){
+            const responseObject = response.obj;
             var lessonDetails = new Lesson(
               responseObject.curriculum,
               responseObject.stage,
@@ -132,18 +132,18 @@ export class LessonService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.body.error){
-            errorMessage = err.body.error;
+          if(err.error){
+            errorMessage = err.error;
           }
-          else if(err.body.message && err.body.message.length > 0){
-            errorMessage = err.body.message;
+          else if(err.message && err.message.length > 0){
+            errorMessage = err.message;
           }
           else {
             errorMessage = err;
           }
 
-          if(err.body.title){
-            errorCode = err.body.title;
+          if(err.title){
+            errorCode = err.title;
           }
           else if(err.statusText && err.statusText.length > 0){
             errorCode = err.statusText;
@@ -169,7 +169,7 @@ export class LessonService {
     + id, { params: options })
       .pipe(
         map((response: any) => {
-          const responseObject = response.body.obj;
+          const responseObject = response.obj;
           var lessonDetails = new Lesson(
             responseObject.curriculum,
             responseObject.stage,
@@ -190,18 +190,18 @@ export class LessonService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.body.error){
-            errorMessage = err.body.error;
+          if(err.error){
+            errorMessage = err.error;
           }
-          else if(err.body.message && err.body.message.length > 0){
-            errorMessage = err.body.message;
+          else if(err.message && err.message.length > 0){
+            errorMessage = err.message;
           }
           else {
             errorMessage = err;
           }
 
-          if(err.body.title){
-            errorCode = err.body.title;
+          if(err.title){
+            errorCode = err.title;
           }
           else if(err.statusText && err.statusText.length > 0){
             errorCode = err.statusText;
@@ -226,7 +226,7 @@ export class LessonService {
     return this.http.get(this.currentAddress + '/lessons/128/standardised/0/OralTest/1', { params: options })
       .pipe(
         map((response: any) => {
-          const responseObject = response.body.obj;
+          const responseObject = response.obj;
           var lessonDetails = new Lesson(
             responseObject.curriculum,
             responseObject.stage,
@@ -247,18 +247,18 @@ export class LessonService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.body.error){
-            errorMessage = err.body.error;
+          if(err.error){
+            errorMessage = err.error;
           }
-          else if(err.body.message && err.body.message.length > 0){
-            errorMessage = err.body.message;
+          else if(err.message && err.message.length > 0){
+            errorMessage = err.message;
           }
           else {
             errorMessage = err;
           }
 
-          if(err.body.title){
-            errorCode = err.body.title;
+          if(err.title){
+            errorCode = err.title;
           }
           else if(err.statusText && err.statusText.length > 0){
             errorCode = err.statusText;
@@ -284,7 +284,7 @@ export class LessonService {
     { params: options })
     .pipe(
       map((response: any) => {
-        const lessons = response.body.obj;
+        const lessons = response.obj;
         let transformedLessons: Lesson[] = [];
         for (let lesson of lessons) {
           transformedLessons.push(new Lesson(
@@ -310,18 +310,18 @@ export class LessonService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.body.error){
-            errorMessage = err.body.error;
+          if(err.error){
+            errorMessage = err.error;
           }
-          else if(err.body.message && err.body.message.length > 0){
-            errorMessage = err.body.message;
+          else if(err.message && err.message.length > 0){
+            errorMessage = err.message;
           }
           else {
             errorMessage = err;
           }
 
-          if(err.body.title){
-            errorCode = err.body.title;
+          if(err.title){
+            errorCode = err.title;
           }
           else if(err.statusText && err.statusText.length > 0){
             errorCode = err.statusText;
@@ -358,7 +358,7 @@ export class LessonService {
     { headers: headers, params: options })
       .pipe(
         map((response: any) => {
-          const responseObject = response.body.obj;
+          const responseObject = response.obj;
           var lesson = new Lesson(
             responseObject.curriculum,
             responseObject.stage,
@@ -379,18 +379,18 @@ export class LessonService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.body.error){
-            errorMessage = err.body.error;
+          if(err.error){
+            errorMessage = err.error;
           }
-          else if(err.body.message && err.body.message.length > 0){
-            errorMessage = err.body.message;
+          else if(err.message && err.message.length > 0){
+            errorMessage = err.message;
           }
           else {
             errorMessage = err;
           }
 
-          if(err.body.title){
-            errorCode = err.body.title;
+          if(err.title){
+            errorCode = err.title;
           }
           else if(err.statusText && err.statusText.length > 0){
             errorCode = err.statusText;
@@ -437,18 +437,18 @@ export class LessonService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.body.error){
-            errorMessage = err.body.error;
+          if(err.error){
+            errorMessage = err.error;
           }
-          else if(err.body.message && err.body.message.length > 0){
-            errorMessage = err.body.message;
+          else if(err.message && err.message.length > 0){
+            errorMessage = err.message;
           }
           else {
             errorMessage = err;
           }
 
-          if(err.body.title){
-            errorCode = err.body.title;
+          if(err.title){
+            errorCode = err.title;
           }
           else if(err.statusText && err.statusText.length > 0){
             errorCode = err.statusText;

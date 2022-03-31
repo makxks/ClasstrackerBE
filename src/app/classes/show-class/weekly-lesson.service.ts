@@ -90,7 +90,7 @@ export class WeeklyLessonsService {
     return this.http.post(this.currentAddress + '/weeklyLessons', body, { headers, params: options })
       .pipe(
         map((response: any) => {
-          const responseObject = response.body;
+          const responseObject = response;
           if(responseObject.curriculum && responseObject.stage && responseObject.level){
             const weeklyLesson = new WeeklyLesson(
               responseObject.classCode,
@@ -125,18 +125,18 @@ export class WeeklyLessonsService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.body.error){
-            errorMessage = err.body.error;
+          if(err.error){
+            errorMessage = err.error;
           }
-          else if(err.body.message && err.body.message.length > 0){
-            errorMessage = err.body.message;
+          else if(err.message && err.message.length > 0){
+            errorMessage = err.message;
           }
           else {
             errorMessage = err;
           }
 
-          if(err.body.title){
-            errorCode = err.body.title;
+          if(err.title){
+            errorCode = err.title;
           }
           else if(err.statusText && err.statusText.length > 0){
             errorCode = err.statusText;
@@ -169,7 +169,7 @@ export class WeeklyLessonsService {
     return this.http.post(this.currentAddress + '/weeklyLessons/irregular', body, { headers, params: options })
       .pipe(
         map((response: any) => {
-          const responseObject = response.body;
+          const responseObject = response;
           if(responseObject.curriculum && responseObject.stage && responseObject.level){
             const weeklyLesson = new WeeklyLesson(
               responseObject.classCode,
@@ -204,18 +204,18 @@ export class WeeklyLessonsService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.body.error){
-            errorMessage = err.body.error;
+          if(err.error){
+            errorMessage = err.error;
           }
-          else if(err.body.message && err.body.message.length > 0){
-            errorMessage = err.body.message;
+          else if(err.message && err.message.length > 0){
+            errorMessage = err.message;
           }
           else {
             errorMessage = err;
           }
 
-          if(err.body.title){
-            errorCode = err.body.title;
+          if(err.title){
+            errorCode = err.title;
           }
           else if(err.statusText && err.statusText.length > 0){
             errorCode = err.statusText;
@@ -271,7 +271,7 @@ export class WeeklyLessonsService {
     return this.http.get(this.currentAddress + '/weeklyLessons/teacher/allLessons', { params: options })
     .pipe(
       map((response: any) => {
-        const weeklyLessons = response.body;
+        const weeklyLessons = response;
         let transformedWeeklyLessons: WeeklyLesson[] = [];
         for (let weeklyLesson of weeklyLessons) {
           if(weeklyLesson.curriculum && (weeklyLesson.stage || weeklyLesson.level)){
@@ -312,18 +312,18 @@ export class WeeklyLessonsService {
       , catchError((err: any) => {
         var errorMessage;
         var errorCode;
-        if(err.body.error){
-          errorMessage = err.body.error;
+        if(err.error){
+          errorMessage = err.error;
         }
-        else if(err.body.message && err.body.message.length > 0){
-          errorMessage = err.body.message;
+        else if(err.message && err.message.length > 0){
+          errorMessage = err.message;
         }
         else {
           errorMessage = err;
         }
 
-        if(err.body.title){
-          errorCode = err.body.title;
+        if(err.title){
+          errorCode = err.title;
         }
         else if(err.statusText && err.statusText.length > 0){
           errorCode = err.statusText;
@@ -348,7 +348,7 @@ export class WeeklyLessonsService {
     return this.http.get(this.currentAddress + '/weeklyLessons/' + classCode, { params: options })
     .pipe(
       map((response: any) => {
-        const weeklyLessons: any = response.body;
+        const weeklyLessons: any = response;
         let transformedWeeklyLessons: WeeklyLesson[] = [];
         for (let weeklyLesson of weeklyLessons) {
           if(weeklyLesson.curriculum && weeklyLesson.stage && weeklyLesson.level){
@@ -386,18 +386,18 @@ export class WeeklyLessonsService {
       , catchError((err: any) => {
         var errorMessage;
         var errorCode;
-        if(err.body.error){
-          errorMessage = err.body.error;
+        if(err.error){
+          errorMessage = err.error;
         }
-        else if(err.body.message && err.body.message.length > 0){
-          errorMessage = err.body.message;
+        else if(err.message && err.message.length > 0){
+          errorMessage = err.message;
         }
         else {
           errorMessage = err;
         }
 
-        if(err.body.title){
-          errorCode = err.body.title;
+        if(err.title){
+          errorCode = err.title;
         }
         else if(err.statusText && err.statusText.length > 0){
           errorCode = err.statusText;
@@ -520,25 +520,25 @@ export class WeeklyLessonsService {
     return this.http.delete(this.currentAddress + '/weeklyLessons/' + weeklyLesson.classCode + "/" + weeklyLesson.timeValue, { params: options })
       .pipe(
         map((response: any) => {
-          const responseObject = response.body;
+          const responseObject = response;
           console.log(responseObject);
           this.handleDeleteComplete(weeklyLesson);
         })
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.body.error){
-            errorMessage = err.body.error;
+          if(err.error){
+            errorMessage = err.error;
           }
-          else if(err.body.message && err.body.message.length > 0){
-            errorMessage = err.body.message;
+          else if(err.message && err.message.length > 0){
+            errorMessage = err.message;
           }
           else {
             errorMessage = err;
           }
 
-          if(err.body.title){
-            errorCode = err.body.title;
+          if(err.title){
+            errorCode = err.title;
           }
           else if(err.statusText && err.statusText.length > 0){
             errorCode = err.statusText;
@@ -568,24 +568,24 @@ export class WeeklyLessonsService {
     return this.http.patch(this.currentAddress + '/weeklyLessons/' + weeklyLesson.classCode + "/" + weeklyLesson.timeValue, body, { headers, params: options })
       .pipe(
         map((response: any) => {
-          const responseObject = response.body;
+          const responseObject = response;
           console.log(responseObject);
         })
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.body.error){
-            errorMessage = err.body.error;
+          if(err.error){
+            errorMessage = err.error;
           }
-          else if(err.body.message && err.body.message.length > 0){
-            errorMessage = err.body.message;
+          else if(err.message && err.message.length > 0){
+            errorMessage = err.message;
           }
           else {
             errorMessage = err;
           }
 
-          if(err.body.title){
-            errorCode = err.body.title;
+          if(err.title){
+            errorCode = err.title;
           }
           else if(err.statusText && err.statusText.length > 0){
             errorCode = err.statusText;
@@ -615,24 +615,24 @@ export class WeeklyLessonsService {
     return this.http.patch(this.currentAddress + '/weeklyLessons/' + weeklyLesson.classCode + "/" + weeklyLesson.timeValue, body, { headers, params: options })
       .pipe(
         map((response: any) => {
-          const responseObject = response.body;
+          const responseObject = response;
           console.log(responseObject);
         })
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.body.error){
-            errorMessage = err.body.error;
+          if(err.error){
+            errorMessage = err.error;
           }
-          else if(err.body.message && err.body.message.length > 0){
-            errorMessage = err.body.message;
+          else if(err.message && err.message.length > 0){
+            errorMessage = err.message;
           }
           else {
             errorMessage = err;
           }
 
-          if(err.body.title){
-            errorCode = err.body.title;
+          if(err.title){
+            errorCode = err.title;
           }
           else if(err.statusText && err.statusText.length > 0){
             errorCode = err.statusText;

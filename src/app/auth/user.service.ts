@@ -26,18 +26,18 @@ export class UserService {
       , catchError((err: any) => {
         var errorMessage;
         var errorCode;
-        if(err.body.error){
-          errorMessage = err.body.error;
+        if(err.error){
+          errorMessage = err.error;
         }
-        else if(err.body.message && err.body.message.length > 0){
-          errorMessage = err.body.message;
+        else if(err.message && err.message.length > 0){
+          errorMessage = err.message;
         }
         else {
           errorMessage = err;
         }
 
-        if(err.body.title){
-          errorCode = err.body.title;
+        if(err.title){
+          errorCode = err.title;
         }
         else if(err.statusText && err.statusText.length > 0){
           errorCode = err.statusText;

@@ -38,7 +38,7 @@ export class KidService {
     return this.http.post(this.currentAddress + '/kids', body, {headers: headers})
       .pipe(
         map((response: any) => {
-          const result = response.body;
+          const result = response;
           const kid = new Kid(
             result.obj.kidsName,
             result.obj.age,
@@ -55,18 +55,18 @@ export class KidService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.body.error){
-            errorMessage = err.body.error;
+          if(err.error){
+            errorMessage = err.error;
           }
-          else if(err.body.message && err.body.message.length > 0){
-            errorMessage = err.body.message;
+          else if(err.message && err.message.length > 0){
+            errorMessage = err.message;
           }
           else {
             errorMessage = err;
           }
 
-          if(err.body.title){
-            errorCode = err.body.title;
+          if(err.title){
+            errorCode = err.title;
           }
           else if(err.statusText && err.statusText.length > 0){
             errorCode = err.statusText;
@@ -91,7 +91,7 @@ export class KidService {
     return this.http.get(this.currentAddress + '/kids/' + classCode, {params: options})
       .pipe(
         map((response: any) => {
-          const kids = response.body.obj;
+          const kids = response.obj;
           let transformedKids: Kid[] = [];
           for (let kid of kids) {
             transformedKids.push(new Kid(
@@ -111,18 +111,18 @@ export class KidService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.body.error){
-            errorMessage = err.body.error;
+          if(err.error){
+            errorMessage = err.error;
           }
-          else if(err.body.message && err.body.message.length > 0){
-            errorMessage = err.body.message;
+          else if(err.message && err.message.length > 0){
+            errorMessage = err.message;
           }
           else {
             errorMessage = err;
           }
 
-          if(err.body.title){
-            errorCode = err.body.title;
+          if(err.title){
+            errorCode = err.title;
           }
           else if(err.statusText && err.statusText.length > 0){
             errorCode = err.statusText;
@@ -147,7 +147,7 @@ export class KidService {
     return this.http.get(this.currentAddress + '/kids/' + classCode + '/' + name , {params: options})
       .pipe(
         map((response: any) => {
-          const responseObject = response.body.obj;
+          const responseObject = response.obj;
           var kid = new Kid(
               responseObject.kidsName,
               responseObject.age,
@@ -163,18 +163,18 @@ export class KidService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.body.error){
-            errorMessage = err.body.error;
+          if(err.error){
+            errorMessage = err.error;
           }
-          else if(err.body.message && err.body.message.length > 0){
-            errorMessage = err.body.message;
+          else if(err.message && err.message.length > 0){
+            errorMessage = err.message;
           }
           else {
             errorMessage = err;
           }
 
-          if(err.body.title){
-            errorCode = err.body.title;
+          if(err.title){
+            errorCode = err.title;
           }
           else if(err.statusText && err.statusText.length > 0){
             errorCode = err.statusText;
@@ -203,7 +203,7 @@ export class KidService {
     return this.http.patch(this.currentAddress + '/kids/' + classCode + "/" + name, body, {headers: headers, params: options})
       .pipe(
         map((response: any) => {
-          const responseObject = response.body.obj;
+          const responseObject = response.obj;
           var kid = new Kid(
             responseObject.kidsName,
             responseObject.age,
@@ -220,18 +220,18 @@ export class KidService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.body.error){
-            errorMessage = err.body.error;
+          if(err.error){
+            errorMessage = err.error;
           }
-          else if(err.body.message && err.body.message.length > 0){
-            errorMessage = err.body.message;
+          else if(err.message && err.message.length > 0){
+            errorMessage = err.message;
           }
           else {
             errorMessage = err;
           }
 
-          if(err.body.title){
-            errorCode = err.body.title;
+          if(err.title){
+            errorCode = err.title;
           }
           else if(err.statusText && err.statusText.length > 0){
             errorCode = err.statusText;
@@ -264,24 +264,24 @@ export class KidService {
     return this.http.delete(this.currentAddress + '/kids/' + classCode + '/' + name , {headers: headers, params: options})
       .pipe(
         map((response: any) => {
-          const responseObject = response.body;
+          const responseObject = response;
           this.router.navigate(['/classes/show-class/' + classCode]);
         })
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.body.error){
-            errorMessage = err.body.error;
+          if(err.error){
+            errorMessage = err.error;
           }
-          else if(err.body.message && err.body.message.length > 0){
-            errorMessage = err.body.message;
+          else if(err.message && err.message.length > 0){
+            errorMessage = err.message;
           }
           else {
             errorMessage = err;
           }
 
-          if(err.body.title){
-            errorCode = err.body.title;
+          if(err.title){
+            errorCode = err.title;
           }
           else if(err.statusText && err.statusText.length > 0){
             errorCode = err.statusText;
