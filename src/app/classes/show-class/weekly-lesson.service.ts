@@ -83,7 +83,7 @@ export class WeeklyLessonsService {
     this.weeklyLessons.push(weeklyLesson);
     const body = JSON.stringify(weeklyLesson);
     let options = new HttpParams();
-    options.append('email', this.username);
+    options = options.append('email', this.username);
     let headers = new HttpHeaders({
       'Content-Type': 'application/json'
     })
@@ -159,10 +159,10 @@ export class WeeklyLessonsService {
     this.weeklyLessons.push(weeklyLesson);
     const body = JSON.stringify(weeklyLesson);
     let options = new HttpParams();
-    options.append('email', this.username);
-    options.append('curriculum', curriculum);
-    options.append('stage', stage);
-    options.append('level', level);
+    options = options.append('email', this.username);
+    options = options.append('curriculum', curriculum);
+    options = options.append('stage', stage);
+    options = options.append('level', level);
     let headers = new HttpHeaders({
       'Content-Type': 'application/json'
     })
@@ -265,10 +265,9 @@ export class WeeklyLessonsService {
     this.nextWeekSuAMLessons = [];
   	this.nextWeekSuPMLessons = [];
 
-    let params = '';
     //need to pass the user as a param to find the user in the db
     let options = new HttpParams();
-    options.append('email', this.username);
+    options = options.append('email', this.username);
     return this.http.get(this.currentAddress + '/weeklyLessons/teacher/allLessons', { params: options })
     .pipe(
       map((response: any) => {
@@ -344,7 +343,7 @@ export class WeeklyLessonsService {
 
   getWeeklyLessons(classCode: string){
     let options = new HttpParams();
-    options.append('email', this.username);
+    options = options.append('email', this.username);
     //need to pass the user as a param to find the user in the db
     return this.http.get(this.currentAddress + '/weeklyLessons/' + classCode, { params: options })
     .pipe(
@@ -517,7 +516,7 @@ export class WeeklyLessonsService {
     }
     //need to pass the user as a param to find the user in the db
     let options = new HttpParams();
-    options.append('email', this.username);
+    options = options.append('email', this.username);
     return this.http.delete(this.currentAddress + '/weeklyLessons/' + weeklyLesson.classCode + "/" + weeklyLesson.timeValue, { params: options })
       .pipe(
         map((response: any) => {
@@ -559,11 +558,10 @@ export class WeeklyLessonsService {
 
   handlePrepped(weeklyLesson: WeeklyLesson){
     this.changed = true;
-    let params = '';
     var body = JSON.stringify({ prepped: true });
     //need to pass the user as a param to find the user in the db
     let options = new HttpParams();
-    options.append('email', this.username);
+    options = options.append('email', this.username);
     let headers = new HttpHeaders({
       'Content-Type': 'application/json'
     })
@@ -607,11 +605,10 @@ export class WeeklyLessonsService {
 
   handleNotPrepped(weeklyLesson: WeeklyLesson){
     this.changed = true;
-    let params = '';
     //need to pass the user as a param to find the user in the db
     var body = JSON.stringify({ prepped: false });
     let options = new HttpParams();
-    options.append('email', this.username);
+    options = options.append('email', this.username);
     let headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });

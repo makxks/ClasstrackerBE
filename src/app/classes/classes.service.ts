@@ -119,10 +119,9 @@ export class ClassesService {
   };
 
   getClasses() {
-    let params = '';
     //need to pass the user as a param to find the user in the db
-    let options = new HttpParams();
-    options.append("email", this.username);
+    let options: HttpParams = new HttpParams();
+    options = options.append("email", this.username);
     return this.http.get(this.currentAddress + '/classes', {params: options})
       .pipe(
         map((response: any) => {
@@ -221,10 +220,9 @@ export class ClassesService {
   }
 
   getClass(classCode: string) {
-    let params = '';
     //need to pass the user as a param to find the user in the db
     let options = new HttpParams();
-    options.append("email", this.username);
+    options = options.append("email", this.username);
     return this.http.get(this.currentAddress + '/classes/' + classCode, {params: options})
       .pipe(
         map((response: any) => {
@@ -287,11 +285,10 @@ export class ClassesService {
 
   editClass(classCode: string, userClass: Class) {
     this.changed = true;
-    let params = '';
     const body = JSON.stringify(userClass);
     //need to pass the user as a param to find the user in the db
     let options = new HttpParams;
-    options.append("email", this.username);
+    options = options.append("email", this.username);
     let headers = new HttpHeaders;
     headers.set('Content-Type', 'application/json');
 
@@ -365,10 +362,9 @@ export class ClassesService {
   deleteClass(classDetails: Class){
     this.changed = true;
     this.classes.splice(this.classes.indexOf(classDetails), 1);
-    let params = '';
     //need to pass the user as a param to find the user in the db
     let options = new HttpParams();
-    options.append("email", this.username);
+    options = options.append("email", this.username);
     return this.http.delete(this.currentAddress + '/classes/' + classDetails.classCode, {params: options})
       .pipe(
         map((response: any) => {
@@ -426,7 +422,7 @@ export class ClassesService {
   shareClassDetails(classToShareCode: string, otherTeacherEmail:string, classToShare:Class, kids: Kid[], weeklyLessons: WeeklyLesson[]){
     const body = JSON.stringify(classToShare);
     let options = new HttpParams;
-    options.append("email", this.username);
+    options = options.append("email", this.username);
     let headers = new HttpHeaders;
     headers.set('Content-Type', 'application/json');
 
@@ -485,7 +481,7 @@ export class ClassesService {
   shareSingleLesson(otherTeacherEmail: string, weeklyLesson: WeeklyLesson){
     var body = JSON.stringify(weeklyLesson);
     let options = new HttpParams;
-    options.append("email", this.username);
+    options = options.append("email", this.username);
     let headers = new HttpHeaders;
     headers.set('Content-Type', 'application/json');
 
@@ -542,7 +538,7 @@ export class ClassesService {
     console.log(kid);
     var body = JSON.stringify({id: kid});
     let options = new HttpParams;
-    options.append("email", this.username);
+    options = options.append("email", this.username);
     let headers = new HttpHeaders;
     headers.set('Content-Type', 'application/json');
 
@@ -586,10 +582,9 @@ export class ClassesService {
   }
 
   getComments(classCode: string){
-    let params = '';
     //need to pass the user as a param to find the user in the db
     let options = new HttpParams();
-    options.append("email", this.username);
+    options = options.append("email", this.username);
     return this.http.get(this.currentAddress + '/classes/comments/' + classCode, {params: options})
       .pipe(
         map((response: any) => {
@@ -643,7 +638,7 @@ export class ClassesService {
     var commentObj = { comments: comments };
     const body = JSON.stringify(commentObj);
     let options = new HttpParams;
-    options.append("email", this.username);
+    options = options.append("email", this.username);
     let headers = new HttpHeaders;
     headers.set('Content-Type', 'application/json');
 
@@ -699,9 +694,8 @@ export class ClassesService {
 
   deleteComments(classCode: string){
     this.changed = true;
-    let params = '';
     let options = new HttpParams;
-    options.append("email", this.username);
+    options = options.append("email", this.username);
     let headers = new HttpHeaders;
     headers.set('Content-Type', 'application/json');
 

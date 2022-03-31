@@ -92,10 +92,9 @@ export class LessonService {
   }
 
   getLesson(curriculum: string, stage: number, level: string, subject: string, lessonNo: number){
-    let params = '';
     //need to pass the user as a param to find the user in the db
-    let options = new HttpParams;
-    options.append("email", this.username);
+    let options = new HttpParams();
+    options = options.append("email", this.username);
     var routeString = "";
     if(stage){
       routeString = "standardised/" + stage
@@ -163,10 +162,9 @@ export class LessonService {
   }
 
   getLessonById(id: Lesson){
-    let params = '';
     //need to pass the user as a param to find the user in the db
-    let options = new HttpParams;
-    options.append("email", this.username);
+    let options = new HttpParams();
+    options = options.append("email", this.username);
     return this.http.get(this.currentAddress + '/lessons/'
     + id, { params: options })
       .pipe(
@@ -222,10 +220,9 @@ export class LessonService {
   }
 
   getOralTest(){
-    let params = '';
     //need to pass the user as a param to find the user in the db
-    let options = new HttpParams;
-    options.append("email", this.username);
+    let options = new HttpParams();
+    options = options.append("email", this.username);
     return this.http.get(this.currentAddress + '/lessons/128/standardised/0/OralTest/1', { params: options })
       .pipe(
         map((response: any) => {
@@ -280,10 +277,9 @@ export class LessonService {
   }
 
   getLessons(){
-    let params = '';
     //need to pass the user as a param to find the user in the db
-    let options = new HttpParams;
-    options.append("email", this.username);
+    let options = new HttpParams();
+    options = options.append("email", this.username);
     return this.http.get(this.currentAddress + '/lessons',
     { params: options })
     .pipe(
@@ -345,11 +341,10 @@ export class LessonService {
 
   editLesson(curriculum: string, stage: number, level: string, subject: string, lessonNo: number, lesson: Lesson) {
     this.changed = true;
-    let params = '';
     const body = JSON.stringify(lesson);
     //need to pass the user as a param to find the user in the db
-    let options = new HttpParams;
-    options.append("email", this.username);
+    let options = new HttpParams();
+    options = options.append("email", this.username);
     let headers = new HttpHeaders;
     headers.set('Content-Type', 'application/json');
     var routeString = "";
@@ -421,10 +416,9 @@ export class LessonService {
   deleteLesson(lesson: Lesson){
     this.changed = true;
     this.lessons.splice(this.lessons.indexOf(lesson), 1);
-    let params = '';
     //need to pass the user as a param to find the user in the db
-    let options = new HttpParams;
-    options.append("email", this.username);
+    let options = new HttpParams();
+    options = options.append("email", this.username);
     var routeString = "";
     if(lesson.stage || lesson.subject == "OralTest" || lesson.curriculum == "G" || lesson.curriculum == "K"){
       routeString =  "standardised/" + lesson.stage
