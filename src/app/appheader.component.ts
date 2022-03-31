@@ -3,6 +3,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 
 import { AuthService } from '@auth0/auth0-angular';
 import { Observable, Subscription } from 'rxjs';
+import { UserService } from './auth/user.service';
 
 @Component ({
 	selector: 'app-header',
@@ -16,7 +17,7 @@ export class AppHeaderComponent implements OnInit {
 
 
 	ngOnInit(): void {
-		this.authService.isAuthenticated$.subscribe((response) => {
+		this.authService.isAuthenticated$.subscribe((response: any) => {
 			console.log(response);
 			this.loggedIn = response;
 		})
