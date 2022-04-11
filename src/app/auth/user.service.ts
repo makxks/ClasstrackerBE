@@ -15,7 +15,6 @@ export class UserService {
   createUser(email: string){
     const body = JSON.stringify({"email": email});
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
-    console.log(body);
     return this.http.post(this.currentAddress + '/user', body, { headers: headers })
     .pipe(
       map((response: any) => {
