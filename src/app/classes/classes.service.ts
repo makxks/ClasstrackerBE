@@ -40,8 +40,7 @@ export class ClassesService {
     private errorService: ErrorService,
     private http: HttpClient,
     private authService: AuthService,
-    private router: Router,
-    private kidService: KidService
+    private router: Router
   ) {
     this.loadedClasses = false;
     this.authService.user$.subscribe((response) => {
@@ -55,7 +54,6 @@ export class ClassesService {
     this.classes.push(userClass);
     const body = JSON.stringify(userClass);
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
-    console.log(body);
     return this.http.post(this.currentAddress + '/classes', body, {headers: headers})
       .pipe(
         map((response: any) => {
