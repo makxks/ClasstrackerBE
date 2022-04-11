@@ -14,7 +14,7 @@ export class UserService {
 
   createUser(email: string){
     let body = JSON.stringify({"email": email});
-    let headers = new HttpHeaders({
+    const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
     console.log(body);
