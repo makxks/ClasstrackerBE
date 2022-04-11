@@ -21,6 +21,7 @@ export class UserService {
     .pipe(
       map((response: any) => {
         const responseObject = response.obj;
+        console.log(responseObject);
         return responseObject;
       })
       , catchError((err: any) => {
