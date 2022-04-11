@@ -66,12 +66,12 @@ export class EditKidComponent {
 			this.classCode
 		);
 		this.kidService.editKid(this.classCode, this.kidsName, kid)
-			.subscribe(
-				data => {
+			.subscribe({
+				next: (data) => {
 					console.log(data);
 					this.router.navigate(['/classes/show-class/' + this.classCode + "/kids/" + data.kidsName ]);
 				},
-				error => console.error(error)
-			);
+				error: (error) => console.error(error)
+			})
 	}
 }

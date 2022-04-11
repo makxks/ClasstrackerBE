@@ -165,13 +165,13 @@ export class EditClassComponent implements OnInit {
 				)
 		}
 		this.classesService.editClass(this.classCodeRoute, userClass)
-			.subscribe(
-				data => {
+			.subscribe({
+				next: (data) => {
 						console.log(data);
 						this.router.navigate(['/classes/show-class/' + data.classCode]);
 				},
-				error => console.error(error)
-			);
+				error: (error) => console.error(error)
+			});
 	}
 
 	checkSessions(classHas3Sessions: boolean){

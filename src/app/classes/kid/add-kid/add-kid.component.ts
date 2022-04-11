@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { AuthService } from '@auth0/auth0-angular';
@@ -20,7 +20,7 @@ export class AddKidComponent implements OnInit {
 	adding: boolean = false;
 	username: string = "";
 
-	constructor(private fb: FormBuilder, public route: ActivatedRoute, public kidService: KidService, public authService: AuthService, private router: Router) {
+	constructor(public route: ActivatedRoute, public kidService: KidService, public authService: AuthService, private router: Router) {
 		this.classCode = route.snapshot.params['id'];
 	}
 
@@ -31,12 +31,12 @@ export class AddKidComponent implements OnInit {
 			}
 		})
 		this.adding = false;
-		this.myForm = this.fb.group({
-				kidsName: ['', Validators.required],
-				age: [''],
-				strengths: [''],
-				weaknesses: [''],
-				comments: ['']
+		this.myForm = new FormGroup({
+				'kidsName': new FormControl('', Validators.required),
+				'age': new FormControl(''),
+				'strengths': new FormControl(''),
+				'weaknesses': new FormControl(''),
+				'comments': new FormControl('')
 		});
 		this.authService.user$.subscribe((response) => {
 			this.username = response?.name!;
@@ -55,10 +55,10 @@ export class AddKidComponent implements OnInit {
 			this.classCode
 		);
 		this.kidService.addKid(kid)
-			.subscribe(
-				data => console.log(data),
-				error => console.error(error)
-			);
+			.subscribe({
+				next: (data) => console.log(data),
+				error: (error) => console.error(error)
+			});
 		this.myForm.reset();
 	}
 }

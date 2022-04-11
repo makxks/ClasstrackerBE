@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 import { AuthService } from '@auth0/auth0-angular';
 import { ClassesService } from "../classes.service";
@@ -26,7 +26,7 @@ export class AddClassComponent implements OnInit {
 	adding: boolean = false;
 	username: string = "";
 
-	constructor(public classesService: ClassesService, public authService: AuthService, private fb: FormBuilder, private router: Router) {
+	constructor(public classesService: ClassesService, public authService: AuthService, private router: Router) {
 	}
 
 	onSubmit(){
@@ -91,10 +91,10 @@ export class AddClassComponent implements OnInit {
 			this.username
 		);
 		this.classesService.addClass(userClass)
-			.subscribe(
-				data => console.log(data),
-				error => console.error(error)
-			);
+			.subscribe({
+				next: (data) => console.log(data),
+				error: (error) => console.error(error)
+			});
 		this.myForm.reset();
 	}
 
@@ -208,26 +208,26 @@ export class AddClassComponent implements OnInit {
 			}
 		})
 		//day 2 hour21 minute21 hour22 minute22 no longer required due to change to new curriculum classes that may not have these times
-		this.myForm = this.fb.group({
-			classCode: ['', Validators.compose([
+		this.myForm = new FormGroup({
+			'classCode': new FormControl('', [
 				Validators.required,
 				this.isValidClassCode
-			])],
-			curriculum: [null, Validators.required],
-			stage: [null],
-			level: [null],
-			day1: [null, Validators.required],
-			hour11: [null, Validators.required],
-			minute11: [null, Validators.required],
-			hour12: [null, Validators.required],
-			minute12: [null, Validators.required],
-			length1: [null, Validators.required],
-			day2: [null],
-			hour21: [null],
-			minute21: [null],
-			hour22: [null],
-			minute22: [null],
-			ct: ['', Validators.required]
+			]),
+			'curriculum': new FormControl(null, Validators.required),
+			'stage': new FormControl(null),
+			'level': new FormControl(null),
+			'day1': new FormControl(null, Validators.required),
+			'hour11': new FormControl(null, Validators.required),
+			'minute11': new FormControl(null, Validators.required),
+			'hour12': new FormControl(null, Validators.required),
+			'minute12': new FormControl(null, Validators.required),
+			'length1': new FormControl(null, Validators.required),
+			'day2': new FormControl(null),
+			'hour21': new FormControl(null),
+			'minute21': new FormControl(null),
+			'hour22': new FormControl(null),
+			'minute22': new FormControl(null),
+			'ct': new FormControl('', Validators.required)
 		})
 		this.adding = false;
 		this.setFormValidators();
@@ -291,10 +291,10 @@ export class AddClassComponent implements OnInit {
 
 	}
 
-	isValidClassCode(control: FormControl): {[s: string]: boolean} {
-			if (!control.value.match(/.*[A-Z]{3,7}.*[0-9]{6}[^/]?/) && !control.value.match(/.*[0-9]{6}.*[A-Z]{3,7}[^/]?/)) {
+	isValidClassCode(control: FormControl): {[s: string]: boolean} | null {
+			if (control.value && !control.value.match(/.*[A-Z]{3,7}.*[0-9]{6}[^/]?/) && !control.value.match(/.*[0-9]{6}.*[A-Z]{3,7}[^/]?/)) {
 					return {notValid: true};
 			}
-			return {};
+			return null;
 	}
 }
