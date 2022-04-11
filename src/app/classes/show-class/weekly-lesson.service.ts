@@ -91,8 +91,9 @@ export class WeeklyLessonsService {
       .pipe(
         map((response: any) => {
           const responseObject = response.obj;
+          let weeklyLesson: WeeklyLesson;
           if(responseObject.curriculum && responseObject.stage && responseObject.level){
-            const weeklyLesson = new WeeklyLesson(
+            weeklyLesson = new WeeklyLesson(
               responseObject.classCode,
               responseObject.timeValue,
               responseObject.length,
@@ -106,7 +107,7 @@ export class WeeklyLessonsService {
             )
           }
           else {
-            const weeklyLesson = new WeeklyLesson(
+            weeklyLesson = new WeeklyLesson(
               responseObject.classCode,
               responseObject.timeValue,
               responseObject.length,
@@ -125,28 +126,8 @@ export class WeeklyLessonsService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.error){
-            errorMessage = err.error;
-          }
-          else if(err.message && err.message.length > 0){
-            errorMessage = err.message;
-          }
-          else {
-            errorMessage = err;
-          }
-
-          if(err.title){
-            errorCode = err.title;
-          }
-          else if(err.statusText && err.statusText.length > 0){
-            errorCode = err.statusText;
-          }
-          else if(err.status){
-            errorCode = err.status.toString();
-          }
-          else {
-            errorCode = "";
-          }
+          errorMessage = err.message;
+          errorCode = err.status;
           console.log(err);
           this.errorService.handleError(errorCode, errorMessage);
           return throwError(() => new Error(err));
@@ -170,8 +151,9 @@ export class WeeklyLessonsService {
       .pipe(
         map((response: any) => {
           const responseObject = response.obj;
+          let weeklyLesson: WeeklyLesson;
           if(responseObject.curriculum && responseObject.stage && responseObject.level){
-            const weeklyLesson = new WeeklyLesson(
+            weeklyLesson = new WeeklyLesson(
               responseObject.classCode,
               responseObject.timeValue,
               responseObject.length,
@@ -185,7 +167,7 @@ export class WeeklyLessonsService {
             )
           }
           else {
-            const weeklyLesson = new WeeklyLesson(
+            weeklyLesson = new WeeklyLesson(
               responseObject.classCode,
               responseObject.timeValue,
               responseObject.length,
@@ -204,28 +186,8 @@ export class WeeklyLessonsService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.error){
-            errorMessage = err.error;
-          }
-          else if(err.message && err.message.length > 0){
-            errorMessage = err.message;
-          }
-          else {
-            errorMessage = err;
-          }
-
-          if(err.title){
-            errorCode = err.title;
-          }
-          else if(err.statusText && err.statusText.length > 0){
-            errorCode = err.statusText;
-          }
-          else if(err.status){
-            errorCode = err.status.toString();
-          }
-          else {
-            errorCode = "";
-          }
+          errorMessage = err.message;
+          errorCode = err.status;
           console.log(err);
           this.errorService.handleError(errorCode, errorMessage);
           return throwError(() => new Error(err));
@@ -311,32 +273,12 @@ export class WeeklyLessonsService {
       })
       , catchError((err: any) => {
         var errorMessage;
-        var errorCode;
-        if(err.error){
-          errorMessage = err.error;
-        }
-        else if(err.message && err.message.length > 0){
+          var errorCode;
           errorMessage = err.message;
-        }
-        else {
-          errorMessage = err;
-        }
-
-        if(err.title){
-          errorCode = err.title;
-        }
-        else if(err.statusText && err.statusText.length > 0){
-          errorCode = err.statusText;
-        }
-        else if(err.status){
-          errorCode = err.status.toString();
-        }
-        else {
-          errorCode = "";
-        }
-        console.log(err);
-        this.errorService.handleError(errorCode, errorMessage);
-        return throwError(() => new Error(err));
+          errorCode = err.status;
+          console.log(err);
+          this.errorService.handleError(errorCode, errorMessage);
+          return throwError(() => new Error(err));
       })
     );
   }
@@ -386,28 +328,8 @@ export class WeeklyLessonsService {
       , catchError((err: any) => {
         var errorMessage;
         var errorCode;
-        if(err.error){
-          errorMessage = err.error;
-        }
-        else if(err.message && err.message.length > 0){
-          errorMessage = err.message;
-        }
-        else {
-          errorMessage = err;
-        }
-
-        if(err.title){
-          errorCode = err.title;
-        }
-        else if(err.statusText && err.statusText.length > 0){
-          errorCode = err.statusText;
-        }
-        else if(err.status){
-          errorCode = err.status.toString();
-        }
-        else {
-          errorCode = "";
-        }
+        errorMessage = err.message;
+        errorCode = err.status;
         console.log(err);
         this.errorService.handleError(errorCode, errorMessage);
         return throwError(() => new Error(err));
@@ -527,28 +449,8 @@ export class WeeklyLessonsService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.error){
-            errorMessage = err.error;
-          }
-          else if(err.message && err.message.length > 0){
-            errorMessage = err.message;
-          }
-          else {
-            errorMessage = err;
-          }
-
-          if(err.title){
-            errorCode = err.title;
-          }
-          else if(err.statusText && err.statusText.length > 0){
-            errorCode = err.statusText;
-          }
-          else if(err.status){
-            errorCode = err.status.toString();
-          }
-          else {
-            errorCode = "";
-          }
+          errorMessage = err.message;
+          errorCode = err.status;
           console.log(err);
           this.errorService.handleError(errorCode, errorMessage);
           return throwError(() => new Error(err));
@@ -574,28 +476,8 @@ export class WeeklyLessonsService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.error){
-            errorMessage = err.error;
-          }
-          else if(err.message && err.message.length > 0){
-            errorMessage = err.message;
-          }
-          else {
-            errorMessage = err;
-          }
-
-          if(err.title){
-            errorCode = err.title;
-          }
-          else if(err.statusText && err.statusText.length > 0){
-            errorCode = err.statusText;
-          }
-          else if(err.status){
-            errorCode = err.status.toString();
-          }
-          else {
-            errorCode = "";
-          }
+          errorMessage = err.message;
+          errorCode = err.status;
           console.log(err);
           this.errorService.handleError(errorCode, errorMessage);
           return throwError(() => new Error(err));
@@ -621,28 +503,8 @@ export class WeeklyLessonsService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.error){
-            errorMessage = err.error;
-          }
-          else if(err.message && err.message.length > 0){
-            errorMessage = err.message;
-          }
-          else {
-            errorMessage = err;
-          }
-
-          if(err.title){
-            errorCode = err.title;
-          }
-          else if(err.statusText && err.statusText.length > 0){
-            errorCode = err.statusText;
-          }
-          else if(err.status){
-            errorCode = err.status.toString();
-          }
-          else {
-            errorCode = "";
-          }
+          errorMessage = err.message;
+          errorCode = err.status;
           console.log(err);
           this.errorService.handleError(errorCode, errorMessage);
           return throwError(() => new Error(err));
@@ -764,7 +626,6 @@ export class WeeklyLessonsService {
 							this.thisWeekSuPMLessons.push(weeklyLessons[i]);
 						}
 						break;
-
 				}
 			}
 		}

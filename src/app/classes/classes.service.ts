@@ -87,31 +87,10 @@ export class ClassesService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.error){
-            errorMessage = err.error;
-          }
-          else if(err.message && err.message.length > 0){
-            errorMessage = err.message;
-          }
-          else {
-            errorMessage = err;
-          }
-
-          if(err.title){
-            errorCode = err.title;
-          }
-          else if(err.statusText && err.statusText.length > 0){
-            errorCode = err.statusText;
-          }
-          else if(err.status){
-            errorCode = err.status.toString();
-          }
-          else {
-            errorCode = "";
-          }
+          errorMessage = err.message;
+          errorCode = err.status;
           console.log(err);
           this.errorService.handleError(errorCode, errorMessage);
-          this.router.navigate(['/classes']);
           return throwError(() => new Error(err));
         })
       );
@@ -187,31 +166,10 @@ export class ClassesService {
           return this.classes;
         })
         , catchError((err: any) => {
-          console.log(err);
           var errorMessage;
           var errorCode;
-          if(err.error){
-            errorMessage = err.error;
-          }
-          else if(err.message && err.message.length > 0){
-            errorMessage = err.message;
-          }
-          else {
-            errorMessage = err;
-          }
-
-          if(err.title){
-            errorCode = err.title;
-          }
-          else if(err.statusText && err.statusText.length > 0){
-            errorCode = err.statusText;
-          }
-          else if(err.status){
-            errorCode = err.status.toString();
-          }
-          else {
-            errorCode = "";
-          }
+          errorMessage = err.message;
+          errorCode = err.status;
           console.log(err);
           this.errorService.handleError(errorCode, errorMessage);
           return throwError(() => new Error(err));
@@ -254,28 +212,8 @@ export class ClassesService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.error){
-            errorMessage = err.error;
-          }
-          else if(err.message && err.message.length > 0){
-            errorMessage = err.message;
-          }
-          else {
-            errorMessage = err;
-          }
-
-          if(err.title){
-            errorCode = err.title;
-          }
-          else if(err.statusText && err.statusText.length > 0){
-            errorCode = err.statusText;
-          }
-          else if(err.status){
-            errorCode = err.status.toString();
-          }
-          else {
-            errorCode = "";
-          }
+          errorMessage = err.message;
+          errorCode = err.status;
           console.log(err);
           this.errorService.handleError(errorCode, errorMessage);
           return throwError(() => new Error(err));
@@ -325,28 +263,8 @@ export class ClassesService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.error){
-            errorMessage = err.error;
-          }
-          else if(err.message && err.message.length > 0){
-            errorMessage = err.message;
-          }
-          else {
-            errorMessage = err;
-          }
-
-          if(err.title){
-            errorCode = err.title;
-          }
-          else if(err.statusText && err.statusText.length > 0){
-            errorCode = err.statusText;
-          }
-          else if(err.status){
-            errorCode = err.status.toString();
-          }
-          else {
-            errorCode = "";
-          }
+          errorMessage = err.message;
+          errorCode = err.status;
           console.log(err);
           this.errorService.handleError(errorCode, errorMessage);
           return throwError(() => new Error(err));
@@ -374,28 +292,8 @@ export class ClassesService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.error){
-            errorMessage = err.error;
-          }
-          else if(err.message && err.message.length > 0){
-            errorMessage = err.message;
-          }
-          else {
-            errorMessage = err;
-          }
-
-          if(err.title){
-            errorCode = err.title;
-          }
-          else if(err.statusText && err.statusText.length > 0){
-            errorCode = err.statusText;
-          }
-          else if(err.status){
-            errorCode = err.status.toString();
-          }
-          else {
-            errorCode = "";
-          }
+          errorMessage = err.message;
+          errorCode = err.status;
           console.log(err);
           this.errorService.handleError(errorCode, errorMessage);
           return throwError(() => new Error(err));
@@ -438,31 +336,10 @@ export class ClassesService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.error){
-            errorMessage = err.error;
-          }
-          else if(err.message && err.message.length > 0){
-            errorMessage = err.message;
-          }
-          else {
-            errorMessage = err;
-          }
-
-          if(err.title){
-            errorCode = err.title;
-          }
-          else if(err.statusText && err.statusText.length > 0){
-            errorCode = err.statusText;
-          }
-          else if(err.status){
-            errorCode = err.status.toString();
-          }
-          else {
-            errorCode = "";
-          }
+          errorMessage = err.message;
+          errorCode = err.status;
           console.log(err);
           this.errorService.handleError(errorCode, errorMessage);
-          this.router.navigate(['/classes']);
           return throwError(() => new Error(err));
         })
       );
@@ -494,28 +371,8 @@ export class ClassesService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.error){
-            errorMessage = err.error;
-          }
-          else if(err.message && err.message.length > 0){
-            errorMessage = err.message;
-          }
-          else {
-            errorMessage = err;
-          }
-
-          if(err.title){
-            errorCode = err.title;
-          }
-          else if(err.statusText && err.statusText.length > 0){
-            errorCode = err.statusText;
-          }
-          else if(err.status){
-            errorCode = err.status.toString();
-          }
-          else {
-            errorCode = "";
-          }
+          errorMessage = err.message;
+          errorCode = err.status;
           console.log(err);
           this.errorService.handleError(errorCode, errorMessage);
           this.router.navigate(['/classes']);
@@ -551,28 +408,8 @@ export class ClassesService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.error){
-            errorMessage = err.error;
-          }
-          else if(err.message && err.message.length > 0){
-            errorMessage = err.message;
-          }
-          else {
-            errorMessage = err;
-          }
-
-          if(err.title){
-            errorCode = err.title;
-          }
-          else if(err.statusText && err.statusText.length > 0){
-            errorCode = err.statusText;
-          }
-          else if(err.status){
-            errorCode = err.status.toString();
-          }
-          else {
-            errorCode = "";
-          }
+          errorMessage = err.message;
+          errorCode = err.status;
           console.log(err);
           this.errorService.handleError(errorCode, errorMessage);
           this.router.navigate(['/classes']);
@@ -595,28 +432,8 @@ export class ClassesService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.error){
-            errorMessage = err.error;
-          }
-          else if(err.message && err.message.length > 0){
-            errorMessage = err.message;
-          }
-          else {
-            errorMessage = err;
-          }
-
-          if(err.title){
-            errorCode = err.title;
-          }
-          else if(err.statusText && err.statusText.length > 0){
-            errorCode = err.statusText;
-          }
-          else if(err.status){
-            errorCode = err.status.toString();
-          }
-          else {
-            errorCode = "";
-          }
+          errorMessage = err.message;
+          errorCode = err.status;
           console.log(err);
           this.errorService.handleError(errorCode, errorMessage);
           return throwError(() => new Error(err));
@@ -654,28 +471,8 @@ export class ClassesService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.error){
-            errorMessage = err.error;
-          }
-          else if(err.message && err.message.length > 0){
-            errorMessage = err.message;
-          }
-          else {
-            errorMessage = err;
-          }
-
-          if(err.title){
-            errorCode = err.title;
-          }
-          else if(err.statusText && err.statusText.length > 0){
-            errorCode = err.statusText;
-          }
-          else if(err.status){
-            errorCode = err.status.toString();
-          }
-          else {
-            errorCode = "";
-          }
+          errorMessage = err.message;
+          errorCode = err.status;
           console.log(err);
           this.errorService.handleError(errorCode, errorMessage);
           this.router.navigate(['/classes']);
@@ -711,28 +508,8 @@ export class ClassesService {
         , catchError((err: any) => {
           var errorMessage;
           var errorCode;
-          if(err.error){
-            errorMessage = err.error;
-          }
-          else if(err.message && err.message.length > 0){
-            errorMessage = err.message;
-          }
-          else {
-            errorMessage = err;
-          }
-
-          if(err.title){
-            errorCode = err.title;
-          }
-          else if(err.statusText && err.statusText.length > 0){
-            errorCode = err.statusText;
-          }
-          else if(err.status){
-            errorCode = err.status.toString();
-          }
-          else {
-            errorCode = "";
-          }
+          errorMessage = err.message;
+          errorCode = err.status;
           console.log(err);
           this.errorService.handleError(errorCode, errorMessage);
           return throwError(() => new Error(err));
