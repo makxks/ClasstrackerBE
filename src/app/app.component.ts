@@ -14,7 +14,11 @@ export class AppComponent implements OnInit {
 	ngOnInit(): void {
 		this.authService.user$.subscribe((user: any) => {
 			console.log(user.name);
-			this.userService.createUser(user.name);
+			this.userService.createUser(user.name)
+				.subscribe({
+					next: (data) => console.log(data),
+					error: (error) => console.error(error)
+				});
 		})
 	}
 }

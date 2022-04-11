@@ -13,10 +13,8 @@ export class UserService {
   constructor(private http: HttpClient, private errorService: ErrorService) { }
 
   createUser(email: string){
-    let body = JSON.stringify({"email": email});
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
+    const body = JSON.stringify({"email": email});
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
     console.log(body);
     return this.http.post(this.currentAddress + '/user', body, { headers: headers })
     .pipe(
