@@ -18,7 +18,7 @@ export class UserService {
       'Content-Type': 'application/json'
     });
     console.log(body);
-    return this.http.post(this.currentAddress + '/user', body, { headers })
+    return this.http.post(this.currentAddress + '/user', body, { headers: headers })
     .pipe(
       map((response: any) => {
         const responseObject = response.obj;
