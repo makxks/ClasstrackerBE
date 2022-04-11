@@ -17,6 +17,7 @@ export class UserService {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
+    console.log(body);
     return this.http.post(this.currentAddress + '/user', body, { headers })
     .pipe(
       map((response: any) => {
