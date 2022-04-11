@@ -55,6 +55,7 @@ export class ClassesService {
     this.classes.push(userClass);
     const body = JSON.stringify(userClass);
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    console.log(body);
     return this.http.post(this.currentAddress + '/classes', body, {headers: headers})
       .pipe(
         map((response: any) => {
